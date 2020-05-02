@@ -1,0 +1,28 @@
+{
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.suggestionActions.enabled": false,
+  "coc.preferences.extensionUpdateCheck": "never",
+
+  "languageserver": {
+      "haskell": {
+        "command": "hie-wrapper",
+        "args": ["--lsp"],
+        "rootPatterns": [
+          "*.cabal",
+          "stack.yaml",
+          "cabal.project",
+          "package.yaml"
+        ],
+        "filetypes": [
+          "hs",
+          "lhs",
+          "haskell"
+        ],
+        "initializationOptions": {
+          "languageServerHaskell": {
+          }
+        }
+      }
+  }
+}

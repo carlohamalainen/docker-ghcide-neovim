@@ -1,0 +1,4074 @@
+Sending build context to Docker daemon   76.8kB
+Step 1/41 : FROM debian:10
+ ---> 3de0e2c97e5c
+Step 2/41 : MAINTAINER Carlo Hamalainen <carlo@carlo-hamalainen.net>
+ ---> Using cache
+ ---> 79d93b7dd7de
+Step 3/41 : ENV         PATH    /root/.cabal/bin:/opt:/opt/ghcide_bin:$PATH
+ ---> Using cache
+ ---> 0586298b1363
+Step 4/41 : RUN         apt-get -qq update
+ ---> Using cache
+ ---> ca4bd6ae191e
+Step 5/41 : RUN         apt-get -qqy install git build-essential                                                                 zlib1g-dev libicu-dev libncurses-dev libgmp-dev                                     npm nodejs wget curl                                                                ghc cabal-install
+ ---> Using cache
+ ---> 98d2664231ab
+Step 6/41 : RUN         cabal update -v
+ ---> Using cache
+ ---> 730e502bfd53
+Step 7/41 : RUN         cabal install cabal-install
+ ---> Using cache
+ ---> 124e9e121ab9
+Step 8/41 : RUN         git clone https://github.com/digital-asset/ghcide.git /opt/ghcide
+ ---> Using cache
+ ---> d57bff0cccf8
+Step 9/41 : WORKDIR     /opt/ghcide
+ ---> Using cache
+ ---> 59c4da5201cd
+Step 10/41 : RUN         git checkout 78d4031f7cf119bf2a0d1fae6157d52d1fbd2063
+ ---> Using cache
+ ---> c0732fb77eb8
+Step 11/41 : RUN         sed -i 's@ghc-check >= 0.1.0.3,@ghc-check == 0.1.0.3,@g' ghcide.cabal
+ ---> Using cache
+ ---> cb1be6726bd2
+Step 12/41 : RUN         cabal install --installdir=/opt/ghcide_bin
+ ---> Using cache
+ ---> 547ba30ddcf0
+Step 13/41 : RUN         git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules /opt/haskell-ide-engine
+ ---> Using cache
+ ---> 0c26ba26ace5
+Step 14/41 : WORKDIR     /opt/haskell-ide-engine
+ ---> Using cache
+ ---> 12eebf144917
+Step 15/41 : RUN         git checkout a5d8c1968c7bf1bcbec6160235a3fa024ad7c55f
+ ---> Using cache
+ ---> 1f8a07d51f68
+Step 16/41 : RUN         git submodule update --init --recursive
+ ---> Using cache
+ ---> e770f1c4f6e7
+Step 17/41 : RUN         cabal v2-run ./install.hs --project-file install/shake.project hie
+ ---> Running in 5502d7015357
+Resolving dependencies...
+Build profile: -w ghc-8.4.4 -O1
+In order, the following will be built (use -v for more details):
+ - Cabal-3.2.0.0 (lib) (requires build)
+ - binary-orphans-1.0.1 (lib) (requires download & build)
+ - case-insensitive-1.2.1.0 (lib) (requires download & build)
+ - cryptohash-sha256-0.11.101.0 (lib) (requires build)
+ - lukko-0.1.1.2 (lib) (requires build)
+ - tar-0.5.1.1 (lib) (requires build)
+ - text-binary-0.2.1.1 (lib:text-binary) (requires download & build)
+ - vector-binary-instances-0.2.5.1 (lib) (requires download & build)
+ - binary-instances-1.0.0.1 (lib) (requires download & build)
+ - cabal-install-parsers-0.3.0.1 (lib) (requires download & build)
+ - hie-install-0.8.1.0 (lib) (first run)
+ - fake-package-0 (exe:script) (first run)
+Downloading  binary-orphans-1.0.1
+Starting     cryptohash-sha256-0.11.101.0 (lib)
+Starting     Cabal-3.2.0.0 (lib)
+Building     cryptohash-sha256-0.11.101.0 (lib)
+Downloaded   binary-orphans-1.0.1
+Downloading  vector-binary-instances-0.2.5.1
+Starting     binary-orphans-1.0.1 (lib)
+Building     Cabal-3.2.0.0 (lib)
+Building     binary-orphans-1.0.1 (lib)
+Installing   binary-orphans-1.0.1 (lib)
+Installing   cryptohash-sha256-0.11.101.0 (lib)
+Completed    binary-orphans-1.0.1 (lib)
+Starting     lukko-0.1.1.2 (lib)
+Completed    cryptohash-sha256-0.11.101.0 (lib)
+Starting     tar-0.5.1.1 (lib)
+Building     lukko-0.1.1.2 (lib)
+Building     tar-0.5.1.1 (lib)
+Installing   lukko-0.1.1.2 (lib)
+Completed    lukko-0.1.1.2 (lib)
+Downloaded   vector-binary-instances-0.2.5.1
+Downloading  case-insensitive-1.2.1.0
+Downloaded   case-insensitive-1.2.1.0
+Downloading  text-binary-0.2.1.1
+Starting     case-insensitive-1.2.1.0 (lib)
+Downloaded   text-binary-0.2.1.1
+Downloading  binary-instances-1.0.0.1
+Starting     text-binary-0.2.1.1 (all, legacy fallback)
+Downloaded   binary-instances-1.0.0.1
+Downloading  cabal-install-parsers-0.3.0.1
+Building     case-insensitive-1.2.1.0 (lib)
+Downloaded   cabal-install-parsers-0.3.0.1
+Building     text-binary-0.2.1.1 (all, legacy fallback)
+Installing   text-binary-0.2.1.1 (all, legacy fallback)
+Installing   case-insensitive-1.2.1.0 (lib)
+Completed    text-binary-0.2.1.1 (all, legacy fallback)
+Starting     vector-binary-instances-0.2.5.1 (lib)
+Completed    case-insensitive-1.2.1.0 (lib)
+Building     vector-binary-instances-0.2.5.1 (lib)
+Installing   tar-0.5.1.1 (lib)
+Installing   vector-binary-instances-0.2.5.1 (lib)
+Completed    tar-0.5.1.1 (lib)
+Completed    vector-binary-instances-0.2.5.1 (lib)
+Starting     binary-instances-1.0.0.1 (lib)
+Building     binary-instances-1.0.0.1 (lib)
+Installing   binary-instances-1.0.0.1 (lib)
+Completed    binary-instances-1.0.0.1 (lib)
+Installing   Cabal-3.2.0.0 (lib)
+Completed    Cabal-3.2.0.0 (lib)
+Starting     cabal-install-parsers-0.3.0.1 (lib)
+Building     cabal-install-parsers-0.3.0.1 (lib)
+Installing   cabal-install-parsers-0.3.0.1 (lib)
+Completed    cabal-install-parsers-0.3.0.1 (lib)
+Configuring library for hie-install-0.8.1.0..
+Preprocessing library for hie-install-0.8.1.0..
+Building library for hie-install-0.8.1.0..
+[1 of 8] Compiling BuildSystem      ( src/BuildSystem.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/hie-install-0.8.1.0/build/BuildSystem.o )
+[2 of 8] Compiling Print            ( src/Print.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/hie-install-0.8.1.0/build/Print.o )
+[3 of 8] Compiling Version          ( src/Version.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/hie-install-0.8.1.0/build/Version.o )
+[4 of 8] Compiling Stack            ( src/Stack.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/hie-install-0.8.1.0/build/Stack.o )
+[5 of 8] Compiling Env              ( src/Env.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/hie-install-0.8.1.0/build/Env.o )
+[6 of 8] Compiling Help             ( src/Help.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/hie-install-0.8.1.0/build/Help.o )
+[7 of 8] Compiling Cabal            ( src/Cabal.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/hie-install-0.8.1.0/build/Cabal.o )
+[8 of 8] Compiling HieInstall       ( src/HieInstall.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/hie-install-0.8.1.0/build/HieInstall.o )
+Configuring executable 'script' for fake-package-0..
+Preprocessing executable 'script' for fake-package-0..
+Building executable 'script' for fake-package-0..
+[1 of 1] Compiling Main             ( Main.hs, /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/fake-package-0/x/script/build/script/script-tmp/Main.o )
+Linking /opt/haskell-ide-engine/dist-newstyle/build/x86_64-linux/ghc-8.4.4/fake-package-0/x/script/build/script/script ...
+# cabal (for check)
+# git (for submodules)
+# git (for submodules)
+Options:
+    Verbosity level: Info
+# cabal (for data)
+[91mCloning into '/opt/haskell-ide-engine/dist-newstyle/src/cabal-hel_-9dcd317f5918e959'...
+[0m[91mHEAD is now at a18bbb2 Revert "Fix Cabal version selection for Stack (esp. build-type:Custom)"
+[0mResolving dependencies...
+Build profile: -w ghc-8.4.4 -O1
+In order, the following will be built (use -v for more details):
+ - appar-0.1.8 (lib:appar) (requires download & build)
+ - auto-update-0.1.6 (lib) (requires download & build)
+ - basement-0.0.11 (lib) (requires download & build)
+ - blaze-builder-0.4.1.0 (lib) (requires download & build)
+ - bsb-http-chunked-0.0.0.4 (lib) (requires download & build)
+ - byteorder-1.0.4 (lib:byteorder) (requires download & build)
+ - cereal-0.5.8.1 (lib) (requires download & build)
+ - clock-0.7.2 (lib) (requires download & build)
+ - cmdargs-0.10.20 (lib) (requires download & build)
+ - cookie-0.4.5 (lib) (requires download & build)
+ - easy-file-0.2.2 (lib:easy-file) (requires download & build)
+ - fmlist-0.9.3 (lib) (requires download & build)
+ - generic-deriving-1.13.1 (lib) (requires download & build)
+ - happy-1.19.12 (exe:happy) (requires download & build)
+ - hourglass-0.2.12 (lib) (requires download & build)
+ - http-date-0.0.8 (lib) (requires download & build)
+ - http-types-0.12.3 (lib) (requires download & build)
+ - mime-types-0.1.0.9 (lib) (requires download & build)
+ - mmap-0.5.9 (lib:mmap) (requires download & build)
+ - network-byte-order-0.1.4.0 (lib) (requires download & build)
+ - old-time-1.1.0.3 (lib:old-time) (requires download & build)
+ - psqueues-0.2.7.2 (lib) (requires download & build)
+ - resourcet-1.2.3 (lib) (requires download & build)
+ - semigroups-0.18.5 (lib) (requires download & build)
+ - simple-sendfile-0.2.30 (lib) (requires download & build)
+ - splitmix-0.0.4 (lib) (requires download & build)
+ - uniplate-1.6.12 (lib:uniplate) (requires download & build)
+ - utility-ht-0.0.15 (lib) (requires download & build)
+ - word8-0.1.3 (lib) (requires download & build)
+ - time-manager-0.0.0 (lib) (requires download & build)
+ - memory-0.15.0 (lib) (requires download & build)
+ - foundation-0.0.25 (lib) (requires download & build)
+ - blaze-markup-0.8.2.4 (lib) (requires download & build)
+ - iproute-1.7.9 (lib) (requires download & build)
+ - socks-0.6.1 (lib) (requires download & build)
+ - ListLike-4.6.3 (lib) (requires download & build)
+ - haskell-src-exts-1.22.0 (lib) (requires download & build)
+ - unix-time-0.4.7 (lib:unix-time) (requires download & build)
+ - conduit-1.3.2 (lib) (requires build)
+ - vault-0.3.1.4 (lib:vault) (requires download & build)
+ - extra-1.7.1 (lib) (requires build)
+ - QuickCheck-2.14 (lib) (requires download & build)
+ - storable-record-0.0.5 (lib:storable-record) (requires download & build)
+ - http2-2.0.4 (lib) (requires download & build)
+ - pem-0.2.4 (lib) (requires download & build)
+ - http-client-0.6.4.1 (lib) (requires download & build)
+ - cryptonite-0.26 (lib) (requires download & build)
+ - asn1-types-0.3.4 (lib:asn1-types) (requires download & build)
+ - blaze-html-0.9.1.2 (lib) (requires download & build)
+ - process-extras-0.7.4 (lib) (requires download & build)
+ - fast-logger-3.0.1 (lib) (requires download & build)
+ - conduit-extra-1.3.5 (lib) (requires build)
+ - wai-3.2.2.1 (lib) (requires download & build)
+ - storable-tuple-0.0.3.3 (lib:storable-tuple) (requires download & build)
+ - asn1-encoding-0.9.6 (lib) (requires download & build)
+ - wai-logger-2.3.6 (lib:wai-logger) (requires download & build)
+ - asn1-parse-0.9.5 (lib:asn1-parse) (requires download & build)
+ - x509-1.7.5 (lib) (requires download & build)
+ - x509-store-1.6.7 (lib) (requires download & build)
+ - warp-3.3.9 (lib) (requires download & build)
+ - x509-validation-1.6.11 (lib) (requires download & build)
+ - x509-system-1.6.6 (lib) (requires download & build)
+ - tls-1.5.4 (lib) (requires download & build)
+ - tls-session-manager-0.0.4 (lib) (requires download & build)
+ - connection-0.3.1 (lib:connection) (requires download & build)
+ - warp-tls-3.2.11 (lib) (requires download & build)
+ - http-client-tls-0.3.5.3 (lib) (requires download & build)
+ - http-conduit-2.3.7.3 (lib) (requires download & build)
+ - hoogle-5.0.17.15 (lib) (requires download & build)
+ - hoogle-5.0.17.15 (exe:hoogle) (requires download & build)
+Downloading  basement-0.0.11
+Downloaded   basement-0.0.11
+Downloading  byteorder-1.0.4
+Starting     basement-0.0.11 (lib)
+Building     basement-0.0.11 (lib)
+Downloaded   byteorder-1.0.4
+Downloading  clock-0.7.2
+Downloaded   clock-0.7.2
+Downloading  fmlist-0.9.3
+Downloaded   fmlist-0.9.3
+Downloading  foundation-0.0.25
+Downloaded   foundation-0.0.25
+Downloading  old-time-1.1.0.3
+Downloaded   old-time-1.1.0.3
+Downloading  semigroups-0.18.5
+Downloaded   semigroups-0.18.5
+Downloading  utility-ht-0.0.15
+Downloaded   utility-ht-0.0.15
+Downloading  storable-record-0.0.5
+Downloaded   storable-record-0.0.5
+Downloading  storable-tuple-0.0.3.3
+Downloaded   storable-tuple-0.0.3.3
+Downloading  word8-0.1.3
+Downloaded   word8-0.1.3
+Downloading  auto-update-0.1.6
+Downloaded   auto-update-0.1.6
+Downloading  time-manager-0.0.0
+Starting     auto-update-0.1.6 (lib)
+Downloaded   time-manager-0.0.0
+Downloading  bsb-http-chunked-0.0.0.4
+Building     auto-update-0.1.6 (lib)
+Downloaded   bsb-http-chunked-0.0.0.4
+Downloading  mmap-0.5.9
+Downloaded   mmap-0.5.9
+Downloading  network-byte-order-0.1.4.0
+Installing   auto-update-0.1.6 (lib)
+Downloaded   network-byte-order-0.1.4.0
+Downloading  cereal-0.5.8.1
+Completed    auto-update-0.1.6 (lib)
+Starting     bsb-http-chunked-0.0.0.4 (lib)
+Downloaded   cereal-0.5.8.1
+Downloading  hourglass-0.2.12
+Building     bsb-http-chunked-0.0.0.4 (lib)
+Installing   bsb-http-chunked-0.0.0.4 (lib)
+Downloaded   hourglass-0.2.12
+Downloading  memory-0.15.0
+Completed    bsb-http-chunked-0.0.0.4 (lib)
+Starting     byteorder-1.0.4 (all, legacy fallback)
+Downloaded   memory-0.15.0
+Downloading  asn1-types-0.3.4
+Building     byteorder-1.0.4 (all, legacy fallback)
+Downloaded   asn1-types-0.3.4
+Downloading  asn1-encoding-0.9.6
+Installing   byteorder-1.0.4 (all, legacy fallback)
+Completed    byteorder-1.0.4 (all, legacy fallback)
+Starting     cereal-0.5.8.1 (lib)
+Building     cereal-0.5.8.1 (lib)
+Downloaded   asn1-encoding-0.9.6
+Downloading  asn1-parse-0.9.5
+Downloaded   asn1-parse-0.9.5
+Downloading  cryptonite-0.26
+Downloaded   cryptonite-0.26
+Downloading  pem-0.2.4
+Downloaded   pem-0.2.4
+Downloading  x509-1.7.5
+Downloaded   x509-1.7.5
+Downloading  generic-deriving-1.13.1
+Downloaded   generic-deriving-1.13.1
+Downloading  splitmix-0.0.4
+Downloaded   splitmix-0.0.4
+Downloading  x509-store-1.6.7
+Downloaded   x509-store-1.6.7
+Downloading  x509-validation-1.6.11
+Downloaded   x509-validation-1.6.11
+Downloading  easy-file-0.2.2
+Downloaded   easy-file-0.2.2
+Downloading  cmdargs-0.10.20
+Downloaded   cmdargs-0.10.20
+Downloading  socks-0.6.1
+Downloaded   socks-0.6.1
+Downloading  unix-time-0.4.7
+Installing   basement-0.0.11 (lib)
+Installing   cereal-0.5.8.1 (lib)
+Completed    basement-0.0.11 (lib)
+Starting     clock-0.7.2 (lib)
+Completed    cereal-0.5.8.1 (lib)
+Starting     cmdargs-0.10.20 (lib)
+Downloaded   unix-time-0.4.7
+Downloading  x509-system-1.6.6
+Downloaded   x509-system-1.6.6
+Downloading  simple-sendfile-0.2.30
+Building     clock-0.7.2 (lib)
+Building     cmdargs-0.10.20 (lib)
+Downloaded   simple-sendfile-0.2.30
+Downloading  happy-1.19.12
+Installing   clock-0.7.2 (lib)
+Completed    clock-0.7.2 (lib)
+Downloaded   happy-1.19.12
+Downloading  haskell-src-exts-1.22.0
+Downloaded   haskell-src-exts-1.22.0
+Downloading  resourcet-1.2.3
+Downloaded   resourcet-1.2.3
+Downloading  blaze-builder-0.4.1.0
+Downloaded   blaze-builder-0.4.1.0
+Downloading  blaze-markup-0.8.2.4
+Starting     blaze-builder-0.4.1.0 (lib)
+Building     blaze-builder-0.4.1.0 (lib)
+Downloaded   blaze-markup-0.8.2.4
+Downloading  blaze-html-0.9.1.2
+Installing   cmdargs-0.10.20 (lib)
+Completed    cmdargs-0.10.20 (lib)
+Starting     easy-file-0.2.2 (all, legacy fallback)
+Building     easy-file-0.2.2 (all, legacy fallback)
+Installing   blaze-builder-0.4.1.0 (lib)
+Completed    blaze-builder-0.4.1.0 (lib)
+Starting     fmlist-0.9.3 (lib)
+Installing   easy-file-0.2.2 (all, legacy fallback)
+Downloaded   blaze-html-0.9.1.2
+Downloading  cookie-0.4.5
+Building     fmlist-0.9.3 (lib)
+Completed    easy-file-0.2.2 (all, legacy fallback)
+Starting     generic-deriving-1.13.1 (lib)
+Downloaded   cookie-0.4.5
+Downloading  fast-logger-3.0.1
+Starting     cookie-0.4.5 (lib)
+Building     generic-deriving-1.13.1 (lib)
+Building     cookie-0.4.5 (lib)
+Installing   fmlist-0.9.3 (lib)
+Completed    fmlist-0.9.3 (lib)
+Starting     happy-1.19.12 (exe:happy)
+Downloaded   fast-logger-3.0.1
+Downloading  tls-1.5.4
+Building     happy-1.19.12 (exe:happy)
+Installing   cookie-0.4.5 (lib)
+Completed    cookie-0.4.5 (lib)
+Starting     hourglass-0.2.12 (lib)
+Downloaded   tls-1.5.4
+Downloading  connection-0.3.1
+Downloaded   connection-0.3.1
+Downloading  psqueues-0.2.7.2
+Building     hourglass-0.2.12 (lib)
+Downloaded   psqueues-0.2.7.2
+Downloading  tls-session-manager-0.0.4
+Downloaded   tls-session-manager-0.0.4
+Downloading  uniplate-1.6.12
+Downloaded   uniplate-1.6.12
+Downloading  vault-0.3.1.4
+Downloaded   vault-0.3.1.4
+Downloading  http-types-0.12.3
+Downloaded   http-types-0.12.3
+Downloading  http2-2.0.4
+Downloaded   http2-2.0.4
+Downloading  mime-types-0.1.0.9
+Installing   hourglass-0.2.12 (lib)
+Completed    hourglass-0.2.12 (lib)
+Downloaded   mime-types-0.1.0.9
+Downloading  http-date-0.0.8
+Downloaded   http-date-0.0.8
+Downloading  http-client-0.6.4.1
+Starting     http-date-0.0.8 (lib)
+Building     http-date-0.0.8 (lib)
+Downloaded   http-client-0.6.4.1
+Downloading  http-client-tls-0.3.5.3
+Downloaded   http-client-tls-0.3.5.3
+Downloading  wai-3.2.2.1
+Installing   http-date-0.0.8 (lib)
+Installing   happy-1.19.12 (exe:happy)
+Completed    happy-1.19.12 (exe:happy)
+Starting     http-types-0.12.3 (lib)
+Completed    http-date-0.0.8 (lib)
+Starting     mime-types-0.1.0.9 (lib)
+Downloaded   wai-3.2.2.1
+Downloading  appar-0.1.8
+Building     http-types-0.12.3 (lib)
+Building     mime-types-0.1.0.9 (lib)
+Downloaded   appar-0.1.8
+Downloading  iproute-1.7.9
+Starting     appar-0.1.8 (all, legacy fallback)
+Building     appar-0.1.8 (all, legacy fallback)
+Downloaded   iproute-1.7.9
+Downloading  warp-3.3.9
+Installing   appar-0.1.8 (all, legacy fallback)
+Completed    appar-0.1.8 (all, legacy fallback)
+Starting     mmap-0.5.9 (all, legacy fallback)
+Downloaded   warp-3.3.9
+Downloading  warp-tls-3.2.11
+Installing   http-types-0.12.3 (lib)
+Building     mmap-0.5.9 (all, legacy fallback)
+Completed    http-types-0.12.3 (lib)
+Starting     network-byte-order-0.1.4.0 (lib)
+Installing   generic-deriving-1.13.1 (lib)
+Building     network-byte-order-0.1.4.0 (lib)
+Completed    generic-deriving-1.13.1 (lib)
+Starting     old-time-1.1.0.3 (all, legacy fallback)
+Downloaded   warp-tls-3.2.11
+Downloading  http-conduit-2.3.7.3
+Installing   mmap-0.5.9 (all, legacy fallback)
+Completed    mmap-0.5.9 (all, legacy fallback)
+Starting     psqueues-0.2.7.2 (lib)
+Downloaded   http-conduit-2.3.7.3
+Downloading  QuickCheck-2.14
+Installing   network-byte-order-0.1.4.0 (lib)
+Installing   mime-types-0.1.0.9 (lib)
+Building     psqueues-0.2.7.2 (lib)
+Completed    network-byte-order-0.1.4.0 (lib)
+Starting     resourcet-1.2.3 (lib)
+Building     old-time-1.1.0.3 (all, legacy fallback)
+Downloaded   QuickCheck-2.14
+Downloading  ListLike-4.6.3
+Completed    mime-types-0.1.0.9 (lib)
+Starting     semigroups-0.18.5 (lib)
+Building     resourcet-1.2.3 (lib)
+Building     semigroups-0.18.5 (lib)
+Installing   semigroups-0.18.5 (lib)
+Completed    semigroups-0.18.5 (lib)
+Starting     simple-sendfile-0.2.30 (lib)
+Downloaded   ListLike-4.6.3
+Downloading  process-extras-0.7.4
+Building     simple-sendfile-0.2.30 (lib)
+Installing   resourcet-1.2.3 (lib)
+Completed    resourcet-1.2.3 (lib)
+Starting     splitmix-0.0.4 (lib)
+Installing   old-time-1.1.0.3 (all, legacy fallback)
+Installing   simple-sendfile-0.2.30 (lib)
+Completed    old-time-1.1.0.3 (all, legacy fallback)
+Starting     uniplate-1.6.12 (all, legacy fallback)
+Downloaded   process-extras-0.7.4
+Downloading  wai-logger-2.3.6
+Building     splitmix-0.0.4 (lib)
+Completed    simple-sendfile-0.2.30 (lib)
+Starting     utility-ht-0.0.15 (lib)
+Downloaded   wai-logger-2.3.6
+Downloading  hoogle-5.0.17.15
+Building     uniplate-1.6.12 (all, legacy fallback)
+Building     utility-ht-0.0.15 (lib)
+Downloaded   hoogle-5.0.17.15
+Installing   splitmix-0.0.4 (lib)
+Completed    splitmix-0.0.4 (lib)
+Starting     word8-0.1.3 (lib)
+Installing   psqueues-0.2.7.2 (lib)
+Building     word8-0.1.3 (lib)
+Completed    psqueues-0.2.7.2 (lib)
+Starting     time-manager-0.0.0 (lib)
+Installing   word8-0.1.3 (lib)
+Building     time-manager-0.0.0 (lib)
+Completed    word8-0.1.3 (lib)
+Starting     memory-0.15.0 (lib)
+Installing   time-manager-0.0.0 (lib)
+Completed    time-manager-0.0.0 (lib)
+Building     memory-0.15.0 (lib)
+Starting     foundation-0.0.25 (lib)
+Installing   utility-ht-0.0.15 (lib)
+Completed    utility-ht-0.0.15 (lib)
+Building     foundation-0.0.25 (lib)
+Starting     socks-0.6.1 (lib)
+Building     socks-0.6.1 (lib)
+Installing   uniplate-1.6.12 (all, legacy fallback)
+Completed    uniplate-1.6.12 (all, legacy fallback)
+Starting     blaze-markup-0.8.2.4 (lib)
+Building     blaze-markup-0.8.2.4 (lib)
+Installing   memory-0.15.0 (lib)
+Completed    memory-0.15.0 (lib)
+Starting     ListLike-4.6.3 (lib)
+Installing   socks-0.6.1 (lib)
+Building     ListLike-4.6.3 (lib)
+Completed    socks-0.6.1 (lib)
+Starting     haskell-src-exts-1.22.0 (lib)
+Building     haskell-src-exts-1.22.0 (lib)
+Installing   blaze-markup-0.8.2.4 (lib)
+Completed    blaze-markup-0.8.2.4 (lib)
+Starting     iproute-1.7.9 (lib)
+Building     iproute-1.7.9 (lib)
+Installing   iproute-1.7.9 (lib)
+Completed    iproute-1.7.9 (lib)
+Starting     vault-0.3.1.4 (all, legacy fallback)
+Building     vault-0.3.1.4 (all, legacy fallback)
+Installing   vault-0.3.1.4 (all, legacy fallback)
+Completed    vault-0.3.1.4 (all, legacy fallback)
+Starting     extra-1.7.1 (lib)
+Building     extra-1.7.1 (lib)
+Installing   extra-1.7.1 (lib)
+Completed    extra-1.7.1 (lib)
+Starting     conduit-1.3.2 (lib)
+Building     conduit-1.3.2 (lib)
+Installing   foundation-0.0.25 (lib)
+Completed    foundation-0.0.25 (lib)
+Starting     unix-time-0.4.7 (all, legacy fallback)
+Installing   ListLike-4.6.3 (lib)
+Completed    ListLike-4.6.3 (lib)
+Starting     QuickCheck-2.14 (lib)
+Building     unix-time-0.4.7 (all, legacy fallback)
+Building     QuickCheck-2.14 (lib)
+Installing   unix-time-0.4.7 (all, legacy fallback)
+Completed    unix-time-0.4.7 (all, legacy fallback)
+Starting     http2-2.0.4 (lib)
+Building     http2-2.0.4 (lib)
+Installing   conduit-1.3.2 (lib)
+Completed    conduit-1.3.2 (lib)
+Starting     storable-record-0.0.5 (all, legacy fallback)
+Building     storable-record-0.0.5 (all, legacy fallback)
+Installing   storable-record-0.0.5 (all, legacy fallback)
+Completed    storable-record-0.0.5 (all, legacy fallback)
+Starting     pem-0.2.4 (lib)
+Building     pem-0.2.4 (lib)
+Installing   pem-0.2.4 (lib)
+Completed    pem-0.2.4 (lib)
+Starting     http-client-0.6.4.1 (lib)
+Building     http-client-0.6.4.1 (lib)
+Installing   QuickCheck-2.14 (lib)
+Completed    QuickCheck-2.14 (lib)
+Starting     cryptonite-0.26 (lib)
+Building     cryptonite-0.26 (lib)
+Installing   http2-2.0.4 (lib)
+Completed    http2-2.0.4 (lib)
+Starting     asn1-types-0.3.4 (all, legacy fallback)
+Building     asn1-types-0.3.4 (all, legacy fallback)
+Installing   asn1-types-0.3.4 (all, legacy fallback)
+Completed    asn1-types-0.3.4 (all, legacy fallback)
+Starting     blaze-html-0.9.1.2 (lib)
+Building     blaze-html-0.9.1.2 (lib)
+Installing   http-client-0.6.4.1 (lib)
+Completed    http-client-0.6.4.1 (lib)
+Starting     wai-3.2.2.1 (lib)
+Building     wai-3.2.2.1 (lib)
+Installing   wai-3.2.2.1 (lib)
+Completed    wai-3.2.2.1 (lib)
+Starting     process-extras-0.7.4 (lib)
+Building     process-extras-0.7.4 (lib)
+Installing   process-extras-0.7.4 (lib)
+Completed    process-extras-0.7.4 (lib)
+Starting     fast-logger-3.0.1 (lib)
+Building     fast-logger-3.0.1 (lib)
+Installing   fast-logger-3.0.1 (lib)
+Completed    fast-logger-3.0.1 (lib)
+Starting     conduit-extra-1.3.5 (lib)
+Installing   blaze-html-0.9.1.2 (lib)
+Building     conduit-extra-1.3.5 (lib)
+Completed    blaze-html-0.9.1.2 (lib)
+Starting     storable-tuple-0.0.3.3 (all, legacy fallback)
+Building     storable-tuple-0.0.3.3 (all, legacy fallback)
+Installing   storable-tuple-0.0.3.3 (all, legacy fallback)
+Completed    storable-tuple-0.0.3.3 (all, legacy fallback)
+Starting     asn1-encoding-0.9.6 (lib)
+Building     asn1-encoding-0.9.6 (lib)
+Installing   conduit-extra-1.3.5 (lib)
+Installing   asn1-encoding-0.9.6 (lib)
+Completed    conduit-extra-1.3.5 (lib)
+Starting     wai-logger-2.3.6 (all, legacy fallback)
+Completed    asn1-encoding-0.9.6 (lib)
+Starting     asn1-parse-0.9.5 (all, legacy fallback)
+Building     asn1-parse-0.9.5 (all, legacy fallback)
+Installing   asn1-parse-0.9.5 (all, legacy fallback)
+Completed    asn1-parse-0.9.5 (all, legacy fallback)
+Building     wai-logger-2.3.6 (all, legacy fallback)
+Installing   wai-logger-2.3.6 (all, legacy fallback)
+Completed    wai-logger-2.3.6 (all, legacy fallback)
+Installing   cryptonite-0.26 (lib)
+Completed    cryptonite-0.26 (lib)
+Starting     x509-1.7.5 (lib)
+Building     x509-1.7.5 (lib)
+Installing   x509-1.7.5 (lib)
+Completed    x509-1.7.5 (lib)
+Starting     x509-store-1.6.7 (lib)
+Starting     warp-3.3.9 (lib)
+Building     warp-3.3.9 (lib)
+Building     x509-store-1.6.7 (lib)
+Installing   x509-store-1.6.7 (lib)
+Completed    x509-store-1.6.7 (lib)
+Starting     x509-system-1.6.6 (lib)
+Starting     x509-validation-1.6.11 (lib)
+Building     x509-validation-1.6.11 (lib)
+Building     x509-system-1.6.6 (lib)
+Installing   x509-system-1.6.6 (lib)
+Completed    x509-system-1.6.6 (lib)
+Installing   x509-validation-1.6.11 (lib)
+Completed    x509-validation-1.6.11 (lib)
+Starting     tls-1.5.4 (lib)
+Building     tls-1.5.4 (lib)
+Installing   warp-3.3.9 (lib)
+Completed    warp-3.3.9 (lib)
+Installing   haskell-src-exts-1.22.0 (lib)
+Completed    haskell-src-exts-1.22.0 (lib)
+Installing   tls-1.5.4 (lib)
+Completed    tls-1.5.4 (lib)
+Starting     connection-0.3.1 (all, legacy fallback)
+Starting     tls-session-manager-0.0.4 (lib)
+Building     tls-session-manager-0.0.4 (lib)
+Building     connection-0.3.1 (all, legacy fallback)
+Installing   tls-session-manager-0.0.4 (lib)
+Completed    tls-session-manager-0.0.4 (lib)
+Starting     warp-tls-3.2.11 (lib)
+Installing   connection-0.3.1 (all, legacy fallback)
+Building     warp-tls-3.2.11 (lib)
+Completed    connection-0.3.1 (all, legacy fallback)
+Starting     http-client-tls-0.3.5.3 (lib)
+Building     http-client-tls-0.3.5.3 (lib)
+Installing   warp-tls-3.2.11 (lib)
+Completed    warp-tls-3.2.11 (lib)
+Installing   http-client-tls-0.3.5.3 (lib)
+Completed    http-client-tls-0.3.5.3 (lib)
+Starting     http-conduit-2.3.7.3 (lib)
+Building     http-conduit-2.3.7.3 (lib)
+Installing   http-conduit-2.3.7.3 (lib)
+Completed    http-conduit-2.3.7.3 (lib)
+Starting     hoogle-5.0.17.15 (lib)
+Building     hoogle-5.0.17.15 (lib)
+Installing   hoogle-5.0.17.15 (lib)
+Completed    hoogle-5.0.17.15 (lib)
+Starting     hoogle-5.0.17.15 (exe:hoogle)
+Building     hoogle-5.0.17.15 (exe:hoogle)
+Installing   hoogle-5.0.17.15 (exe:hoogle)
+Completed    hoogle-5.0.17.15 (exe:hoogle)
+# cabal (for data)
+[91mHEAD is now at a18bbb2 Revert "Fix Cabal version selection for Stack (esp. build-type:Custom)"
+[0mStarting generate
+Downloading https://www.stackage.org/nightly/cabal.config... 5.64s
+Downloading https://www.stackage.org/lts/cabal.config... 2.94s
+Downloading https://raw.githubusercontent.com/haskell/haskell-platform/master/hptool/src/Releases2015.hs... 4.80s
+Downloading https://hackage.haskell.org/packages/index.tar.gz... 1m20s
+Downloading https://hackage.haskell.org/packages/hoogle.tar.gz... 5m21s
+Reading Cabal... 21.61s
+[1/2490] AC-Angle... 0.00s
+[2/2490] FindBin... 0.00s
+[3/2490] Imlib... 0.06s
+[4/2490] NineP... 0.03s
+[5/2490] ParsecTools... 0.00s
+[6/2490] Xauth... 0.00s
+[7/2490] abstract-deque... 0.02s
+[8/2490] abstract-par... 0.01s
+[9/2490] aeson-lens... 0.01s
+[10/2490] alsa-core... 0.01s
+[11/2490] attoparsec-binary... 0.00s
+[12/2490] base16-bytestring... 0.00s
+[13/2490] base64-string... 0.00s
+[14/2490] binary-shared... 0.01s
+[15/2490] bindings-uname... 0.00s
+[16/2490] byteable... 0.00s
+[17/2490] bytedump... 0.01s
+[18/2490] byteorder... 0.00s
+[19/2490] bytestring-mmap... 0.00s
+[20/2490] cereal-vector... 0.01s
+[21/2490] cipher-camellia... 0.00s
+[22/2490] cipher-des... 0.00s
+[23/2490] cipher-rc4... 0.00s
+[24/2490] colorize-haskell... 0.01s
+[25/2490] control-bool... 0.01s
+[26/2490] cpu... 0.01s
+[27/2490] crypto-cipher-types... 0.02s
+[28/2490] crypto-random-api... 0.00s
+[29/2490] csv... 0.00s
+[30/2490] curl... 0.17s
+[31/2490] currency... 0.01s
+[32/2490] data-binary-ieee754... 0.00s
+[33/2490] data-checked... 0.00s
+[34/2490] data-default-instances-containers... 0.00s
+[35/2490] data-default-instances-dlist... 0.00s
+[36/2490] data-default-instances-old-locale... 0.00s
+[37/2490] data-memocombinators... 0.01s
+[38/2490] diagrams... 0.11s
+[39/2490] digest... 0.00s
+[40/2490] discount... 0.01s
+[41/2490] either-unwrap... 0.00s
+[42/2490] erf... 0.00s
+[43/2490] extensible-exceptions... 0.00s
+[44/2490] floatshow... 0.02s
+[45/2490] gd... 0.04s
+[46/2490] heredoc... 0.00s
+[47/2490] hostname... 0.00s
+[48/2490] hostname-validate... 0.00s
+[49/2490] hs-GeoIP... 0.01s
+[50/2490] hsp... 0.03s
+[51/2490] html... 0.05s
+[52/2490] hxt-expat... 0.00s
+[53/2490] io-storage... 0.00s
+[54/2490] ix-shapable... 0.01s
+[55/2490] language-haskell-extract... 0.00s
+[56/2490] libffi... 0.03s
+[57/2490] mersenne-random-pure64... 0.04s
+[58/2490] missing-foreign... 0.00s
+[59/2490] mmap... 0.00s
+[60/2490] monad-par-extras... 0.02s
+[61/2490] multimap... 0.02s
+[62/2490] natural-sort... 0.00s
+[63/2490] parallel-io... 0.02s
+[64/2490] placeholders... 0.00s
+[65/2490] prettyclass... 0.00s
+[66/2490] primes... 0.00s
+[67/2490] pulse-simple... 0.02s
+[68/2490] random-shuffle... 0.00s
+[69/2490] regex-compat-tdfa... 0.01s
+[70/2490] rosezipper... 0.01s
+[71/2490] runmemo... 0.00s
+[72/2490] sample-frame... 0.01s
+[73/2490] scrypt... 0.01s
+[74/2490] setenv... 0.00s
+[75/2490] siphash... 0.00s
+[76/2490] splice... 0.00s
+[77/2490] spoon... 0.01s
+[78/2490] stateref... 0.03s
+[79/2490] strict... 0.02s
+[80/2490] sundown... 0.04s
+[81/2490] system-argv0... 0.00s
+[82/2490] tagshare... 0.01s
+[83/2490] test-framework-smallcheck... 0.00s
+[84/2490] test-framework-th... 0.00s
+[85/2490] time-units... 0.03s
+[86/2490] tuples-homogenous-h98... 0.03s
+[87/2490] uglymemo... 0.00s
+[88/2490] union-find... 0.01s
+[89/2490] uniplate... 0.11s
+[90/2490] unsafe... 0.00s
+[91/2490] url... 0.01s
+[92/2490] utf8-light... 0.01s
+[93/2490] wai-eventsource... 0.01s
+[94/2490] wcwidth... 0.00s
+[95/2490] xdg-basedir... 0.00s
+[96/2490] xdg-userdirs... 0.00s
+[97/2490] xml-helpers... 0.01s
+[98/2490] yjtools... 0.02s
+[99/2490] zlib-bindings... 0.02s
+[100/2490] dyre... 0.02s
+[101/2490] action-permutations... 0.01s
+[102/2490] pointedlist... 0.01s
+[103/2490] reinterpret-cast... 0.01s
+[104/2490] SafeSemaphore... 0.04s
+[105/2490] temporary-rc... 0.00s
+[106/2490] BoundedChan... 0.01s
+[107/2490] iterable... 0.01s
+[108/2490] hweblib... 0.09s
+[109/2490] io-memoize... 0.00s
+[110/2490] string-combinators... 0.01s
+[111/2490] data-accessor-mtl... 0.01s
+[112/2490] configurator... 0.01s
+[113/2490] gpolyline... 0.04s
+[114/2490] oo-prototypes... 0.00s
+[115/2490] x11-xim... 0.01s
+[116/2490] parsec-numbers... 0.02s
+[117/2490] islink... 0.00s
+[118/2490] MonadPrompt... 0.01s
+[119/2490] bitarray... 0.01s
+[120/2490] fuzzcheck... 0.00s
+[121/2490] pretty-class... 0.01s
+[122/2490] type-hint... 0.01s
+[123/2490] stm-delay... 0.00s
+[124/2490] symbol... 0.00s
+[125/2490] type-level-numbers... 0.02s
+[126/2490] hs-php-session... 0.04s
+[127/2490] gluturtle... 0.03s
+[128/2490] bindings-libzip... 0.08s
+[129/2490] js-flot... 0.01s
+[130/2490] cprng-aes... 0.00s
+[131/2490] oauthenticated... 0.08s
+[132/2490] dvorak... 0.00s
+[133/2490] data-ordlist... 0.02s
+[134/2490] old-locale... 0.01s
+[135/2490] old-time... 0.02s
+[136/2490] cond... 0.03s
+[137/2490] thyme... 0.12s
+[138/2490] ace... 0.20s
+[139/2490] nats... 0.00s
+[140/2490] elm-core-sources... 0.00s
+[141/2490] boolsimplifier... 0.03s
+[142/2490] irc... 0.01s
+[143/2490] resource-pool... 0.01s
+[144/2490] crypto-numbers... 0.02s
+[145/2490] disk-free-space... 0.01s
+[146/2490] crypto-pubkey-types... 0.04s
+[147/2490] text-icu... 0.24s
+[148/2490] options... 0.03s
+[149/2490] crypto-pubkey... 0.03s
+[150/2490] tasty-kat... 0.01s
+[151/2490] filemanip... 0.04s
+[152/2490] lmdb... 0.08s
+[153/2490] iso639... 0.06s
+[154/2490] tostring... 0.00s
+[155/2490] wrap... 0.01s
+[156/2490] foreign-store... 0.01s
+[157/2490] hxt-curl... 0.00s
+[158/2490] hxt-http... 0.00s
+[159/2490] hxt-unicode... 0.02s
+[160/2490] lockfree-queue... 0.00s
+[161/2490] readable... 0.00s
+[162/2490] mtl-compat... 0.00s
+[163/2490] tabular... 0.02s
+[164/2490] gravatar... 0.01s
+[165/2490] integration... 0.01s
+[166/2490] chaselev-deque... 0.00s
+[167/2490] boundingboxes... 0.01s
+[168/2490] snowflake... 0.00s
+[169/2490] crypto-random... 0.01s
+[170/2490] FenwickTree... 0.05s
+[171/2490] dotgen... 0.01s
+[172/2490] hspec-attoparsec... 0.01s
+[173/2490] nicify-lib... 0.00s
+[174/2490] kmeans... 0.00s
+[175/2490] maximal-cliques... 0.00s
+[176/2490] peano... 0.00s
+[177/2490] koofr-client... 0.02s
+[178/2490] stringsearch... 0.04s
+[179/2490] vector-buffer... 0.01s
+[180/2490] xml-to-json... 0.00s
+[181/2490] xml-to-json-fast... 0.00s
+[182/2490] imagesize-conduit... 0.01s
+[183/2490] xml-picklers... 0.03s
+[184/2490] feature-flags... 0.01s
+[185/2490] netrc... 0.01s
+[186/2490] pdfinfo... 0.02s
+[187/2490] text-manipulate... 0.01s
+[188/2490] convertible... 0.07s
+[189/2490] hexstring... 0.00s
+[190/2490] io-region... 0.01s
+[191/2490] http-common... 0.02s
+[192/2490] base58string... 0.01s
+[193/2490] word-trie... 0.00s
+[194/2490] attoparsec-expr... 0.00s
+[195/2490] listsafe... 0.01s
+[196/2490] libgit... 0.02s
+[197/2490] pager... 0.00s
+[198/2490] monad-logger-json... 0.00s
+[199/2490] semigroupoid-extras... 0.02s
+[200/2490] data-reify... 0.00s
+[201/2490] editor-open... 0.01s
+[202/2490] serf... 0.02s
+[203/2490] aeson-utils... 0.00s
+[204/2490] rdtsc... 0.00s
+[205/2490] base32string... 0.00s
+[206/2490] data-or... 0.00s
+[207/2490] iconv... 0.01s
+[208/2490] pointless-fun... 0.00s
+[209/2490] prelude-safeenum... 0.01s
+[210/2490] stm-chans... 0.03s
+[211/2490] unification-fd... 0.08s
+[212/2490] unix-bytestring... 0.02s
+[213/2490] bytestring-lexing... 0.01s
+[214/2490] HandsomeSoup... 0.02s
+[215/2490] ndjson-conduit... 0.00s
+[216/2490] serversession-frontend-wai... 0.06s
+[217/2490] cased... 0.01s
+[218/2490] serversession... 0.06s
+[219/2490] monad-loops... 0.02s
+[220/2490] cipher-aes... 0.01s
+[221/2490] lazy-csv... 0.04s
+[222/2490] pipes-fastx... 0.00s
+[223/2490] tuple-th... 0.01s
+[224/2490] blaze-textual... 0.00s
+[225/2490] testing-type-modifiers... 0.01s
+[226/2490] seqalign... 0.01s
+[227/2490] metrics... 0.10s
+[228/2490] byteset... 0.01s
+[229/2490] bytestring-conversion... 0.02s
+[230/2490] xml-types... 0.03s
+[231/2490] shell-escape... 0.00s
+[232/2490] operational-class... 0.01s
+[233/2490] edit-distance... 0.00s
+[234/2490] almost-fix... 0.00s
+[235/2490] irc-ctcp... 0.00s
+[236/2490] fast-math... 0.00s
+[237/2490] cpio-conduit... 0.01s
+[238/2490] blaze-bootstrap... 0.00s
+[239/2490] utf8-string... 0.03s
+[240/2490] annotated-wl-pprint... 0.04s
+[241/2490] nagios-check... 0.01s
+[242/2490] loop... 0.01s
+[243/2490] multiarg... 0.07s
+[244/2490] freenect... 0.04s
+[245/2490] composition-extra... 0.07s
+[246/2490] ConfigFile... 0.04s
+[247/2490] unique... 0.00s
+[248/2490] bimap-server... 0.00s
+[249/2490] dictionary-sharing... 0.01s
+[250/2490] fuzzy... 0.00s
+[251/2490] numeric-extras... 0.04s
+[252/2490] polynomials-bernstein... 0.02s
+[253/2490] test-framework-hunit... 0.00s
+[254/2490] logfloat... 0.02s
+[255/2490] renderable... 0.01s
+[256/2490] ed25519... 0.01s
+[257/2490] cubicspline... 0.00s
+[258/2490] nondeterminism... 0.01s
+[259/2490] hset... 0.02s
+[260/2490] path-pieces... 0.00s
+[261/2490] pathwalk... 0.00s
+[262/2490] terminal-size... 0.00s
+[263/2490] dataurl... 0.00s
+[264/2490] htaglib... 0.05s
+[265/2490] ttrie... 0.00s
+[266/2490] refact... 0.01s
+[267/2490] prefix-units... 0.02s
+[268/2490] pipes-csv... 0.00s
+[269/2490] largeword... 0.01s
+[270/2490] raw-strings-qq... 0.00s
+[271/2490] wai-middleware-caching... 0.01s
+[272/2490] frontmatter... 0.01s
+[273/2490] projectroot... 0.00s
+[274/2490] sourcemap... 0.01s
+[275/2490] ObjectName... 0.00s
+[276/2490] composition... 0.01s
+[277/2490] deepseq-generics... 0.01s
+[278/2490] open-browser... 0.00s
+[279/2490] between... 0.06s
+[280/2490] data-accessor-transformers... 0.02s
+[281/2490] monad-products... 0.00s
+[282/2490] monadic-arrays... 0.01s
+[283/2490] promises... 0.00s
+[284/2490] fail... 0.00s
+[285/2490] nano-erl... 0.00s
+[286/2490] free-vl... 0.01s
+[287/2490] graph-core... 0.02s
+[288/2490] random-tree... 0.01s
+[289/2490] regex-applicative-text... 0.01s
+[290/2490] rev-state... 0.01s
+[291/2490] tree-fun... 0.01s
+[292/2490] zlib-lens... 0.02s
+[293/2490] dotnet-timespan... 0.02s
+[294/2490] cheapskate-highlight... 0.01s
+[295/2490] cheapskate-lucid... 0.00s
+[296/2490] mountpoints... 0.00s
+[297/2490] pcre-heavy... 0.01s
+[298/2490] with-location... 0.00s
+[299/2490] kdt... 0.04s
+[300/2490] cryptohash... 0.10s
+[301/2490] cryptohash-cryptoapi... 0.01s
+[302/2490] semiring-simple... 0.00s
+[303/2490] post-mess-age... 0.00s
+[304/2490] uuid-types... 0.01s
+[305/2490] unit-constraint... 0.00s
+[306/2490] io-machine... 0.00s
+[307/2490] midi... 0.32s
+[308/2490] ascii-progress... 0.02s
+[309/2490] tardis... 0.02s
+[310/2490] configurator-export... 0.02s
+[311/2490] pureMD5... 0.01s
+[312/2490] th-extras... 0.01s
+[313/2490] edit-distance-vector... 0.00s
+[314/2490] mtl-prelude... 0.00s
+[315/2490] farmhash... 0.01s
+[316/2490] both... 0.01s
+[317/2490] data-lens-light... 0.02s
+[318/2490] cereal-text... 0.00s
+[319/2490] QuasiText... 0.01s
+[320/2490] monads-tf... 0.10s
+[321/2490] not-gloss... 0.07s
+[322/2490] text-conversions... 0.02s
+[323/2490] symengine... 0.01s
+[324/2490] type-fun... 0.01s
+[325/2490] accuerr... 0.01s
+[326/2490] elerea... 0.04s
+[327/2490] string-conv... 0.01s
+[328/2490] data-default-class... 0.01s
+[329/2490] data-default... 0.00s
+[330/2490] witness... 0.05s
+[331/2490] optparse-text... 0.00s
+[332/2490] cryptohash-md5... 0.00s
+[333/2490] timelens... 0.00s
+[334/2490] mono-traversable-instances... 0.01s
+[335/2490] timerep... 0.00s
+[336/2490] binary-list... 0.03s
+[337/2490] clientsession... 0.01s
+[338/2490] webrtc-vad... 0.00s
+[339/2490] digits... 0.00s
+[340/2490] tasty-program... 0.00s
+[341/2490] markov-chain... 0.00s
+[342/2490] zeromq4-haskell... 0.21s
+[343/2490] cmark-lucid... 0.00s
+[344/2490] dlist-instances... 0.00s
+[345/2490] murmur3... 0.01s
+[346/2490] file-modules... 0.00s
+[347/2490] bmp... 0.05s
+[348/2490] keycode... 0.05s
+[349/2490] hxt-css... 0.03s
+[350/2490] LibZip... 0.07s
+[351/2490] directory-tree... 0.03s
+[352/2490] cpuinfo... 0.02s
+[353/2490] indexed... 0.02s
+[354/2490] do-list... 0.01s
+[355/2490] quickcheck-text... 0.01s
+[356/2490] result... 0.01s
+[357/2490] hspec-expectations... 0.01s
+[358/2490] hxt-regex-xmlschema... 0.09s
+[359/2490] sdl2-mixer... 0.07s
+[360/2490] sdl2-gfx... 0.07s
+[361/2490] yes-precure5-command... 0.01s
+[362/2490] binary-ieee754... 0.01s
+[363/2490] word24... 0.01s
+[364/2490] bibtex... 0.01s
+[365/2490] binary-search... 0.03s
+[366/2490] boolean-like... 0.01s
+[367/2490] cryptohash-sha512... 0.00s
+[368/2490] zim-parser... 0.03s
+[369/2490] hw-succinct... 0.00s
+[370/2490] clock-extras... 0.00s
+[371/2490] compiler-warnings... 0.00s
+[372/2490] countable... 0.02s
+[373/2490] cryptohash-sha1... 0.00s
+[374/2490] data-bword... 0.01s
+[375/2490] data-endian... 0.01s
+[376/2490] epub-metadata... 0.03s
+[377/2490] force-layout... 0.01s
+[378/2490] tce-conf... 0.00s
+[379/2490] natural-transformation... 0.01s
+[380/2490] spatial-math... 0.03s
+[381/2490] if... 0.00s
+[382/2490] htoml... 0.02s
+[383/2490] type-level-kv-list... 0.01s
+[384/2490] mathexpr... 0.00s
+[385/2490] pkcs10... 0.02s
+[386/2490] rawstring-qm... 0.06s
+[387/2490] jack... 0.04s
+[388/2490] alsa-seq... 0.12s
+[389/2490] text-binary... 0.00s
+[390/2490] swagger... 0.07s
+[391/2490] hxt-tagsoup... 0.00s
+[392/2490] uri-encode... 0.00s
+[393/2490] expiring-cache-map... 0.04s
+[394/2490] operational... 0.01s
+[395/2490] streams... 0.05s
+[396/2490] median-stream... 0.00s
+[397/2490] phantom-state... 0.00s
+[398/2490] prompt... 0.03s
+[399/2490] github-types... 0.03s
+[400/2490] uncertain... 0.03s
+[401/2490] exception-mtl... 0.00s
+[402/2490] monad-unlift... 0.01s
+[403/2490] murmur-hash... 0.01s
+[404/2490] lens-datetime... 0.01s
+[405/2490] should-not-typecheck... 0.00s
+[406/2490] stratosphere... 1.14s
+[407/2490] users... 0.02s
+[408/2490] mfsolve... 0.03s
+[409/2490] read-editor... 0.00s
+[410/2490] pipes-wai... 0.00s
+[411/2490] skein... 0.03s
+[412/2490] tasty-smallcheck... 0.00s
+[413/2490] messagepack... 0.02s
+[414/2490] mcmc-types... 0.00s
+[415/2490] pipes-parse... 0.06s
+[416/2490] console-style... 0.02s
+[417/2490] hreader... 0.01s
+[418/2490] aeson-better-errors... 0.08s
+[419/2490] double-conversion... 0.00s
+[420/2490] lazyio... 0.01s
+[421/2490] uuid... 0.02s
+[422/2490] unlit... 0.01s
+[423/2490] speedy-slice... 0.00s
+[424/2490] mighty-metropolis... 0.02s
+[425/2490] bower-json... 0.02s
+[426/2490] textlocal... 0.01s
+[427/2490] ListTree... 0.01s
+[428/2490] avers... 0.12s
+[429/2490] string-conversions... 0.02s
+[430/2490] parsec-numeric... 0.03s
+[431/2490] vector-instances... 0.00s
+[432/2490] auto... 0.26s
+[433/2490] FloatingHex... 0.01s
+[434/2490] sdl2-image... 0.02s
+[435/2490] quickcheck-assertions... 0.00s
+[436/2490] safe-exceptions-checked... 0.07s
+[437/2490] ieee754... 0.02s
+[438/2490] echo... 0.01s
+[439/2490] highlighting-kate... 0.04s
+[440/2490] vector-split... 0.01s
+[441/2490] elm-export... 0.01s
+[442/2490] hvect... 0.01s
+[443/2490] RefSerialize... 0.03s
+[444/2490] hlibgit2... 0.77s
+[445/2490] ramus... 0.01s
+[446/2490] cases... 0.01s
+[447/2490] xml-html-qq... 0.01s
+[448/2490] monad-extras... 0.01s
+[449/2490] reform-hamlet... 0.05s
+[450/2490] reform-blaze... 0.04s
+[451/2490] TCache... 0.09s
+[452/2490] iso3166-country-codes... 0.06s
+[453/2490] Boolean... 0.03s
+[454/2490] xml-indexed-cursor... 0.02s
+[455/2490] NumInstances... 0.01s
+[456/2490] monad-peel... 0.02s
+[457/2490] bimaps... 0.02s
+[458/2490] l10n... 0.00s
+[459/2490] pipes-aeson... 0.01s
+[460/2490] pipes-attoparsec... 0.01s
+[461/2490] blaze-svg... 0.11s
+[462/2490] generic-arbitrary... 0.00s
+[463/2490] arrow-extras... 0.00s
+[464/2490] gitrev... 0.00s
+[465/2490] hspec-checkers... 0.00s
+[466/2490] snap-blaze... 0.00s
+[467/2490] poly-arity... 0.00s
+[468/2490] relapse... 0.02s
+[469/2490] read-env-var... 0.01s
+[470/2490] executable-path... 0.00s
+[471/2490] iff... 0.01s
+[472/2490] sample-frame-np... 0.00s
+[473/2490] mnist-idx... 0.02s
+[474/2490] functor-classes-compat... 0.00s
+[475/2490] hspec-expectations-lifted... 0.00s
+[476/2490] type-level-integers... 0.00s
+[477/2490] binary-parser... 0.01s
+[478/2490] tasty-th... 0.00s
+[479/2490] tsv2csv... 0.01s
+[480/2490] hourglass-orphans... 0.00s
+[481/2490] groom... 0.00s
+[482/2490] envelope... 0.01s
+[483/2490] kawhi... 0.02s
+[484/2490] clr-host... 0.00s
+[485/2490] api-field-json-th... 0.00s
+[486/2490] sysinfo... 0.00s
+[487/2490] haskoin-node... 0.08s
+[488/2490] unbounded-delays... 0.00s
+[489/2490] wai-slack-middleware... 0.00s
+[490/2490] leveldb-haskell... 0.20s
+[491/2490] every... 0.00s
+[492/2490] tensorflow-test... 0.00s
+[493/2490] extractable-singleton... 0.00s
+[494/2490] rawfilepath... 0.01s
+[495/2490] partial-isomorphisms... 0.01s
+[496/2490] tmapchan... 0.02s
+[497/2490] logging-facade-syslog... 0.01s
+[498/2490] quickcheck-unicode... 0.01s
+[499/2490] yjsvg... 0.02s
+[500/2490] xturtle... 0.02s
+[501/2490] flac... 0.08s
+[502/2490] flac-picture... 0.00s
+[503/2490] identicon... 0.02s
+[504/2490] async-extra... 0.00s
+[505/2490] superbuffer... 0.01s
+[506/2490] prettyprinter-compat-annotated-wl-pprint... 0.03s
+[507/2490] hreader-lens... 0.00s
+[508/2490] prettyprinter-compat-wl-pprint... 0.02s
+[509/2490] logging-facade... 0.02s
+[510/2490] sort... 0.01s
+[511/2490] atom-basic... 0.05s
+[512/2490] Only... 0.00s
+[513/2490] text-metrics... 0.01s
+[514/2490] mockery... 0.00s
+[515/2490] quickcheck-io... 0.00s
+[516/2490] fft... 0.09s
+[517/2490] hopfli... 0.00s
+[518/2490] circle-packing... 0.00s
+[519/2490] hexpat... 0.17s
+[520/2490] prettyprinter-compat-ansi-wl-pprint... 0.03s
+[521/2490] monad-st... 0.00s
+[522/2490] vector-mmap... 0.00s
+[523/2490] fileplow... 0.01s
+[524/2490] crypt-sha512... 0.00s
+[525/2490] diagrams-solve... 0.00s
+[526/2490] Clipboard... 0.00s
+[527/2490] rot13... 0.01s
+[528/2490] pid1... 0.00s
+[529/2490] pipes-bytestring... 0.03s
+[530/2490] transformers-bifunctors... 0.00s
+[531/2490] titlecase... 0.02s
+[532/2490] unboxed-ref... 0.01s
+[533/2490] carray... 0.05s
+[534/2490] microstache... 0.02s
+[535/2490] friendly-time... 0.01s
+[536/2490] ghc-compact... 0.01s
+[537/2490] hpc... 0.01s
+[538/2490] composable-associations... 0.01s
+[539/2490] composable-associations-aeson... 0.00s
+[540/2490] compactmap... 0.01s
+[541/2490] pcre-utils... 0.01s
+[542/2490] leapseconds-announced... 0.00s
+[543/2490] pagination... 0.01s
+[544/2490] tagged-binary... 0.01s
+[545/2490] dlist-nonempty... 0.02s
+[546/2490] cast... 0.00s
+[547/2490] ekg-json... 0.00s
+[548/2490] sum-type-boilerplate... 0.00s
+[549/2490] eventful-test-helpers... 0.02s
+[550/2490] eventful-core... 0.12s
+[551/2490] x509-system... 0.00s
+[552/2490] word8... 0.03s
+[553/2490] monad-skeleton... 0.01s
+[554/2490] clr-marshal... 0.00s
+[555/2490] word-wrap... 0.00s
+[556/2490] signal... 0.00s
+[557/2490] mbox... 0.01s
+[558/2490] choice... 0.00s
+[559/2490] data-has... 0.01s
+[560/2490] hexml-lens... 0.00s
+[561/2490] rank1dynamic... 0.01s
+[562/2490] network-transport-composed... 0.00s
+[563/2490] hw-string-parse... 0.01s
+[564/2490] ghost-buster... 0.01s
+[565/2490] labels... 0.28s
+[566/2490] xxhash-ffi... 0.01s
+[567/2490] NoHoed... 0.01s
+[568/2490] bordacount... 0.01s
+[569/2490] libgraph... 0.02s
+[570/2490] throttle-io-stream... 0.01s
+[571/2490] text-zipper... 0.02s
+[572/2490] fn... 0.02s
+[573/2490] throwable-exceptions... 0.01s
+[574/2490] assert-failure... 0.00s
+[575/2490] hmatrix-gsl-stats... 0.07s
+[576/2490] th-strict-compat... 0.00s
+[577/2490] instance-control... 0.01s
+[578/2490] List... 0.02s
+[579/2490] attoparsec-path... 0.00s
+[580/2490] ctrie... 0.00s
+[581/2490] xml-conduit-writer... 0.01s
+[582/2490] storable-tuple... 0.00s
+[583/2490] th-constraint-compat... 0.00s
+[584/2490] ses-html... 0.01s
+[585/2490] stm-extras... 0.00s
+[586/2490] rethinkdb-client-driver... 0.06s
+[587/2490] alternative-vector... 0.00s
+[588/2490] lzma... 0.02s
+[589/2490] roles... 0.01s
+[590/2490] ViennaRNAParser... 0.05s
+[591/2490] torsor... 0.01s
+[592/2490] makefile... 0.02s
+[593/2490] tile... 0.01s
+[594/2490] hoopl... 0.18s
+[595/2490] HUnit-approx... 0.00s
+[596/2490] special-values... 0.00s
+[597/2490] quickcheck-special... 0.00s
+[598/2490] cryptohash-sha256... 0.00s
+[599/2490] aeson-attoparsec... 0.00s
+[600/2490] since... 0.00s
+[601/2490] cryptonite-conduit... 0.01s
+[602/2490] errors-ext... 0.00s
+[603/2490] monad-unlift-ref... 0.02s
+[604/2490] groups... 0.01s
+[605/2490] dublincore-xml-conduit... 0.01s
+[606/2490] postgresql-orm... 0.18s
+[607/2490] attoparsec-base64... 0.00s
+[608/2490] binary-ext... 0.03s
+[609/2490] servant-cassava... 0.01s
+[610/2490] monad-journal... 0.01s
+[611/2490] time-locale-vietnamese... 0.00s
+[612/2490] hscolour... 0.04s
+[613/2490] req-conduit... 0.00s
+[614/2490] hsshellscript... 0.11s
+[615/2490] basic-prelude... 0.18s
+[616/2490] nix-paths... 0.00s
+[617/2490] natural-induction... 0.00s
+[618/2490] bbdb... 0.02s
+[619/2490] markdown-unlit... 0.00s
+[620/2490] html-entity-map... 0.00s
+[621/2490] aeson-yak... 0.00s
+[622/2490] test-framework... 0.03s
+[623/2490] bcrypt... 0.01s
+[624/2490] credential-store... 0.00s
+[625/2490] Decimal... 0.01s
+[626/2490] hashmap... 0.05s
+[627/2490] quickcheck-arbitrary-adt... 0.01s
+[628/2490] time-lens... 0.01s
+[629/2490] crypto-api... 0.10s
+[630/2490] lens-properties... 0.00s
+[631/2490] re2... 0.02s
+[632/2490] nanospec... 0.00s
+[633/2490] lrucaching... 0.01s
+[634/2490] project-template... 0.00s
+[635/2490] chunked-data... 0.02s
+[636/2490] hmpfr... 0.24s
+[637/2490] safeio... 0.00s
+[638/2490] system-filepath... 0.02s
+[639/2490] safe-exceptions... 0.03s
+[640/2490] hybrid-vectors... 0.12s
+[641/2490] js-jquery... 0.00s
+[642/2490] pointed... 0.02s
+[643/2490] cmdargs... 0.09s
+[644/2490] hOpenPGP... 0.03s
+[645/2490] unconstrained... 0.00s
+[646/2490] adjunctions... 0.09s
+[647/2490] ChannelT... 0.01s
+[648/2490] funcmp... 0.24s
+[649/2490] logging... 0.02s
+[650/2490] hsdns... 0.12s
+[651/2490] xlsx-tabular... 0.03s
+[652/2490] cereal-conduit... 0.00s
+[653/2490] conduit-combinators... 0.00s
+[654/2490] overhang... 0.01s
+[655/2490] yesod-sitemap... 0.01s
+[656/2490] classy-prelude-yesod... 0.00s
+[657/2490] mutable-containers... 0.02s
+[658/2490] pretty-terminal... 0.01s
+[659/2490] process-extras... 0.05s
+[660/2490] concise... 0.00s
+[661/2490] qm-interpolated-string... 0.00s
+[662/2490] css-text... 0.01s
+[663/2490] http-client-tls... 0.01s
+[664/2490] lca... 0.02s
+[665/2490] stringbuilder... 0.00s
+[666/2490] hashids... 0.01s
+[667/2490] general-games... 0.05s
+[668/2490] strict-base-types... 0.02s
+[669/2490] justified-containers... 0.04s
+[670/2490] lzma-conduit... 0.00s
+[671/2490] partial-handler... 0.01s
+[672/2490] ANum... 0.00s
+[673/2490] string-class... 0.04s
+[674/2490] optional-args... 0.01s
+[675/2490] event-list... 0.10s
+[676/2490] monoid-transformer... 0.01s
+[677/2490] non-negative... 0.02s
+[678/2490] pathtype... 0.13s
+[679/2490] storablevector... 0.15s
+[680/2490] poll... 0.01s
+[681/2490] unique-logic... 0.06s
+[682/2490] perfect-hash-generator... 0.00s
+[683/2490] timeit... 0.00s
+[684/2490] prettyprinter-ansi-terminal... 0.02s
+[685/2490] intern... 0.03s
+[686/2490] graphs... 0.04s
+[687/2490] monad-coroutine... 0.03s
+[688/2490] monad-parallel... 0.01s
+[689/2490] monad-control... 0.03s
+[690/2490] securemem... 0.00s
+[691/2490] async-timer... 0.00s
+[692/2490] here... 0.00s
+[693/2490] pem... 0.00s
+[694/2490] connection-pool... 0.12s
+[695/2490] one-liner... 0.11s
+[696/2490] cryptocompare... 0.02s
+[697/2490] interpolate... 0.00s
+[698/2490] language-java... 0.13s
+[699/2490] netwire-input... 0.01s
+[700/2490] text-latin1... 0.04s
+[701/2490] pretty... 0.10s
+[702/2490] unix... 0.25s
+[703/2490] xhtml... 0.14s
+[704/2490] mtl... 0.11s
+[705/2490] GenericPretty... 0.01s
+[706/2490] boxes... 0.01s
+[707/2490] nonce... 0.00s
+[708/2490] bv... 0.03s
+[709/2490] transformers-fix... 0.00s
+[710/2490] fixed-vector-hetero... 0.10s
+[711/2490] timezone-series... 0.01s
+[712/2490] csp... 0.01s
+[713/2490] simple-reflect... 0.01s
+[714/2490] concurrent-extra... 0.03s
+[715/2490] threads... 0.01s
+[716/2490] lifted-base... 0.03s
+[717/2490] declarative... 0.02s
+[718/2490] hasty-hamiltonian... 0.01s
+[719/2490] adler32... 0.01s
+[720/2490] conduit-parse... 0.00s
+[721/2490] tmapmvar... 0.01s
+[722/2490] soap-tls... 0.00s
+[723/2490] soap... 0.02s
+[724/2490] pptable... 0.01s
+[725/2490] sqlcli-odbc... 0.03s
+[726/2490] pushbullet-types... 0.08s
+[727/2490] matrix... 0.03s
+[728/2490] scanf... 0.01s
+[729/2490] wai-websockets... 0.00s
+[730/2490] wai-conduit... 0.08s
+[731/2490] tao... 0.00s
+[732/2490] tao-example... 0.01s
+[733/2490] bzlib-conduit... 0.02s
+[734/2490] ekg... 0.01s
+[735/2490] mysql-simple... 0.07s
+[736/2490] async-refresh... 0.00s
+[737/2490] async-refresh-tokens... 0.01s
+[738/2490] GLURaw... 0.05s
+[739/2490] HStringTemplate... 0.06s
+[740/2490] xmlgen... 0.02s
+[741/2490] netwire... 0.08s
+[742/2490] network-info... 0.01s
+[743/2490] monad-control-aligned... 0.02s
+[744/2490] hspec-smallcheck... 0.00s
+[745/2490] transaction... 0.01s
+[746/2490] shell-conduit... 0.44s
+[747/2490] srcloc... 0.01s
+[748/2490] heap... 0.02s
+[749/2490] path-extra... 0.01s
+[750/2490] temporary... 0.01s
+[751/2490] monad-time... 0.01s
+[752/2490] netwire-input-glfw... 0.01s
+[753/2490] loch-th... 0.00s
+[754/2490] cryptonite-openssl... 0.02s
+[755/2490] sparse-linear-algebra... 0.16s
+[756/2490] streaming-bytestring... 0.13s
+[757/2490] file-embed-lzma... 0.01s
+[758/2490] boltzmann-samplers... 0.07s
+[759/2490] transformers-base... 0.01s
+[760/2490] rando... 0.01s
+[761/2490] data-inttrie... 0.01s
+[762/2490] invertible... 0.09s
+[763/2490] immortal... 0.01s
+[764/2490] checksum... 0.00s
+[765/2490] audacity... 0.04s
+[766/2490] sampling... 0.00s
+[767/2490] mime-mail-ses... 0.01s
+[768/2490] one-liner-instances... 0.03s
+[769/2490] X11... 0.82s
+[770/2490] integer-gmp... 0.03s
+[771/2490] hmatrix-gsl... 0.05s
+[772/2490] bindings-GLFW... 0.17s
+[773/2490] haskell-import-graph... 0.00s
+[774/2490] duration... 0.01s
+[775/2490] uniprot-kb... 0.06s
+[776/2490] http-reverse-proxy... 0.01s
+[777/2490] sorted-list... 0.02s
+[778/2490] tagged-transformer... 0.01s
+[779/2490] eq... 0.01s
+[780/2490] GLFW-b... 0.11s
+[781/2490] half... 0.00s
+[782/2490] int-cast... 0.00s
+[783/2490] chronologique... 0.01s
+[784/2490] type-of-html-static... 0.00s
+[785/2490] dbus-hslogger... 0.00s
+[786/2490] mintty... 0.00s
+[787/2490] scientific... 0.02s
+[788/2490] simplest-sqlite... 0.05s
+[789/2490] svg-builder... 0.09s
+[790/2490] HSlippyMap... 0.01s
+[791/2490] errors... 0.05s
+[792/2490] wai-session... 0.00s
+[793/2490] numbers... 0.04s
+[794/2490] easy-file... 0.04s
+[795/2490] ecstasy... 0.06s
+[796/2490] pipes-network... 0.01s
+[797/2490] bindings-DSL... 0.00s
+[798/2490] JuicyPixels-scale-dct... 0.00s
+[799/2490] HasBigDecimal... 0.01s
+[800/2490] hspec-golden-aeson... 0.04s
+[801/2490] step-function... 0.03s
+[802/2490] text-region... 0.02s
+[803/2490] vector-bytes-instances... 0.00s
+[804/2490] pipes-binary... 0.01s
+[805/2490] haskell-igraph... 0.10s
+[806/2490] codec-rpm... 0.10s
+[807/2490] charsetdetect-ae... 0.00s
+[808/2490] testing-feat... 0.04s
+[809/2490] enum-subset-generate... 0.01s
+[810/2490] fsnotify... 0.02s
+[811/2490] webex-teams-api... 0.35s
+[812/2490] webex-teams-conduit... 0.00s
+[813/2490] webex-teams-pipes... 0.00s
+[814/2490] fsnotify-conduit... 0.01s
+[815/2490] hsini... 0.00s
+[816/2490] base-prelude... 0.00s
+[817/2490] tasty-discover... 0.02s
+[818/2490] yi-rope... 0.02s
+[819/2490] safe-foldable... 0.00s
+[820/2490] HDBC-session... 0.00s
+[821/2490] dynamic-state... 0.01s
+[822/2490] magic... 0.01s
+[823/2490] exomizer... 0.02s
+[824/2490] debug-trace-var... 0.00s
+[825/2490] mltool... 0.06s
+[826/2490] astro... 0.10s
+[827/2490] hmatrix-morpheus... 0.01s
+[828/2490] iso8601-time... 0.00s
+[829/2490] lawful... 0.01s
+[830/2490] nettle... 0.05s
+[831/2490] relational-record... 0.05s
+[832/2490] servant-auth... 0.00s
+[833/2490] servant-auth-docs... 0.01s
+[834/2490] servant-auth-swagger... 0.00s
+[835/2490] rio-orphans... 0.00s
+[836/2490] forkable-monad... 0.00s
+[837/2490] eap... 0.02s
+[838/2490] linux-namespaces... 0.01s
+[839/2490] siggy-chardust... 0.00s
+[840/2490] detour-via-sci... 0.01s
+[841/2490] currencies... 0.02s
+[842/2490] text-postgresql... 0.01s
+[843/2490] starter... 0.00s
+[844/2490] tuple-sop... 0.04s
+[845/2490] network-conduit-tls... 0.01s
+[846/2490] cfenv... 0.01s
+[847/2490] persistable-types-HDBC-pg... 0.01s
+[848/2490] valor... 0.01s
+[849/2490] genvalidity-aeson... 0.00s
+[850/2490] ghcjs-codemirror... 0.00s
+[851/2490] thread-local-storage... 0.01s
+[852/2490] unordered-intmap... 0.03s
+[853/2490] xss-sanitize... 0.00s
+[854/2490] lens-misc... 0.00s
+[855/2490] tagged... 0.01s
+[856/2490] lens-family-th... 0.01s
+[857/2490] reducers... 0.06s
+[858/2490] pipes-extras... 0.01s
+[859/2490] pipes-group... 0.02s
+[860/2490] smallcheck... 0.04s
+[861/2490] tdigest... 0.06s
+[862/2490] codec-beam... 0.31s
+[863/2490] inj... 0.00s
+[864/2490] parsec-class... 0.04s
+[865/2490] prospect... 0.01s
+[866/2490] enclosed-exceptions... 0.01s
+[867/2490] mwc-random... 0.02s
+[868/2490] finite-typelits... 0.01s
+[869/2490] infer-license... 0.00s
+[870/2490] deriveJsonNoPrefix... 0.00s
+[871/2490] drinkery... 0.04s
+[872/2490] charset... 0.05s
+[873/2490] distribution-opensuse... 0.25s
+[874/2490] SHA... 0.01s
+[875/2490] http-date... 0.01s
+[876/2490] numtype-dk... 0.02s
+[877/2490] type-natural... 0.24s
+[878/2490] qchas... 0.11s
+[879/2490] http-link-header... 0.01s
+[880/2490] percent-format... 0.02s
+[881/2490] ekg-statsd... 0.01s
+[882/2490] jose-jwt... 0.03s
+[883/2490] ua-parser... 0.01s
+[884/2490] binary... 0.05s
+[885/2490] intset-imperative... 0.00s
+[886/2490] hidapi... 0.01s
+[887/2490] hinotify... 0.02s
+[888/2490] prometheus-client... 0.03s
+[889/2490] hinfo... 0.02s
+[890/2490] temporary-resourcet... 0.00s
+[891/2490] wl-pprint-console... 0.01s
+[892/2490] colorful-monoids... 0.03s
+[893/2490] wl-pprint-annotated... 0.04s
+[894/2490] foldable1... 0.00s
+[895/2490] say... 0.00s
+[896/2490] parallel... 0.03s
+[897/2490] openexr-write... 0.01s
+[898/2490] tuple... 0.70s
+[899/2490] hourglass... 0.06s
+[900/2490] aeson-generic-compat... 0.00s
+[901/2490] text-ldap... 0.01s
+[902/2490] json-rpc-generic... 0.03s
+[903/2490] protocol-radius... 0.04s
+[904/2490] time-locale-compat... 0.00s
+[905/2490] th-reify-compat... 0.00s
+[906/2490] weeder... 0.00s
+[907/2490] product-isomorphic... 0.01s
+[908/2490] emacs-module... 0.11s
+[909/2490] etc... 0.10s
+[910/2490] xml... 0.05s
+[911/2490] monad-memo... 0.08s
+[912/2490] alsa-pcm... 0.07s
+[913/2490] apportionment... 0.00s
+[914/2490] comfort-graph... 0.03s
+[915/2490] combinatorial... 0.03s
+[916/2490] conduit-concurrent-map... 0.00s
+[917/2490] latex... 0.00s
+[918/2490] numeric-prelude... 0.87s
+[919/2490] pooled-io... 0.01s
+[920/2490] appendmap... 0.01s
+[921/2490] sox... 0.02s
+[922/2490] spreadsheet... 0.00s
+[923/2490] unicode... 0.01s
+[924/2490] xml-basic... 0.06s
+[925/2490] fixed-vector... 0.17s
+[926/2490] tagchup... 0.04s
+[927/2490] test-framework-quickcheck2... 0.00s
+[928/2490] system-fileio... 0.01s
+[929/2490] protobuf-simple... 0.05s
+[930/2490] nowdoc... 0.00s
+[931/2490] hformat... 0.01s
+[932/2490] tasty-leancheck... 0.00s
+[933/2490] test-framework-leancheck... 0.00s
+[934/2490] do-notation... 0.01s
+[935/2490] hexml... 0.01s
+[936/2490] kazura-queue... 0.02s
+[937/2490] data-forest... 0.01s
+[938/2490] haskoin-core... 0.44s
+[939/2490] rfc1751... 0.00s
+[940/2490] nqe... 0.02s
+[941/2490] dockerfile... 0.01s
+[942/2490] odbc... 0.06s
+[943/2490] markdown... 0.02s
+[944/2490] stm... 0.03s
+[945/2490] deepseq... 0.03s
+[946/2490] stm-split... 0.01s
+[947/2490] base... 1.98s
+[948/2490] attoparsec-iso8601... 0.00s
+[949/2490] conduit-zstd... 0.00s
+[950/2490] aeson-compat... 0.03s
+[951/2490] pipes-concurrency... 0.01s
+[952/2490] postgresql-libpq... 0.07s
+[953/2490] hashable-time... 0.00s
+[954/2490] pqueue... 0.08s
+[955/2490] conduit-algorithms... 0.01s
+[956/2490] stm-conduit... 0.03s
+[957/2490] bsb-http-chunked... 0.00s
+[958/2490] xmonad... 0.35s
+[959/2490] exp-pairs... 0.08s
+[960/2490] wild-bind-x11... 0.10s
+[961/2490] microlens-contra... 0.00s
+[962/2490] app-settings... 0.01s
+[963/2490] exit-codes... 0.01s
+[964/2490] higher-leveldb... 0.03s
+[965/2490] ghc-prim... 0.86s
+[966/2490] MusicBrainz... 0.03s
+[967/2490] control-monad-free... 0.04s
+[968/2490] rasterific-svg... 0.01s
+[969/2490] classy-prelude-conduit... 0.23s
+[970/2490] classy-prelude... 0.17s
+[971/2490] strict-concurrency... 0.01s
+[972/2490] yoga... 0.07s
+[973/2490] dense-linear-algebra... 0.02s
+[974/2490] opensource... 0.01s
+[975/2490] buffer-builder... 0.03s
+[976/2490] binary-conduit... 0.01s
+[977/2490] persistent-mysql... 0.02s
+[978/2490] yesod-static... 0.04s
+[979/2490] rfc5051... 0.00s
+[980/2490] size-based... 0.03s
+[981/2490] zip-stream... 0.02s
+[982/2490] concurrent-split... 0.01s
+[983/2490] bound... 0.08s
+[984/2490] typenums... 0.04s
+[985/2490] data-tree-print... 0.00s
+[986/2490] btrfs... 0.08s
+[987/2490] http-client-openssl... 0.00s
+[988/2490] windns... 0.01s
+[989/2490] nuxeo... 0.01s
+[990/2490] n2o... 0.01s
+[991/2490] uri-bytestring-aeson... 0.00s
+[992/2490] HaXml... 0.57s
+[993/2490] cacophony... 0.11s
+[994/2490] vector-binary-instances... 0.01s
+[995/2490] urlpath... 0.02s
+[996/2490] hspec-contrib... 0.00s
+[997/2490] x509... 0.07s
+[998/2490] x509-validation... 0.03s
+[999/2490] x509-store... 0.00s
+[1000/2490] storable-complex... 0.00s
+[1001/2490] TypeCompose... 0.11s
+[1002/2490] attoparsec-uri... 0.01s
+[1003/2490] shared-memory... 0.01s
+[1004/2490] plotlyhs... 0.29s
+[1005/2490] nonemptymap... 0.01s
+[1006/2490] microspec... 0.01s
+[1007/2490] midair... 0.02s
+[1008/2490] servant-machines... 0.00s
+[1009/2490] servant-conduit... 0.00s
+[1010/2490] code-page... 0.01s
+[1011/2490] servant-yaml... 0.00s
+[1012/2490] attoparsec-ip... 0.00s
+[1013/2490] config-ini... 0.05s
+[1014/2490] tasty-hspec... 0.00s
+[1015/2490] wizards... 0.03s
+[1016/2490] google-isbn... 0.01s
+[1017/2490] crackNum... 0.01s
+[1018/2490] hspec-meta... 0.01s
+[1019/2490] mysql... 0.06s
+[1020/2490] commutative... 0.01s
+[1021/2490] filecache... 0.01s
+[1022/2490] follow-file... 0.00s
+[1023/2490] lrucache... 0.03s
+[1024/2490] cassava-conduit... 0.01s
+[1025/2490] gingersnap... 0.02s
+[1026/2490] once... 0.00s
+[1027/2490] chan... 0.01s
+[1028/2490] fingertree... 0.04s
+[1029/2490] roc-id... 0.02s
+[1030/2490] alsa-mixer... 0.01s
+[1031/2490] ForestStructures... 0.02s
+[1032/2490] cuckoo-filter... 0.01s
+[1033/2490] generic-monoid... 0.01s
+[1034/2490] exact-pi... 0.01s
+[1035/2490] posix-paths... 0.02s
+[1036/2490] hosc... 0.11s
+[1037/2490] Glob... 0.02s
+[1038/2490] blas-ffi... 0.12s
+[1039/2490] matrices... 0.21s
+[1040/2490] xmonad-extras... 0.03s
+[1041/2490] bitset-word8... 0.02s
+[1042/2490] mime-types... 0.00s
+[1043/2490] thread-hierarchy... 0.01s
+[1044/2490] blake2... 0.01s
+[1045/2490] skip-var... 0.00s
+[1046/2490] hopenssl... 0.02s
+[1047/2490] elf... 0.05s
+[1048/2490] heterocephalus... 0.01s
+[1049/2490] dimensional... 0.38s
+[1050/2490] ini... 0.01s
+[1051/2490] formatting... 0.06s
+[1052/2490] extensible-effects... 0.23s
+[1053/2490] type-map... 0.05s
+[1054/2490] tfp... 0.31s
+[1055/2490] netlib-ffi... 0.01s
+[1056/2490] tasty-wai... 0.00s
+[1057/2490] lens-regex... 0.00s
+[1058/2490] mercury-api... 0.14s
+[1059/2490] tar-conduit... 0.05s
+[1060/2490] terminfo... 0.04s
+[1061/2490] unordered-containers... 0.05s
+[1062/2490] network-bsd... 0.05s
+[1063/2490] clumpiness... 0.01s
+[1064/2490] pretty-types... 0.03s
+[1065/2490] type-spec... 0.05s
+[1066/2490] guarded-allocation... 0.02s
+[1067/2490] unique-logic-tf... 0.07s
+[1068/2490] data-ref... 0.01s
+[1069/2490] vector-space... 0.07s
+[1070/2490] netlib-carray... 0.01s
+[1071/2490] lapack-carray... 1.61s
+[1072/2490] hsyslog... 0.03s
+[1073/2490] blas-carray... 0.11s
+[1074/2490] wreq... 0.09s
+[1075/2490] graph-wrapper... 0.02s
+[1076/2490] tonalude... 0.16s
+[1077/2490] ca-province-codes... 0.01s
+[1078/2490] io-streams... 0.12s
+[1079/2490] wave... 0.02s
+[1080/2490] io-streams-haproxy... 0.00s
+[1081/2490] openssl-streams... 0.00s
+[1082/2490] SVGFonts... 0.04s
+[1083/2490] cue-sheet... 0.05s
+[1084/2490] mono-traversable-keys... 0.04s
+[1085/2490] cubicbezier... 0.08s
+[1086/2490] servant-blaze... 0.00s
+[1087/2490] transformers... 0.39s
+[1088/2490] heaps... 0.02s
+[1089/2490] function-builder... 0.01s
+[1090/2490] amazonka-kinesis... 0.23s
+[1091/2490] amazonka-discovery... 0.16s
+[1092/2490] amazonka-cloudhsm... 0.12s
+[1093/2490] amazonka-sms... 0.11s
+[1094/2490] amazonka-servicecatalog... 0.52s
+[1095/2490] amazonka-iam... 1.04s
+[1096/2490] amazonka-xray... 0.13s
+[1097/2490] amazonka-marketplace-analytics... 0.03s
+[1098/2490] amazonka-health... 0.12s
+[1099/2490] amazonka-directconnect... 0.38s
+[1100/2490] amazonka-sqs... 0.18s
+[1101/2490] amazonka-devicefarm... 0.75s
+[1102/2490] amazonka-s3... 0.91s
+[1103/2490] amazonka-ecr... 0.20s
+[1104/2490] amazonka-marketplace-metering... 0.03s
+[1105/2490] amazonka-elasticache... 0.50s
+[1106/2490] amazonka-snowball... 0.19s
+[1107/2490] amazonka-swf... 0.96s
+[1108/2490] amazonka-application-autoscaling... 0.23s
+[1109/2490] amazonka-appstream... 0.32s
+[1110/2490] amazonka-autoscaling... 0.48s
+[1111/2490] amazonka-glue... 0.85s
+[1112/2490] amazonka-codecommit... 0.36s
+[1113/2490] amazonka-gamelift... 0.76s
+[1114/2490] amazonka-elb... 0.38s
+[1115/2490] amazonka-support... 0.16s
+[1116/2490] amazonka-iot-dataplane... 0.03s
+[1117/2490] amazonka-sns... 0.16s
+[1118/2490] amazonka-cloudtrail... 0.17s
+[1119/2490] amazonka-opsworks... 0.75s
+[1120/2490] amazonka-lightsail... 0.68s
+[1121/2490] amazonka-workspaces... 0.38s
+[1122/2490] amazonka-glacier... 0.32s
+[1123/2490] amazonka-route53... 0.62s
+[1124/2490] amazonka-budgets... 0.13s
+[1125/2490] amazonka-cognito-idp... 0.97s
+[1126/2490] amazonka-kms... 0.25s
+[1127/2490] amazonka-elbv2... 0.29s
+[1128/2490] amazonka-redshift... 0.69s
+[1129/2490] amazonka-lambda... 0.32s
+[1130/2490] amazonka-codebuild... 0.27s
+[1131/2490] amazonka-config... 0.64s
+[1132/2490] amazonka-waf... 0.77s
+[1133/2490] amazonka-codepipeline... 0.38s
+[1134/2490] amazonka-cloudwatch-logs... 0.22s
+[1135/2490] amazonka-kinesis-analytics... 0.30s
+[1136/2490] amazonka-emr... 0.70s
+[1137/2490] parseargs... 0.02s
+[1138/2490] include-file... 0.00s
+[1139/2490] amazonka-pinpoint... 0.81s
+[1140/2490] amazonka-kinesis-firehose... 0.34s
+[1141/2490] amazonka-elasticsearch... 0.28s
+[1142/2490] amazonka-cognito-sync... 0.15s
+[1143/2490] amazonka-shield... 0.10s
+[1144/2490] amazonka-sts... 0.08s
+[1145/2490] amazonka-efs... 0.11s
+[1146/2490] amazonka-athena... 0.12s
+[1147/2490] amazonka-polly... 0.09s
+[1148/2490] amazonka-opsworks-cm... 0.15s
+[1149/2490] pipes-http... 0.00s
+[1150/2490] amazonka-cloudformation... 0.67s
+[1151/2490] amazonka-importexport... 0.08s
+[1152/2490] amazonka-dynamodb... 0.60s
+[1153/2490] amazonka-stepfunctions... 0.23s
+[1154/2490] amazonka-cloudwatch-events... 0.13s
+[1155/2490] amazonka-sdb... 0.08s
+[1156/2490] amazonka-codedeploy... 0.54s
+[1157/2490] amazonka-cloudfront... 0.90s
+[1158/2490] amazonka-cloudsearch-domains... 0.10s
+[1159/2490] amazonka-elasticbeanstalk... 0.60s
+[1160/2490] amazonka-apigateway... 1.15s
+[1161/2490] amazonka-datapipeline... 0.36s
+[1162/2490] amazonka-dms... 0.44s
+[1163/2490] amazonka-dynamodb-streams... 0.08s
+[1164/2490] amazonka-ds... 0.32s
+[1165/2490] amazonka-certificatemanager... 0.17s
+[1166/2490] amazonka-cloudwatch... 0.18s
+[1167/2490] amazonka-rekognition... 0.41s
+[1168/2490] amazonka-cognito-identity... 0.14s
+[1169/2490] amazonka-ssm... 1.48s
+[1170/2490] amazonka-ml... 0.40s
+[1171/2490] amazonka-inspector... 0.31s
+[1172/2490] amazonka-rds... 1.35s
+[1173/2490] amazonka-iot... 0.86s
+[1174/2490] amazonka-ses... 0.61s
+[1175/2490] amazonka-cloudsearch... 0.27s
+[1176/2490] amazonka-storagegateway... 0.45s
+[1177/2490] amazonka-elastictranscoder... 0.63s
+[1178/2490] amazonka-route53-domains... 0.32s
+[1179/2490] amazonka-ecs... 0.58s
+[1180/2490] bytestring-to-vector... 0.00s
+[1181/2490] amazonka-test... 0.03s
+[1182/2490] amazonka... 0.25s
+[1183/2490] amazonka-core... 0.32s
+[1184/2490] DBFunctor... 0.18s
+[1185/2490] mmark-ext... 0.01s
+[1186/2490] pg-harness-client... 0.00s
+[1187/2490] snap-server... 0.07s
+[1188/2490] hebrew-time... 0.03s
+[1189/2490] lucid-extras... 0.03s
+[1190/2490] yesod-gitrev... 0.01s
+[1191/2490] proxied... 0.03s
+[1192/2490] http-types... 0.11s
+[1193/2490] Earley... 0.07s
+[1194/2490] rigel-viz... 0.01s
+[1195/2490] download... 0.00s
+[1196/2490] tasty-ant-xml... 0.00s
+[1197/2490] html-entities... 0.00s
+[1198/2490] hpack-dhall... 0.00s
+[1199/2490] monad-logger-prefix... 0.01s
+[1200/2490] writer-cps-exceptions... 0.00s
+[1201/2490] writer-cps-mtl... 0.02s
+[1202/2490] writer-cps-transformers... 0.06s
+[1203/2490] type-operators... 0.01s
+[1204/2490] HSvm... 0.02s
+[1205/2490] chronos-bench... 0.01s
+[1206/2490] Ranged-sets... 0.04s
+[1207/2490] js-dgtable... 0.00s
+[1208/2490] possibly... 0.00s
+[1209/2490] main-tester... 0.01s
+[1210/2490] focuslist... 0.03s
+[1211/2490] record-hasfield... 0.01s
+[1212/2490] netpbm... 0.01s
+[1213/2490] tasty-dejafu... 0.02s
+[1214/2490] hunit-dejafu... 0.03s
+[1215/2490] jwt... 0.02s
+[1216/2490] base64-bytestring-type... 0.01s
+[1217/2490] aeson-casing... 0.01s
+[1218/2490] hspec-core... 0.06s
+[1219/2490] hspec... 0.11s
+[1220/2490] hspec-discover... 0.01s
+[1221/2490] flush-queue... 0.01s
+[1222/2490] X11-xft... 0.01s
+[1223/2490] tensors... 0.03s
+[1224/2490] focus... 0.02s
+[1225/2490] IntervalMap... 0.28s
+[1226/2490] mime-mail... 0.03s
+[1227/2490] cmark... 0.02s
+[1228/2490] log-base... 0.25s
+[1229/2490] mixed-types-num... 0.36s
+[1230/2490] haskell-src-exts-util... 0.01s
+[1231/2490] crc32c... 0.00s
+[1232/2490] exact-combinatorics... 0.00s
+[1233/2490] universe-instances-trans... 0.01s
+[1234/2490] universe-instances-base... 0.00s
+[1235/2490] universe-reverse-instances... 0.01s
+[1236/2490] http-media... 0.02s
+[1237/2490] integer-logarithms... 0.01s
+[1238/2490] rattle... 0.01s
+[1239/2490] stm-containers... 0.02s
+[1240/2490] wikicfp-scraper... 0.00s
+[1241/2490] th-reify-many... 0.00s
+[1242/2490] exception-hierarchy... 0.00s
+[1243/2490] warp-tls-uid... 0.00s
+[1244/2490] zip-archive... 0.02s
+[1245/2490] optparse-simple... 0.00s
+[1246/2490] rdf... 0.03s
+[1247/2490] ghc... 6.16s
+[1248/2490] ghci... 0.06s
+[1249/2490] postgresql-simple... 0.32s
+[1250/2490] time-parsers... 0.00s
+[1251/2490] recursion-schemes... 0.05s
+[1252/2490] port-utils... 0.01s
+[1253/2490] mmorph... 0.02s
+[1254/2490] clock... 0.01s
+[1255/2490] stopwatch... 0.00s
+[1256/2490] validation... 0.01s
+[1257/2490] interpolator... 0.02s
+[1258/2490] tagsoup... 0.05s
+[1259/2490] invariant... 0.04s
+[1260/2490] either... 0.01s
+[1261/2490] parsers... 0.08s
+[1262/2490] atomic-primops... 0.01s
+[1263/2490] bits... 0.02s
+[1264/2490] rcu... 0.06s
+[1265/2490] LambdaHack... 1.50s
+[1266/2490] Allure... 0.01s
+[1267/2490] planb-token-introspection... 0.02s
+[1268/2490] tinylog... 0.03s
+[1269/2490] hslua-module-text... 0.00s
+[1270/2490] hslua-module-system... 0.01s
+[1271/2490] colour... 0.09s
+[1272/2490] case-insensitive... 0.00s
+[1273/2490] websockets-snap... 0.00s
+[1274/2490] OpenGL... 0.56s
+[1275/2490] rope-utf16-splay... 0.05s
+[1276/2490] bounded-queue... 0.00s
+[1277/2490] appar... 0.05s
+[1278/2490] pretty-sop... 0.00s
+[1279/2490] records-sop... 0.01s
+[1280/2490] microlens-aeson... 0.01s
+[1281/2490] pipes-random... 0.00s
+[1282/2490] hashable... 0.02s
+[1283/2490] void... 0.00s
+[1284/2490] zippers... 0.08s
+[1285/2490] machines... 0.11s
+[1286/2490] monad-metrics... 0.02s
+[1287/2490] bytestring-tree-builder... 0.01s
+[1288/2490] transformers-compat... 0.04s
+[1289/2490] haskey-btree... 0.10s
+[1290/2490] ansi-wl-pprint... 0.09s
+[1291/2490] network-transport... 0.05s
+[1292/2490] binary-orphans... 0.00s
+[1293/2490] JuicyPixels-extra... 0.00s
+[1294/2490] semver... 0.02s
+[1295/2490] binary-tagged... 0.04s
+[1296/2490] ENIG... 0.01s
+[1297/2490] relational-query-HDBC... 0.09s
+[1298/2490] tasty-hunit... 0.01s
+[1299/2490] nsis... 0.20s
+[1300/2490] zero... 0.01s
+[1301/2490] hedgehog-fn... 0.03s
+[1302/2490] pgp-wordlist... 0.01s
+[1303/2490] hyphenation... 0.04s
+[1304/2490] hedgehog-quickcheck... 0.00s
+[1305/2490] hruby... 0.05s
+[1306/2490] pcg-random... 0.14s
+[1307/2490] zstd... 0.06s
+[1308/2490] cryptonite... 0.36s
+[1309/2490] xml-conduit... 0.10s
+[1310/2490] deferred-folds... 0.03s
+[1311/2490] httpd-shed... 0.01s
+[1312/2490] quickcheck-transformer... 0.01s
+[1313/2490] data-accessor... 0.03s
+[1314/2490] explicit-exception... 0.06s
+[1315/2490] prelude-compat... 0.13s
+[1316/2490] non-empty... 0.08s
+[1317/2490] comfort-array... 0.11s
+[1318/2490] blas-comfort-array... 0.16s
+[1319/2490] netlib-comfort-array... 0.02s
+[1320/2490] lapack-comfort-array... 1.83s
+[1321/2490] interpolation... 0.02s
+[1322/2490] reform... 0.05s
+[1323/2490] gloss-rendering... 0.02s
+[1324/2490] sendfile... 0.02s
+[1325/2490] hasql-pool... 0.00s
+[1326/2490] bytestring-strict-builder... 0.01s
+[1327/2490] tree-diff... 0.04s
+[1328/2490] servant-swagger-ui-core... 0.00s
+[1329/2490] primitive-offset... 0.01s
+[1330/2490] cereal... 0.05s
+[1331/2490] random... 0.02s
+[1332/2490] tf-random... 0.01s
+[1333/2490] these-lens... 0.00s
+[1334/2490] stm-hamt... 0.01s
+[1335/2490] primitive-extras... 0.03s
+[1336/2490] StateVar... 0.01s
+[1337/2490] contravariant... 0.02s
+[1338/2490] time-manager... 0.00s
+[1339/2490] dsp... 0.14s
+[1340/2490] random-bytestring... 0.00s
+[1341/2490] wai-cors... 0.01s
+[1342/2490] async... 0.03s
+[1343/2490] multistate... 0.34s
+[1344/2490] czipwith... 0.01s
+[1345/2490] fixed... 0.01s
+[1346/2490] psqueues... 0.06s
+[1347/2490] kan-extensions... 0.11s
+[1348/2490] graphite... 0.08s
+[1349/2490] hi-file-parser... 0.01s
+[1350/2490] rio-prettyprint... 0.05s
+[1351/2490] tagged-identity... 0.01s
+[1352/2490] th-bang-compat... 0.00s
+[1353/2490] tasty... 0.08s
+[1354/2490] ALUT... 0.02s
+[1355/2490] OpenAL... 0.09s
+[1356/2490] GLUT... 0.18s
+[1357/2490] webdriver... 0.41s
+[1358/2490] sdl2... 1.02s
+[1359/2490] simple-vec3... 0.02s
+[1360/2490] load-env... 0.00s
+[1361/2490] sbp... 1.49s
+[1362/2490] network-simple... 0.01s
+[1363/2490] bimap... 0.04s
+[1364/2490] xls... 0.00s
+[1365/2490] unicode-transforms... 0.01s
+[1366/2490] syb... 0.04s
+[1367/2490] terminal-progress-bar... 0.02s
+[1368/2490] gl... 9.41s
+[1369/2490] yesod-websockets... 0.02s
+[1370/2490] HTTP... 0.14s
+[1371/2490] taffybar... 0.43s
+[1372/2490] unix-time... 0.01s
+[1373/2490] asciidiagram... 0.02s
+[1374/2490] svg-tree... 0.21s
+[1375/2490] dec... 0.01s
+[1376/2490] singleton-bool... 0.01s
+[1377/2490] microlens-mtl... 0.04s
+[1378/2490] wai... 0.03s
+[1379/2490] binary-parsers... 0.03s
+[1380/2490] hsemail... 0.09s
+[1381/2490] fmt... 0.10s
+[1382/2490] human-readable-duration... 0.01s
+[1383/2490] triplesec... 0.02s
+[1384/2490] containers... 0.96s
+[1385/2490] packcheck... 0.00s
+[1386/2490] alerts... 0.01s
+[1387/2490] simple-log... 0.06s
+[1388/2490] universe-base... 0.04s
+[1389/2490] hmatrix... 0.21s
+[1390/2490] hxt-charproperties... 0.11s
+[1391/2490] hxt... 0.97s
+[1392/2490] openpgp-asciiarmor... 0.01s
+[1393/2490] quickcheck-instances... 0.02s
+[1394/2490] unboxing-vector... 0.15s
+[1395/2490] safe-money... 0.04s
+[1396/2490] string-transform... 0.01s
+[1397/2490] typed-process... 0.04s
+[1398/2490] type-errors... 0.01s
+[1399/2490] ordered-containers... 0.03s
+[1400/2490] microlens... 0.09s
+[1401/2490] hasql-optparse-applicative... 0.00s
+[1402/2490] text-printer... 0.07s
+[1403/2490] fmlist... 0.01s
+[1404/2490] servant-checked-exceptions... 0.01s
+[1405/2490] servant-checked-exceptions-core... 0.15s
+[1406/2490] auto-update... 0.02s
+[1407/2490] base-unicode-symbols... 0.03s
+[1408/2490] fuzzyset... 0.02s
+[1409/2490] world-peace... 0.08s
+[1410/2490] tasty-silver... 0.03s
+[1411/2490] trivial-constraint... 0.01s
+[1412/2490] bytestring... 0.31s
+[1413/2490] basement... 0.61s
+[1414/2490] HUnit... 0.04s
+[1415/2490] primitive-addr... 0.01s
+[1416/2490] logict... 0.02s
+[1417/2490] ghci-hexcalc... 0.03s
+[1418/2490] text-short... 0.03s
+[1419/2490] silently... 0.01s
+[1420/2490] doldol... 0.02s
+[1421/2490] contiguous... 0.06s
+[1422/2490] data-clist... 0.01s
+[1423/2490] these... 0.02s
+[1424/2490] enummapset... 0.12s
+[1425/2490] no-value... 0.00s
+[1426/2490] range-set-list... 0.05s
+[1427/2490] call-stack... 0.00s
+[1428/2490] gi-atk... 0.56s
+[1429/2490] gi-cairo... 0.09s
+[1430/2490] gi-dbusmenu... 0.14s
+[1431/2490] gi-dbusmenugtk3... 0.01s
+[1432/2490] gi-gdk... 1.31s
+[1433/2490] gi-gdkpixbuf... 0.13s
+[1434/2490] gi-glib... 1.73s
+[1435/2490] gi-gobject... 0.52s
+[1436/2490] gi-graphene... 0.22s
+[1437/2490] haskell-gi-base... 0.29s
+[1438/2490] gi-gtk... 6.79s
+[1439/2490] gi-pango... 0.39s
+[1440/2490] gi-xlib... 0.01s
+[1441/2490] th-data-compat... 0.00s
+[1442/2490] quickcheck-simple... 0.01s
+[1443/2490] hashtables... 0.03s
+[1444/2490] filepath... 0.05s
+[1445/2490] quickcheck-classes-base... 0.03s
+[1446/2490] criterion-measurement... 0.03s
+[1447/2490] unix-compat... 0.03s
+[1448/2490] parsec... 0.22s
+[1449/2490] text... 0.21s
+[1450/2490] either-both... 0.00s
+[1451/2490] cursor-brick... 0.02s
+[1452/2490] enumset... 0.03s
+[1453/2490] regex-applicative... 0.02s
+[1454/2490] search-algorithms... 0.01s
+[1455/2490] lapack-ffi... 1.55s
+[1456/2490] ghc-paths... 0.00s
+[1457/2490] polyparse... 0.13s
+[1458/2490] hspec-parsec... 0.00s
+[1459/2490] tar... 0.05s
+[1460/2490] zlib... 0.07s
+[1461/2490] mixpanel-client... 0.02s
+[1462/2490] semigroups... 0.00s
+[1463/2490] reflection... 0.04s
+[1464/2490] salak-yaml... 0.00s
+[1465/2490] generic-constraints... 0.01s
+[1466/2490] tasty-expected-failure... 0.00s
+[1467/2490] shelly... 0.13s
+[1468/2490] array... 0.04s
+[1469/2490] ghc-boot-th... 0.04s
+[1470/2490] ghc-boot... 0.03s
+[1471/2490] template-haskell... 0.43s
+[1472/2490] cassava... 0.06s
+[1473/2490] servant-rawm... 0.01s
+[1474/2490] connection... 0.02s
+[1475/2490] getopt-generics... 0.02s
+[1476/2490] xml-hamlet... 0.00s
+[1477/2490] boots... 0.02s
+[1478/2490] these-optics... 0.00s
+[1479/2490] kind-apply... 0.03s
+[1480/2490] kind-generics... 0.03s
+[1481/2490] pipes-ordered-zip... 0.00s
+[1482/2490] memory... 0.07s
+[1483/2490] casing... 0.01s
+[1484/2490] llvm-hs-pure... 0.60s
+[1485/2490] type-equality... 0.00s
+[1486/2490] pipes-safe... 0.04s
+[1487/2490] trifecta... 0.09s
+[1488/2490] lens-aeson... 0.02s
+[1489/2490] foundation... 0.36s
+[1490/2490] scotty... 0.05s
+[1491/2490] oeis2... 0.04s
+[1492/2490] aeson-picker... 0.00s
+[1493/2490] gauge... 0.05s
+[1494/2490] hspec-wai... 0.02s
+[1495/2490] deque... 0.04s
+[1496/2490] strict-list... 0.02s
+[1497/2490] universe-instances-extended... 0.00s
+[1498/2490] yesod-form... 0.12s
+[1499/2490] hspec-wai-json... 0.00s
+[1500/2490] newtype-generics... 0.01s
+[1501/2490] coercible-utils... 0.01s
+[1502/2490] servant-static-th... 0.04s
+[1503/2490] newtype... 0.01s
+[1504/2490] soxlib... 0.03s
+[1505/2490] kind-generics-th... 0.00s
+[1506/2490] optparse-applicative... 0.22s
+[1507/2490] universe... 0.00s
+[1508/2490] universe-some... 0.01s
+[1509/2490] th-printf... 0.01s
+[1510/2490] protocol-radius-test... 0.01s
+[1511/2490] lens-action... 0.03s
+[1512/2490] sequence-formats... 0.05s
+[1513/2490] hspec-golden... 0.00s
+[1514/2490] quickcheck-classes... 0.02s
+[1515/2490] approximate... 0.01s
+[1516/2490] hyperloglog... 0.01s
+[1517/2490] servant-pipes... 0.00s
+[1518/2490] gloss... 0.15s
+[1519/2490] vector-sized... 0.49s
+[1520/2490] control-monad-omega... 0.01s
+[1521/2490] print-console-colors... 0.00s
+[1522/2490] scanner... 0.02s
+[1523/2490] language-c... 0.31s
+[1524/2490] selda-json... 0.00s
+[1525/2490] language-nix... 0.01s
+[1526/2490] hackage-db... 0.02s
+[1527/2490] setlocale... 0.00s
+[1528/2490] Diff... 0.01s
+[1529/2490] aeson-optics... 0.01s
+[1530/2490] HsYAML-aeson... 0.00s
+[1531/2490] genvalidity-property... 0.27s
+[1532/2490] ttl-hashtables... 0.02s
+[1533/2490] string-qq... 0.00s
+[1534/2490] math-functions... 0.04s
+[1535/2490] distribution-nixpkgs... 0.01s
+[1536/2490] vector-th-unbox... 0.00s
+[1537/2490] streaming... 0.54s
+[1538/2490] regex-base... 0.03s
+[1539/2490] servant-JuicyPixels... 0.01s
+[1540/2490] folds... 0.06s
+[1541/2490] HDBC... 0.10s
+[1542/2490] th-test-utils... 0.00s
+[1543/2490] aeson-pretty... 0.01s
+[1544/2490] pusher-http-haskell... 0.05s
+[1545/2490] shellmet... 0.00s
+[1546/2490] llvm-hs... 0.97s
+[1547/2490] microlens-process... 0.03s
+[1548/2490] vector-builder... 0.01s
+[1549/2490] asn1-parse... 0.00s
+[1550/2490] asn1-encoding... 0.02s
+[1551/2490] list-t... 0.01s
+[1552/2490] genvalidity-mergeful... 0.01s
+[1553/2490] mergeful... 0.08s
+[1554/2490] regex-pcre... 0.08s
+[1555/2490] socks... 0.03s
+[1556/2490] monad-resumption... 0.01s
+[1557/2490] regex-posix... 0.04s
+[1558/2490] regex-compat... 0.00s
+[1559/2490] hnock... 0.01s
+[1560/2490] first-class-patterns... 0.02s
+[1561/2490] exception-transformers... 0.02s
+[1562/2490] http-client-overrides... 0.02s
+[1563/2490] indents... 0.02s
+[1564/2490] cabal-doctest... 0.00s
+[1565/2490] yesod-newsfeed... 0.03s
+[1566/2490] blaze-html... 0.54s
+[1567/2490] ref-fd... 0.01s
+[1568/2490] FontyFruity... 0.04s
+[1569/2490] arbor-lru-cache... 0.01s
+[1570/2490] publicsuffix... 0.00s
+[1571/2490] sequenceTools... 0.01s
+[1572/2490] fold-debounce... 0.00s
+[1573/2490] wai-logger... 0.01s
+[1574/2490] mainland-pretty... 0.04s
+[1575/2490] loopbreaker... 0.00s
+[1576/2490] bins... 0.02s
+[1577/2490] freer-simple... 0.08s
+[1578/2490] simple-cabal... 0.04s
+[1579/2490] irc-client... 0.09s
+[1580/2490] irc-conduit... 0.05s
+[1581/2490] html-conduit... 0.00s
+[1582/2490] xml-lens... 0.01s
+[1583/2490] concurrent-output... 0.05s
+[1584/2490] multipart... 0.02s
+[1585/2490] debian-build... 0.06s
+[1586/2490] cgi... 0.08s
+[1587/2490] hslogger... 0.04s
+[1588/2490] bv-little... 0.01s
+[1589/2490] crypto-enigma... 0.02s
+[1590/2490] http-conduit... 0.14s
+[1591/2490] servant-swagger-ui-redoc... 0.00s
+[1592/2490] servant-swagger-ui... 0.00s
+[1593/2490] indexed-profunctors... 0.05s
+[1594/2490] hpack... 0.08s
+[1595/2490] uri-bytestring... 0.03s
+[1596/2490] csv-conduit... 0.05s
+[1597/2490] path-io... 0.05s
+[1598/2490] matplotlib... 0.08s
+[1599/2490] giphy-api... 0.04s
+[1600/2490] RSA... 0.05s
+[1601/2490] interpolatedstring-perl6... 0.00s
+[1602/2490] paripari... 0.14s
+[1603/2490] persist... 0.05s
+[1604/2490] hspec-expectations-pretty-diff... 0.01s
+[1605/2490] xmonad-contrib... 1.92s
+[1606/2490] language-c-quote... 1.11s
+[1607/2490] arbor-postgres... 0.01s
+[1608/2490] unagi-chan... 0.03s
+[1609/2490] ghc-source-gen... 0.04s
+[1610/2490] hjsmin... 0.00s
+[1611/2490] ofx... 0.03s
+[1612/2490] dual-tree... 0.02s
+[1613/2490] monoid-extras... 0.03s
+[1614/2490] active... 0.02s
+[1615/2490] diagrams-core... 0.17s
+[1616/2490] wai-middleware-static... 0.01s
+[1617/2490] semialign-optics... 0.00s
+[1618/2490] semialign-indexed... 0.00s
+[1619/2490] semialign... 0.03s
+[1620/2490] perfect-vector-shuffle... 0.01s
+[1621/2490] authenticate-oauth... 0.02s
+[1622/2490] data-interval... 0.07s
+[1623/2490] text-builder... 0.01s
+[1624/2490] papillon... 0.01s
+[1625/2490] simple-sendfile... 0.00s
+[1626/2490] range... 0.05s
+[1627/2490] proto-lens-optparse... 0.00s
+[1628/2490] proto-lens-arbitrary... 0.00s
+[1629/2490] proto-lens-setup... 0.00s
+[1630/2490] proto-lens-protoc... 0.00s
+[1631/2490] proto-lens-runtime... 0.00s
+[1632/2490] proto-lens... 0.06s
+[1633/2490] servant-websockets... 0.00s
+[1634/2490] vector-rotcev... 0.00s
+[1635/2490] minimal-configuration... 0.01s
+[1636/2490] o-clock... 0.02s
+[1637/2490] aeson-qq... 0.00s
+[1638/2490] chiphunk... 0.07s
+[1639/2490] relude... 0.26s
+[1640/2490] data-textual... 0.05s
+[1641/2490] data-serializer... 0.04s
+[1642/2490] nonempty-vector... 0.08s
+[1643/2490] postgres-options... 0.01s
+[1644/2490] lucid... 0.07s
+[1645/2490] aeson-diff... 0.02s
+[1646/2490] doctest-driver-gen... 0.00s
+[1647/2490] monad-par... 0.03s
+[1648/2490] di-monad... 0.01s
+[1649/2490] tomland... 0.09s
+[1650/2490] diagrams-lib... 1.08s
+[1651/2490] megaparsec... 0.12s
+[1652/2490] assoc... 0.00s
+[1653/2490] megaparsec-tests... 0.01s
+[1654/2490] hspec-megaparsec... 0.00s
+[1655/2490] network-ip... 0.03s
+[1656/2490] traverse-with-class... 0.02s
+[1657/2490] parser-combinators... 0.02s
+[1658/2490] text-show-instances... 0.03s
+[1659/2490] haskell-src... 0.07s
+[1660/2490] cookie... 0.01s
+[1661/2490] http-api-data... 0.07s
+[1662/2490] hdaemonize... 0.01s
+[1663/2490] dotenv... 0.01s
+[1664/2490] cassava-megaparsec... 0.00s
+[1665/2490] network-messagepack-rpc... 0.01s
+[1666/2490] pandoc-types... 0.09s
+[1667/2490] diagrams-contrib... 0.34s
+[1668/2490] gdp... 0.05s
+[1669/2490] pcre-light... 0.05s
+[1670/2490] non-empty-sequence... 0.01s
+[1671/2490] statestack... 0.01s
+[1672/2490] happstack-server... 0.22s
+[1673/2490] ClustalParser... 0.02s
+[1674/2490] cmark-gfm... 0.35s
+[1675/2490] di-core... 0.01s
+[1676/2490] authenticate... 0.01s
+[1677/2490] network-simple-tls... 0.01s
+[1678/2490] pipes-network-tls... 0.01s
+[1679/2490] xlsx... 0.46s
+[1680/2490] constraint... 0.01s
+[1681/2490] reform-happstack... 0.00s
+[1682/2490] dns... 0.07s
+[1683/2490] universum... 0.23s
+[1684/2490] log-domain... 0.01s
+[1685/2490] filelock... 0.00s
+[1686/2490] some... 0.02s
+[1687/2490] cabal-plan... 0.03s
+[1688/2490] atomic-write... 0.01s
+[1689/2490] mx-state-codes... 0.01s
+[1690/2490] snap-core... 0.21s
+[1691/2490] constraint-tuples... 0.21s
+[1692/2490] haskell-src-meta... 0.03s
+[1693/2490] network... 0.05s
+[1694/2490] mmark... 0.02s
+[1695/2490] forma... 0.01s
+[1696/2490] wss-client... 0.01s
+[1697/2490] network-messagepack-rpc-websocket... 0.01s
+[1698/2490] postgresql-binary... 0.02s
+[1699/2490] data-diverse... 0.14s
+[1700/2490] inflections... 0.01s
+[1701/2490] comonad... 0.04s
+[1702/2490] deriving-compat... 0.12s
+[1703/2490] generic-deriving... 0.11s
+[1704/2490] free... 0.15s
+[1705/2490] semigroupoids... 0.08s
+[1706/2490] lift-generics... 0.01s
+[1707/2490] clay... 0.32s
+[1708/2490] regex-tdfa... 0.13s
+[1709/2490] hasql-transaction... 0.00s
+[1710/2490] broadcast-chan... 0.03s
+[1711/2490] pipes... 0.06s
+[1712/2490] rainbow... 0.03s
+[1713/2490] MemoTrie... 0.01s
+[1714/2490] blaze-builder... 0.04s
+[1715/2490] yesod-test... 0.03s
+[1716/2490] weigh... 0.01s
+[1717/2490] vector-algorithms... 0.03s
+[1718/2490] flags-applicative... 0.01s
+[1719/2490] pandoc-pyplot... 0.02s
+[1720/2490] nonempty-containers... 0.23s
+[1721/2490] intro... 0.17s
+[1722/2490] safe... 0.04s
+[1723/2490] pretty-hex... 0.00s
+[1724/2490] boolean-normal-forms... 0.02s
+[1725/2490] advent-of-code-api... 0.04s
+[1726/2490] th-lift... 0.00s
+[1727/2490] HsYAML... 0.05s
+[1728/2490] OpenGLRaw... 14.55s
+[1729/2490] emojis... 0.00s
+[1730/2490] diagrams-rasterific... 0.01s
+[1731/2490] cache... 0.01s
+[1732/2490] brittany... 0.21s
+[1733/2490] diagrams-svg... 0.01s
+[1734/2490] simple-cmd... 0.01s
+[1735/2490] boring... 0.01s
+[1736/2490] ral... 0.06s
+[1737/2490] HTF... 0.49s
+[1738/2490] vec... 0.07s
+[1739/2490] bin... 0.04s
+[1740/2490] fin... 0.04s
+[1741/2490] diagrams-postscript... 0.03s
+[1742/2490] more-containers... 0.03s
+[1743/2490] ttc... 0.02s
+[1744/2490] multiset... 0.03s
+[1745/2490] can-i-haz... 0.05s
+[1746/2490] mustache... 0.03s
+[1747/2490] Taxonomy... 0.03s
+[1748/2490] filtrable... 0.01s
+[1749/2490] witherable-class... 0.01s
+[1750/2490] stb-image-redux... 0.01s
+[1751/2490] unicode-show... 0.00s
+[1752/2490] alg... 0.03s
+[1753/2490] threepenny-gui... 0.22s
+[1754/2490] category... 0.03s
+[1755/2490] mono-traversable... 0.11s
+[1756/2490] pg-transact... 0.01s
+[1757/2490] ilist... 0.01s
+[1758/2490] safe-json... 0.03s
+[1759/2490] exceptions... 0.02s
+[1760/2490] contravariant-extras... 0.11s
+[1761/2490] elm2nix... 0.00s
+[1762/2490] gi-gdkx11... 0.05s
+[1763/2490] tmp-postgres... 0.07s
+[1764/2490] path... 0.03s
+[1765/2490] bugsnag-hs... 0.05s
+[1766/2490] haskeline... 0.02s
+[1767/2490] cborg... 0.08s
+[1768/2490] distributed-closure... 0.02s
+[1769/2490] serialise... 0.07s
+[1770/2490] cborg-json... 0.00s
+[1771/2490] greskell-websocket... 0.03s
+[1772/2490] hspec-need-env... 0.00s
+[1773/2490] wild-bind... 0.03s
+[1774/2490] fold-debounce-conduit... 0.01s
+[1775/2490] structured-cli... 0.02s
+[1776/2490] radius... 0.06s
+[1777/2490] Win32... 0.57s
+[1778/2490] websockets... 0.05s
+[1779/2490] json-rpc... 0.02s
+[1780/2490] IPv6Addr... 0.01s
+[1781/2490] minio-hs... 0.10s
+[1782/2490] glabrous... 0.01s
+[1783/2490] yesod-persistent... 0.00s
+[1784/2490] persistent-test... 0.23s
+[1785/2490] persistent-qq... 0.00s
+[1786/2490] haskell-src-exts... 0.28s
+[1787/2490] yesod-auth-hashdb... 0.01s
+[1788/2490] streaming-commons... 0.06s
+[1789/2490] tasty-rerun... 0.00s
+[1790/2490] statistics... 0.13s
+[1791/2490] DAV... 0.01s
+[1792/2490] tzdata... 0.09s
+[1793/2490] template-haskell-compat-v0208... 0.00s
+[1794/2490] byte-order... 0.01s
+[1795/2490] tls-session-manager... 0.00s
+[1796/2490] primitive-unaligned... 0.00s
+[1797/2490] optparse-generic... 0.02s
+[1798/2490] climb... 0.00s
+[1799/2490] linenoise... 0.01s
+[1800/2490] blanks... 0.03s
+[1801/2490] foldl... 0.05s
+[1802/2490] hedgehog... 0.21s
+[1803/2490] cyclotomic... 0.01s
+[1804/2490] persistent-postgresql... 0.01s
+[1805/2490] hsinstall... 0.00s
+[1806/2490] doclayout... 0.02s
+[1807/2490] amqp... 0.04s
+[1808/2490] hledger-iadd... 0.02s
+[1809/2490] wai-app-static... 0.02s
+[1810/2490] gnuplot... 0.09s
+[1811/2490] tasty-hedgehog... 0.00s
+[1812/2490] lenz... 0.01s
+[1813/2490] run-st... 0.00s
+[1814/2490] asif... 0.04s
+[1815/2490] MonadRandom... 0.04s
+[1816/2490] wai-handler-launch... 0.00s
+[1817/2490] sitemap-gen... 0.01s
+[1818/2490] Chart-diagrams... 0.01s
+[1819/2490] Chart... 0.23s
+[1820/2490] matrix-market-attoparsec... 0.01s
+[1821/2490] learn-physics... 0.12s
+[1822/2490] type-of-html... 0.13s
+[1823/2490] dual... 0.00s
+[1824/2490] natural-arithmetic... 0.02s
+[1825/2490] selda... 0.15s
+[1826/2490] hs-functors... 0.06s
+[1827/2490] warp-tls... 0.01s
+[1828/2490] vformat-time... 0.00s
+[1829/2490] hlibcpuid... 0.01s
+[1830/2490] system-info... 0.00s
+[1831/2490] monoid-subclasses... 0.09s
+[1832/2490] vformat-aeson... 0.00s
+[1833/2490] managed... 0.01s
+[1834/2490] http-streams... 0.03s
+[1835/2490] ip... 0.06s
+[1836/2490] core-data... 0.02s
+[1837/2490] core-text... 0.02s
+[1838/2490] servant-foreign... 0.05s
+[1839/2490] servant-docs... 0.08s
+[1840/2490] servant-client-core... 0.06s
+[1841/2490] servant-client... 0.02s
+[1842/2490] servant-server... 0.10s
+[1843/2490] servant... 0.18s
+[1844/2490] primitive-unlifted... 0.03s
+[1845/2490] servant-mock... 0.01s
+[1846/2490] servant-swagger... 0.07s
+[1847/2490] servant-lucid... 0.01s
+[1848/2490] servant-js... 0.06s
+[1849/2490] fedora-dists... 0.01s
+[1850/2490] hedgehog-corpus... 0.00s
+[1851/2490] failable... 0.02s
+[1852/2490] cheapskate... 0.02s
+[1853/2490] haxr... 0.04s
+[1854/2490] from-sum... 0.01s
+[1855/2490] logging-effect... 0.03s
+[1856/2490] persistent-pagination... 0.02s
+[1857/2490] yesod... 0.02s
+[1858/2490] kanji... 0.03s
+[1859/2490] password-instances... 0.01s
+[1860/2490] password... 0.01s
+[1861/2490] tasty-lua... 0.01s
+[1862/2490] versions... 0.03s
+[1863/2490] libmpd... 0.15s
+[1864/2490] pandoc-csv2table... 0.02s
+[1865/2490] base-compat-batteries... 0.11s
+[1866/2490] base-compat... 0.80s
+[1867/2490] base-orphans... 0.01s
+[1868/2490] shakespeare... 0.10s
+[1869/2490] regex-with-pcre... 0.16s
+[1870/2490] regex... 0.32s
+[1871/2490] fgl... 0.15s
+[1872/2490] wl-pprint-text... 0.05s
+[1873/2490] graphviz... 0.64s
+[1874/2490] mod... 0.01s
+[1875/2490] microlens-platform... 0.01s
+[1876/2490] microlens-ghc... 0.02s
+[1877/2490] flat-mcmc... 0.01s
+[1878/2490] mwc-probability... 0.03s
+[1879/2490] compensated... 0.01s
+[1880/2490] ersatz... 0.10s
+[1881/2490] structs... 0.07s
+[1882/2490] intervals... 0.13s
+[1883/2490] keys... 0.09s
+[1884/2490] bifunctors... 0.12s
+[1885/2490] vformat... 0.03s
+[1886/2490] haskell-lexer... 0.01s
+[1887/2490] pretty-show... 0.02s
+[1888/2490] rate-limit... 0.01s
+[1889/2490] inline-c-cpp... 0.01s
+[1890/2490] network-uri... 0.02s
+[1891/2490] ghc-tcplugins-extra... 0.00s
+[1892/2490] tasty-quickcheck... 0.10s
+[1893/2490] numhask... 0.16s
+[1894/2490] singletons-presburger... 0.00s
+[1895/2490] ghc-typelits-presburger... 0.12s
+[1896/2490] hie-bios... 0.05s
+[1897/2490] vector... 0.80s
+[1898/2490] shake... 0.37s
+[1899/2490] algebraic-graphs... 0.44s
+[1900/2490] envy... 0.03s
+[1901/2490] linear... 0.18s
+[1902/2490] constraints... 0.12s
+[1903/2490] ad... 0.26s
+[1904/2490] bytes... 0.06s
+[1905/2490] fast-digits... 0.00s
+[1906/2490] smoothie... 0.01s
+[1907/2490] aeson-default... 0.01s
+[1908/2490] neat-interpolation... 0.00s
+[1909/2490] language-protobuf... 0.02s
+[1910/2490] util... 0.03s
+[1911/2490] base64... 0.01s
+[1912/2490] libyaml... 0.02s
+[1913/2490] core-program... 0.06s
+[1914/2490] scheduler... 0.02s
+[1915/2490] servant-auth-server... 0.07s
+[1916/2490] ghc-typelits-knownnat... 0.01s
+[1917/2490] th-abstraction... 0.02s
+[1918/2490] safe-decimal... 0.05s
+[1919/2490] sparse-tensor... 0.31s
+[1920/2490] network-byte-order... 0.02s
+[1921/2490] hpc-codecov... 0.03s
+[1922/2490] persistent-template... 0.04s
+[1923/2490] junit-xml... 0.01s
+[1924/2490] integer-roots... 0.00s
+[1925/2490] ansi-terminal... 0.11s
+[1926/2490] sized... 0.31s
+[1927/2490] req... 0.07s
+[1928/2490] mongoDB... 0.12s
+[1929/2490] gi-gtk-hs... 8.50s
+[1930/2490] hlint... 0.02s
+[1931/2490] small-bytearray-builder... 0.04s
+[1932/2490] prettyprinter... 0.10s
+[1933/2490] bz2... 0.00s
+[1934/2490] membrain... 0.02s
+[1935/2490] genvalidity-time... 0.00s
+[1936/2490] validity-time... 0.00s
+[1937/2490] genvalidity-vector... 0.00s
+[1938/2490] genvalidity-unordered-containers... 0.00s
+[1939/2490] genvalidity-text... 0.00s
+[1940/2490] genvalidity-scientific... 0.00s
+[1941/2490] genvalidity-path... 0.00s
+[1942/2490] genvalidity-hspec-persistent... 0.00s
+[1943/2490] genvalidity-hspec-optics... 0.01s
+[1944/2490] genvalidity-hspec-hashable... 0.00s
+[1945/2490] genvalidity-hspec-cereal... 0.00s
+[1946/2490] genvalidity-hspec-binary... 0.00s
+[1947/2490] genvalidity-hspec-aeson... 0.00s
+[1948/2490] genvalidity-hspec... 0.11s
+[1949/2490] genvalidity-containers... 0.00s
+[1950/2490] validity-vector... 0.00s
+[1951/2490] validity-uuid... 0.00s
+[1952/2490] validity-unordered-containers... 0.00s
+[1953/2490] validity-text... 0.00s
+[1954/2490] validity-scientific... 0.00s
+[1955/2490] validity-primitive... 0.00s
+[1956/2490] validity-path... 0.00s
+[1957/2490] validity-bytestring... 0.00s
+[1958/2490] validity-aeson... 0.00s
+[1959/2490] hyraxAbif... 0.02s
+[1960/2490] generic-lens... 0.05s
+[1961/2490] generic-optics... 0.04s
+[1962/2490] generic-lens-core... 0.08s
+[1963/2490] apecs-gloss... 0.00s
+[1964/2490] apecs-physics... 0.03s
+[1965/2490] hmatrix-vector-sized... 0.01s
+[1966/2490] fuzzy-time... 0.02s
+[1967/2490] pretty-relative-time... 0.01s
+[1968/2490] genvalidity-mergeless... 0.01s
+[1969/2490] thread-supervisor... 0.04s
+[1970/2490] fast-logger... 0.02s
+[1971/2490] format-numbers... 0.00s
+[1972/2490] mergeless... 0.03s
+[1973/2490] typed-uuid... 0.00s
+[1974/2490] profunctors... 0.11s
+[1975/2490] persistent-sqlite... 0.04s
+[1976/2490] persistent... 0.14s
+[1977/2490] cursor-gen... 0.01s
+[1978/2490] cursor... 0.15s
+[1979/2490] jsonpath... 0.01s
+[1980/2490] protobuf... 0.02s
+[1981/2490] massiv-test... 0.15s
+[1982/2490] pandoc-citeproc... 0.19s
+[1983/2490] lens-family... 0.07s
+[1984/2490] lens-family-core... 0.08s
+[1985/2490] verbosity... 0.00s
+[1986/2490] polysemy... 0.16s
+[1987/2490] base32-lens... 0.00s
+[1988/2490] colourista... 0.01s
+[1989/2490] wai-extra... 0.05s
+[1990/2490] fusion-plugin-types... 0.00s
+[1991/2490] reanimate-svg... 0.17s
+[1992/2490] debian... 0.17s
+[1993/2490] base32... 0.01s
+[1994/2490] matrix-static... 0.03s
+[1995/2490] apecs... 0.06s
+[1996/2490] lattices... 0.07s
+[1997/2490] semirings... 0.04s
+[1998/2490] gi-gio... 2.33s
+[1999/2490] egison... 0.11s
+[2000/2490] streamly-bytestring... 0.00s
+[2001/2490] bech32-th... 0.00s
+[2002/2490] bech32... 0.03s
+[2003/2490] tls... 0.11s
+[2004/2490] criterion... 0.07s
+[2005/2490] base64-lens... 0.00s
+[2006/2490] hpc-lcov... 0.01s
+[2007/2490] heart-core... 0.14s
+[2008/2490] HCodecs... 0.07s
+[2009/2490] cabal-debian... 0.15s
+[2010/2490] th-env... 0.00s
+[2011/2490] th-nowq... 0.00s
+[2012/2490] static-text... 0.01s
+[2013/2490] swish... 0.27s
+[2014/2490] multi-containers... 0.08s
+[2015/2490] split... 0.03s
+[2016/2490] squeather... 0.09s
+[2017/2490] pretty-simple... 0.07s
+[2018/2490] cayley-client... 0.02s
+[2019/2490] gothic... 0.02s
+[2020/2490] stylish-haskell... 0.02s
+[2021/2490] splitmix... 0.01s
+[2022/2490] reanimate... 0.11s
+[2023/2490] concurrency... 0.10s
+[2024/2490] filepattern... 0.01s
+[2025/2490] antiope-messages... 0.01s
+[2026/2490] antiope-sns... 0.00s
+[2027/2490] antiope-core... 0.02s
+[2028/2490] antiope-s3... 0.03s
+[2029/2490] antiope-sqs... 0.01s
+[2030/2490] antiope-dynamodb... 0.00s
+[2031/2490] file-embed... 0.00s
+[2032/2490] aeson-yaml... 0.00s
+[2033/2490] dejafu... 0.27s
+[2034/2490] JuicyPixels... 0.23s
+[2035/2490] text-show... 0.10s
+[2036/2490] urbit-hob... 0.01s
+[2037/2490] data-compat... 0.00s
+[2038/2490] fakedata... 0.21s
+[2039/2490] saltine... 0.04s
+[2040/2490] servant-subscriber... 0.04s
+[2041/2490] primitive... 0.08s
+[2042/2490] data-msgpack... 0.00s
+[2043/2490] data-msgpack-types... 0.02s
+[2044/2490] xdg-desktop-entry... 0.01s
+[2045/2490] status-notifier-item... 0.04s
+[2046/2490] unliftio... 0.22s
+[2047/2490] monad-logger... 0.05s
+[2048/2490] skews... 0.01s
+[2049/2490] unliftio-core... 0.01s
+[2050/2490] indexed-containers... 0.01s
+[2051/2490] bank-holidays-england... 0.00s
+[2052/2490] alarmclock... 0.00s
+[2053/2490] minimorph... 0.01s
+[2054/2490] miniutter... 0.01s
+[2055/2490] github-rest... 0.02s
+[2056/2490] min-max-pqueue... 0.02s
+[2057/2490] math-extras... 0.01s
+[2058/2490] http-download... 0.01s
+[2059/2490] servant-purescript... 0.02s
+[2060/2490] Color... 0.24s
+[2061/2490] fused-effects... 0.13s
+[2062/2490] hedgehog-fakedata... 0.00s
+[2063/2490] immortal-queue... 0.00s
+[2064/2490] persistent-typed-db... 0.01s
+[2065/2490] massiv-io... 0.06s
+[2066/2490] egison-pattern-src-th-mode... 0.00s
+[2067/2490] egison-pattern-src... 0.03s
+[2068/2490] sdl2-ttf... 0.03s
+[2069/2490] yesod-recaptcha2... 0.00s
+[2070/2490] mini-egison... 0.02s
+[2071/2490] yesod-form-bootstrap4... 0.01s
+[2072/2490] bytesmith... 0.04s
+[2073/2490] casa-client... 0.01s
+[2074/2490] casa-types... 0.00s
+[2075/2490] fuzzy-dates... 0.02s
+[2076/2490] stache... 0.02s
+[2077/2490] rank2classes... 0.03s
+[2078/2490] Spintax... 0.00s
+[2079/2490] first-class-families... 0.05s
+[2080/2490] aeson-combinators... 0.01s
+[2081/2490] incremental-parser... 0.05s
+[2082/2490] http-client... 0.12s
+[2083/2490] ghc-typelits-natnormalise... 0.02s
+[2084/2490] purescript-bridge... 0.05s
+[2085/2490] wai-enforce-https... 0.01s
+[2086/2490] ghc-typelits-extra... 0.01s
+[2087/2490] yaml... 0.05s
+[2088/2490] extra... 0.13s
+[2089/2490] conferer-provider-json... 0.00s
+[2090/2490] conferer-hspec... 0.00s
+[2091/2490] conferer-warp... 0.00s
+[2092/2490] conferer... 0.03s
+[2093/2490] xeno... 0.01s
+[2094/2490] http-directory... 0.00s
+[2095/2490] time... 0.06s
+[2096/2490] wai-middleware-clacks... 0.00s
+[2097/2490] time-compat... 0.06s
+[2098/2490] sql-words... 0.02s
+[2099/2490] names-th... 0.00s
+[2100/2490] yesod-fb... 0.00s
+[2101/2490] relational-query... 0.37s
+[2102/2490] persistable-record... 0.05s
+[2103/2490] fb... 0.06s
+[2104/2490] yesod-auth-fb... 0.01s
+[2105/2490] checkers... 0.06s
+[2106/2490] loc... 0.07s
+[2107/2490] aws-cloudfront-signed-cookies... 0.03s
+[2108/2490] relational-schemas... 1.26s
+[2109/2490] ekg-core... 0.02s
+[2110/2490] hasbolt... 0.05s
+[2111/2490] zip... 0.02s
+[2112/2490] pantry... 0.15s
+[2113/2490] iproute... 0.03s
+[2114/2490] validation-selective... 0.01s
+[2115/2490] plaid... 0.06s
+[2116/2490] free-categories... 0.05s
+[2117/2490] ixset-typed... 0.03s
+[2118/2490] conduit... 0.20s
+[2119/2490] massiv... 0.37s
+[2120/2490] conduit-extra... 0.05s
+[2121/2490] hledger-stockquotes... 0.01s
+[2122/2490] hledger-web... 0.43s
+[2123/2490] hledger... 0.07s
+[2124/2490] hledger-lib... 0.29s
+[2125/2490] process... 0.03s
+[2126/2490] salak... 0.03s
+[2127/2490] character-cases... 0.03s
+[2128/2490] unliftio-pool... 0.00s
+[2129/2490] haskell-lsp... 0.06s
+[2130/2490] haskell-lsp-types... 0.27s
+[2131/2490] lsp-test... 0.02s
+[2132/2490] shell-utility... 0.01s
+[2133/2490] fixed-length... 0.01s
+[2134/2490] storable-record... 0.01s
+[2135/2490] utility-ht... 0.06s
+[2136/2490] hasql... 0.03s
+[2137/2490] rerebase... 0.04s
+[2138/2490] rebase... 0.59s
+[2139/2490] set-cover... 0.04s
+[2140/2490] freetype2... 0.41s
+[2141/2490] wide-word... 0.01s
+[2142/2490] language-javascript... 0.20s
+[2143/2490] haskell-names... 0.04s
+[2144/2490] show-combinators... 0.00s
+[2145/2490] bson... 0.02s
+[2146/2490] feed... 0.11s
+[2147/2490] generic-random... 0.05s
+[2148/2490] pandoc... 0.28s
+[2149/2490] hedis... 0.10s
+[2150/2490] yesod-auth... 0.08s
+[2151/2490] cron... 0.04s
+[2152/2490] asn1-types... 0.02s
+[2153/2490] life-sync... 0.02s
+[2154/2490] PyF... 0.02s
+[2155/2490] th-desugar... 0.09s
+[2156/2490] simple-cmd-args... 0.01s
+[2157/2490] lukko... 0.02s
+[2158/2490] bitvec... 0.02s
+[2159/2490] chimera... 0.01s
+[2160/2490] hslua... 0.11s
+[2161/2490] equational-reasoning... 0.03s
+[2162/2490] HaTeX... 0.29s
+[2163/2490] aeson... 0.14s
+[2164/2490] ghc-exactprint... 0.11s
+[2165/2490] OneTuple... 0.00s
+[2166/2490] topograph... 0.01s
+[2167/2490] hvega... 0.88s
+[2168/2490] vty... 0.12s
+[2169/2490] attoparsec... 0.11s
+[2170/2490] resolv... 0.03s
+[2171/2490] QuickCheck... 0.15s
+[2172/2490] eventstore... 0.08s
+[2173/2490] repline... 0.01s
+[2174/2490] extended-reals... 0.00s
+[2175/2490] aeson-schemas... 0.02s
+[2176/2490] summoner... 0.06s
+[2177/2490] summoner-tui... 0.03s
+[2178/2490] greskell-core... 0.04s
+[2179/2490] directory... 0.08s
+[2180/2490] turtle... 0.11s
+[2181/2490] dhall-bash... 0.01s
+[2182/2490] dhall-yaml... 0.00s
+[2183/2490] dhall-json... 0.02s
+[2184/2490] generics-sop... 0.13s
+[2185/2490] sop-core... 0.17s
+[2186/2490] ChasingBottoms... 0.02s
+[2187/2490] rainbox... 0.05s
+[2188/2490] esqueleto... 0.36s
+[2189/2490] leancheck... 0.17s
+[2190/2490] hspec-leancheck... 0.00s
+[2191/2490] fitspec... 0.04s
+[2192/2490] express... 0.12s
+[2193/2490] selective... 0.04s
+[2194/2490] hapistrano... 0.04s
+[2195/2490] base16-lens... 0.01s
+[2196/2490] tldr... 0.00s
+[2197/2490] doctest... 0.00s
+[2198/2490] generics-sop-lens... 0.02s
+[2199/2490] katip... 0.08s
+[2200/2490] Cabal... 1.32s
+[2201/2490] HsOpenSSL... 0.09s
+[2202/2490] yesod-core... 0.16s
+[2203/2490] lifted-async... 0.03s
+[2204/2490] th-expand-syns... 0.00s
+[2205/2490] replace-megaparsec... 0.00s
+[2206/2490] replace-attoparsec... 0.01s
+[2207/2490] dhall... 0.21s
+[2208/2490] language-avro... 0.01s
+[2209/2490] cabal2spec... 0.00s
+[2210/2490] skylighting... 0.00s
+[2211/2490] skylighting-core... 0.04s
+[2212/2490] d10... 0.05s
+[2213/2490] Rasterific... 0.08s
+[2214/2490] path-text-utf8... 0.00s
+[2215/2490] partial-semigroup... 0.01s
+[2216/2490] record-dot-preprocessor... 0.00s
+[2217/2490] githash... 0.01s
+[2218/2490] dlist... 0.01s
+[2219/2490] pvar... 0.02s
+[2220/2490] file-path-th... 0.00s
+[2221/2490] singletons... 1.06s
+[2222/2490] eliminators... 0.02s
+[2223/2490] cpphs... 0.01s
+[2224/2490] influxdb... 0.07s
+[2225/2490] geojson... 0.06s
+[2226/2490] http2... 0.06s
+[2227/2490] hslua-aeson... 0.00s
+[2228/2490] postgrest... 0.07s
+[2229/2490] leancheck-instances... 0.00s
+[2230/2490] gitlab-haskell... 0.09s
+[2231/2490] ghc-prof... 0.04s
+[2232/2490] jira-wiki-markup... 0.03s
+[2233/2490] ghc-events... 0.08s
+[2234/2490] modern-uri... 0.50s
+[2235/2490] inline-c... 0.08s
+[2236/2490] ulid... 0.01s
+[2237/2490] list-singleton... 0.00s
+[2238/2490] lackey... 0.00s
+[2239/2490] json-feed... 0.02s
+[2240/2490] autoexporter... 0.00s
+[2241/2490] derulo... 0.00s
+[2242/2490] flow... 0.00s
+[2243/2490] ghc-lib-parser-ex... 0.02s
+[2244/2490] strive... 0.14s
+[2245/2490] ratel-wai... 0.00s
+[2246/2490] ratel... 0.01s
+[2247/2490] wuss... 0.00s
+[2248/2490] salve... 0.03s
+[2249/2490] generic-data... 0.12s
+[2250/2490] speculate... 0.08s
+[2251/2490] tracing... 0.03s
+[2252/2490] haddock-library... 0.03s
+[2253/2490] haskell-gi... 0.17s
+[2254/2490] hadoop-streaming... 0.01s
+[2255/2490] vault... 0.01s
+[2256/2490] extrapolate... 0.08s
+[2257/2490] hackage-security... 0.18s
+[2258/2490] hslua-module-doclayout... 0.01s
+[2259/2490] smash-microlens... 0.01s
+[2260/2490] smash-lens... 0.00s
+[2261/2490] smash-aeson... 0.00s
+[2262/2490] smash... 0.03s
+[2263/2490] data-fix... 0.00s
+[2264/2490] warp... 0.04s
+[2265/2490] monad-bayes... 0.04s
+[2266/2490] benchpress... 0.00s
+[2267/2490] poly... 0.03s
+[2268/2490] registry... 0.09s
+[2269/2490] datadog... 0.10s
+[2270/2490] MissingH... 0.14s
+[2271/2490] inspection-testing... 0.01s
+[2272/2490] distributive... 0.01s
+[2273/2490] entropy... 0.00s
+[2274/2490] data-dword... 0.02s
+[2275/2490] singleton-nats... 0.01s
+[2276/2490] butcher... 0.04s
+[2277/2490] hakyll... 0.10s
+[2278/2490] ghc-lib... 1.82s
+[2279/2490] ghc-lib-parser... 3.11s
+[2280/2490] hsebaysdk... 0.02s
+[2281/2490] doctemplates... 0.03s
+[2282/2490] ghcid... 0.01s
+[2283/2490] simple-templates... 0.01s
+[2284/2490] hs-bibutils... 0.02s
+[2285/2490] ghc-syntax-highlighter... 0.01s
+[2286/2490] th-lift-instances... 0.51s
+[2287/2490] ListLike... 0.08s
+[2288/2490] th-orphans... 0.01s
+[2289/2490] genvalidity-uuid... 0.00s
+[2290/2490] genvalidity... 0.03s
+[2291/2490] hspec-hedgehog... 0.00s
+[2292/2490] hw-xml... 0.05s
+[2293/2490] hw-json... 0.04s
+[2294/2490] hw-dsv... 0.02s
+[2295/2490] hw-json-simd... 0.02s
+[2296/2490] hw-json-standard-cursor... 0.03s
+[2297/2490] hw-fingertree... 0.02s
+[2298/2490] hw-json-simple-cursor... 0.01s
+[2299/2490] hw-conduit-merges... 0.00s
+[2300/2490] hw-excess... 0.02s
+[2301/2490] hw-mquery... 0.01s
+[2302/2490] hw-simd... 0.02s
+[2303/2490] hw-fingertree-strict... 0.04s
+[2304/2490] hw-eliasfano... 0.00s
+[2305/2490] hw-packed-vector... 0.00s
+[2306/2490] hw-bits... 0.05s
+[2307/2490] hw-conduit... 0.01s
+[2308/2490] hw-rankselect... 0.02s
+[2309/2490] hw-ip... 0.03s
+[2310/2490] avro... 0.14s
+[2311/2490] hw-hedgehog... 0.00s
+[2312/2490] hw-hspec-hedgehog... 0.00s
+[2313/2490] hw-streams... 0.01s
+[2314/2490] hw-parser... 0.00s
+[2315/2490] hw-rankselect-base... 0.01s
+[2316/2490] bits-extra... 0.01s
+[2317/2490] hw-prim... 0.06s
+[2318/2490] hw-diagnostics... 0.00s
+[2319/2490] microlens-th... 0.01s
+[2320/2490] arithmoi... 0.10s
+[2321/2490] servant-elm... 0.02s
+[2322/2490] lens... 1.08s
+[2323/2490] safecopy... 0.03s
+[2324/2490] elm-bridge... 0.02s
+[2325/2490] quadratic-irrational... 0.02s
+[2326/2490] optics-vl... 0.01s
+[2327/2490] optics... 0.00s
+[2328/2490] optics-th... 0.02s
+[2329/2490] optics-extra... 0.09s
+[2330/2490] optics-core... 0.23s
+[2331/2490] regex-pcre-builtin... 0.05s
+[2332/2490] genvalidity-typed-uuid... 0.00s
+[2333/2490] insert-ordered-containers... 0.02s
+[2334/2490] tidal... 0.24s
+[2335/2490] pandoc-plot... 0.02s
+[2336/2490] rhine... 0.27s
+[2337/2490] essence-of-live-coding-quickcheck... 0.00s
+[2338/2490] essence-of-live-coding-gloss... 0.01s
+[2339/2490] essence-of-live-coding... 0.05s
+[2340/2490] sqlcli... 0.09s
+[2341/2490] chronos... 0.08s
+[2342/2490] validity... 0.01s
+[2343/2490] genvalidity-criterion... 0.00s
+[2344/2490] genvalidity-bytestring... 0.00s
+[2345/2490] slist... 0.03s
+[2346/2490] type-errors-pretty... 0.00s
+[2347/2490] dunai... 0.07s
+[2348/2490] scalpel... 0.02s
+[2349/2490] scalpel-core... 0.01s
+[2350/2490] co-log-core... 0.02s
+[2351/2490] typerep-map... 0.02s
+[2352/2490] co-log... 0.03s
+[2353/2490] co-log-polysemy... 0.00s
+[2354/2490] mpi-hs-binary... 0.02s
+[2355/2490] mpi-hs... 0.05s
+[2356/2490] stripe-signature... 0.00s
+[2357/2490] stripe-concepts... 0.01s
+[2358/2490] mpi-hs-cereal... 0.01s
+[2359/2490] timezone-olson... 0.01s
+[2360/2490] resourcet... 0.03s
+[2361/2490] texmath... 0.03s
+[2362/2490] configurator-pg... 0.00s
+[2363/2490] krank... 0.02s
+[2364/2490] json-alt... 0.00s
+[2365/2490] rhine-gloss... 0.00s
+[2366/2490] servant-docs-simple... 0.01s
+[2367/2490] blaze-markup... 0.02s
+[2368/2490] with-utf8... 0.01s
+[2369/2490] serverless-haskell... 0.07s
+[2370/2490] deriving-aeson... 0.01s
+[2371/2490] protolude... 0.31s
+[2372/2490] fusion-plugin... 0.00s
+[2373/2490] aur... 0.01s
+[2374/2490] systemd... 0.01s
+[2375/2490] streamly... 0.60s
+[2376/2490] swagger2... 0.28s
+[2377/2490] validity-containers... 0.00s
+[2378/2490] base64-bytestring... 0.00s
+[2379/2490] ormolu... 0.07s
+[2380/2490] retry... 0.01s
+[2381/2490] miso... 0.22s
+[2382/2490] ghc-check... 0.00s
+[2383/2490] hw-balancedparens... 0.05s
+[2384/2490] opaleye... 0.27s
+[2385/2490] product-profunctors... 1.23s
+[2386/2490] hint... 0.10s
+[2387/2490] co-log-concurrent... 0.01s
+[2388/2490] kubernetes-webhook-haskell... 0.02s
+[2389/2490] bazel-runfiles... 0.00s
+[2390/2490] greskell... 0.12s
+[2391/2490] hw-int... 0.02s
+[2392/2490] ipynb... 0.01s
+[2393/2490] base16... 0.01s
+[2394/2490] string-interpolate... 0.01s
+[2395/2490] qrcode-juicypixels... 0.00s
+[2396/2490] qrcode-core... 0.02s
+[2397/2490] hoauth2... 0.02s
+[2398/2490] hspec-tables... 0.01s
+[2399/2490] tasty-golden... 0.00s
+[2400/2490] jose... 0.10s
+[2401/2490] dbus... 0.14s
+[2402/2490] rio... 0.74s
+[2403/2490] simple-affine-space... 0.01s
+[2404/2490] language-puppet... 0.19s
+[2405/2490] dialogflow-fulfillment... 0.04s
+[2406/2490] byteslice... 0.03s
+[2407/2490] headroom... 0.06s
+[2408/2490] indexed-list-literals... 0.01s
+[2409/2490] morpheus-graphql... 0.07s
+[2410/2490] opentelemetry-wai... 0.00s
+[2411/2490] opentelemetry-lightstep... 0.00s
+[2412/2490] opentelemetry-extra... 0.02s
+[2413/2490] opentelemetry... 0.01s
+[2414/2490] bytebuild... 0.04s
+[2415/2490] brick... 0.14s
+[2416/2490] cabal2nix... 0.03s
+[2417/2490] simplistic-generics... 0.07s
+[2418/2490] email-validate... 0.00s
+
+Packages missing documentation: al array-memoize base-noprelude bin-package-db bytestring-builder cursor-fuzzy-time deepseq-instances doctest-discover essence-of-live-coding-pulse ghc-heap gi-cairo-connector gi-cairo-render gtk-sni-tray gtk-strut haskell-gi-overloading hfsevents hkgr inliterate io-manager ipython-kernel lame libiserv linux-file-extents modular pagure-cli pattern-arrows prettyprinter-convert-ansi-wl-pprint proto-lens-protobuf-types rocksdb-haskell rocksdb-query secp256k1-haskell Win32-notify zasni-gerna zeromq4-patterns
+Found 3880 warnings when processing items
+Reordering items... 0.52s
+Writing tags... 3.76s
+Writing names... 2.81s
+Writing types... 12.97s
+Took 11m22s
+# cabal (for hie-8.4.4)
+# cabal (for hie-8.4.4)
+Wrote tarball sdist to
+/opt/haskell-ide-engine/dist-newstyle/sdist/haskell-ide-engine-1.3.tar.gz
+Wrote tarball sdist to
+/opt/haskell-ide-engine/dist-newstyle/sdist/hie-plugin-api-1.3.tar.gz
+Wrote tarball sdist to
+/opt/haskell-ide-engine/dist-newstyle/sdist/cabal-helper-1.0.0.0.tar.gz
+Resolving dependencies...
+Build profile: -w ghc-8.4.4 -O1
+In order, the following will be built (use -v for more details):
+ - Diff-0.4.0 (lib) (requires download & build)
+ - SHA-1.6.4.4 (lib) (requires download & build)
+ - alex-3.2.5 (exe:alex) (requires download & build)
+ - base-prelude-1.3 (lib) (requires download & build)
+ - bytestring-trie-0.2.5.0 (lib) (requires download & build)
+ - cabal-plan-0.6.2.0 (lib) (requires download & build)
+ - constrained-dynamic-0.1.0.0 (lib) (requires download & build)
+ - czipwith-1.0.1.2 (lib) (requires download & build)
+ - data-tree-print-0.1.0.2 (lib) (requires download & build)
+ - distributive-0.6.1 (lib:distributive) (requires download & build)
+ - executable-path-0.0.3.1 (lib:executable-path) (requires download & build)
+ - filemanip-0.3.6.3 (lib:filemanip) (requires download & build)
+ - filepattern-0.1.2 (lib) (requires build)
+ - fingertree-0.1.4.2 (lib) (requires download & build)
+ - githash-0.1.4.0 (lib) (requires download & build)
+ - haddock-library-1.6.0 (lib:attoparsec) (requires download & build)
+ - haskell-src-exts-util-0.2.5 (lib) (requires download & build)
+ - hscolour-1.24.4 (lib:hscolour) (requires download & build)
+ - ilist-0.3.1.0 (lib) (requires download & build)
+ - io-storage-0.3 (lib:io-storage) (requires download & build)
+ - libyaml-0.1.2 (lib) (requires build)
+ - microlens-0.4.11.2 (lib) (requires download & build)
+ - monad-control-1.0.2.3 (lib:monad-control) (requires download & build)
+ - monad-memo-0.5.1 (lib) (requires download & build)
+ - parser-combinators-1.2.1 (lib) (requires download & build)
+ - polyparse-1.13 (lib) (requires download & build)
+ - refact-0.3.0.2 (lib) (requires download & build)
+ - safe-0.3.18 (lib) (requires download & build)
+ - stm-delay-0.1.1.1 (lib) (requires download & build)
+ - strict-0.3.2 (lib:strict) (requires download & build)
+ - tagsoup-0.14.8 (lib) (requires download & build)
+ - temporary-1.2.1.1 (lib) (requires download & build)
+ - type-equality-1 (lib) (requires download & build)
+ - unliftio-0.2.12.1 (lib) (requires download & build)
+ - unsafe-0.0 (lib:unsafe) (requires download & build)
+ - xdg-basedir-0.2.2 (lib:xdg-basedir) (requires download & build)
+ - ghc-lib-parser-8.8.3.20200224 (lib) (requires download & build)
+ - comonad-5.0.6 (lib:comonad) (requires build)
+ - optparse-simple-0.1.1.2 (lib) (requires download & build)
+ - haddock-library-1.6.0 (lib) (requires download & build)
+ - yaml-0.11.3.0 (lib) (requires build)
+ - microlens-th-0.4.3.4 (lib) (requires download & build)
+ - multistate-0.8.0.2 (lib) (requires download & build)
+ - lifted-base-0.2.3.12 (lib) (requires download & build)
+ - megaparsec-8.0.0 (lib) (requires download & build)
+ - cpphs-1.20.9.1 (lib) (requires download & build)
+ - fold-debounce-0.2.0.9 (lib) (requires download & build)
+ - constraints-0.12 (lib) (requires download & build)
+ - dyre-0.8.12 (lib:dyre) (requires download & build)
+ - ghc-lib-parser-ex-8.8.5.8 (lib) (requires download & build)
+ - bifunctors-5.5.7 (lib) (requires build)
+ - haddock-api-2.20.0 (lib) (requires download & build)
+ - hie-bios-0.4.0 (lib) (requires build)
+ - versions-3.5.3 (lib) (requires download & build)
+ - neat-interpolation-0.3.2.5 (lib) (requires download & build)
+ - lifted-async-0.10.0.6 (lib) (requires download & build)
+ - hsimport-0.11.0 (lib) (requires download & build)
+ - hlint-2.2.11 (lib) (requires download & build)
+ - semigroupoids-5.3.4 (lib:semigroupoids) (requires build)
+ - profunctors-5.5.2 (lib) (requires build)
+ - strict-list-0.1.5 (lib) (requires download & build)
+ - cabal-helper-1.0.0.0 (lib) (requires build)
+ - invariant-0.5.3 (lib) (requires build)
+ - free-5.1.3 (lib) (requires build)
+ - deque-0.4.3 (lib) (requires download & build)
+ - monad-dijkstra-0.1.1.2 (lib) (requires download & build)
+ - ghc-exactprint-0.6.2 (lib) (requires download & build)
+ - adjunctions-4.4 (lib) (requires build)
+ - butcher-1.3.2.3 (lib) (requires download & build)
+ - floskell-0.10.2 (lib) (requires download & build)
+ - apply-refact-0.5.0.0 (lib) (requires download & build)
+ - kan-extensions-5.2 (lib:kan-extensions) (requires build)
+ - brittany-0.12.1.1 (lib) (requires download & build)
+ - lens-4.19.1 (lib:lens) (requires download & build)
+ - haskell-lsp-types-0.20.0.0 (lib) (requires download & build)
+ - haskell-lsp-0.20.0.1 (lib) (requires download & build)
+ - hie-plugin-api-1.3 (lib) (requires build)
+ - haskell-ide-engine-1.3 (lib) (requires build)
+ - haskell-ide-engine-1.3 (exe:hie-wrapper) (requires build)
+ - haskell-ide-engine-1.3 (exe:hie) (requires build)
+Downloading  base-prelude-1.3
+Downloaded   base-prelude-1.3
+Downloading  constrained-dynamic-0.1.0.0
+Starting     base-prelude-1.3 (lib)
+Building     base-prelude-1.3 (lib)
+Installing   base-prelude-1.3 (lib)
+Downloaded   constrained-dynamic-0.1.0.0
+Downloading  fingertree-0.1.4.2
+Completed    base-prelude-1.3 (lib)
+Downloaded   fingertree-0.1.4.2
+Downloading  ilist-0.3.1.0
+Downloaded   ilist-0.3.1.0
+Downloading  microlens-0.4.11.2
+Downloaded   microlens-0.4.11.2
+Downloading  parser-combinators-1.2.1
+Downloaded   parser-combinators-1.2.1
+Downloading  refact-0.3.0.2
+Downloaded   refact-0.3.0.2
+Downloading  safe-0.3.18
+Downloaded   safe-0.3.18
+Downloading  type-equality-1
+Downloaded   type-equality-1
+Downloading  unsafe-0.0
+Downloaded   unsafe-0.0
+Downloading  bytestring-trie-0.2.5.0
+Downloaded   bytestring-trie-0.2.5.0
+Downloading  hscolour-1.24.4
+Starting     bytestring-trie-0.2.5.0 (lib)
+Building     bytestring-trie-0.2.5.0 (lib)
+Downloaded   hscolour-1.24.4
+Downloading  io-storage-0.3
+Downloaded   io-storage-0.3
+Downloading  haddock-library-1.6.0
+Downloaded   haddock-library-1.6.0
+Downloading  data-tree-print-0.1.0.2
+Installing   bytestring-trie-0.2.5.0 (lib)
+Completed    bytestring-trie-0.2.5.0 (lib)
+Downloaded   data-tree-print-0.1.0.2
+Downloading  czipwith-1.0.1.2
+Downloaded   czipwith-1.0.1.2
+Downloading  microlens-th-0.4.3.4
+Downloaded   microlens-th-0.4.3.4
+Downloading  xdg-basedir-0.2.2
+Downloaded   xdg-basedir-0.2.2
+Downloading  executable-path-0.0.3.1
+Downloaded   executable-path-0.0.3.1
+Downloading  githash-0.1.4.0
+Downloaded   githash-0.1.4.0
+Downloading  filemanip-0.3.6.3
+Downloaded   filemanip-0.3.6.3
+Downloading  monad-memo-0.5.1
+Downloaded   monad-memo-0.5.1
+Downloading  temporary-1.2.1.1
+Downloaded   temporary-1.2.1.1
+Downloading  stm-delay-0.1.1.1
+Downloaded   stm-delay-0.1.1.1
+Downloading  fold-debounce-0.2.0.9
+Downloaded   fold-debounce-0.2.0.9
+Downloading  monad-control-1.0.2.3
+Downloaded   monad-control-1.0.2.3
+Downloading  lifted-base-0.2.3.12
+Downloaded   lifted-base-0.2.3.12
+Downloading  multistate-0.8.0.2
+Downloaded   multistate-0.8.0.2
+Downloading  strict-0.3.2
+Downloaded   strict-0.3.2
+Downloading  unliftio-0.2.12.1
+Downloaded   unliftio-0.2.12.1
+Downloading  constraints-0.12
+Downloaded   constraints-0.12
+Downloading  lifted-async-0.10.0.6
+Downloaded   lifted-async-0.10.0.6
+Downloading  haskell-src-exts-util-0.2.5
+Downloaded   haskell-src-exts-util-0.2.5
+Downloading  polyparse-1.13
+Downloaded   polyparse-1.13
+Downloading  cpphs-1.20.9.1
+Downloaded   cpphs-1.20.9.1
+Downloading  megaparsec-8.0.0
+Downloaded   megaparsec-8.0.0
+Downloading  neat-interpolation-0.3.2.5
+Downloaded   neat-interpolation-0.3.2.5
+Downloading  tagsoup-0.14.8
+Downloaded   tagsoup-0.14.8
+Downloading  versions-3.5.3
+Downloaded   versions-3.5.3
+Downloading  optparse-simple-0.1.1.2
+Downloaded   optparse-simple-0.1.1.2
+Downloading  alex-3.2.5
+Downloaded   alex-3.2.5
+Downloading  ghc-lib-parser-8.8.3.20200224
+Starting     alex-3.2.5 (exe:alex)
+Building     alex-3.2.5 (exe:alex)
+Downloaded   ghc-lib-parser-8.8.3.20200224
+Downloading  ghc-lib-parser-ex-8.8.5.8
+Downloaded   ghc-lib-parser-ex-8.8.5.8
+Downloading  cabal-plan-0.6.2.0
+Downloaded   cabal-plan-0.6.2.0
+Downloading  hlint-2.2.11
+Starting     cabal-plan-0.6.2.0 (lib)
+Building     cabal-plan-0.6.2.0 (lib)
+Downloaded   hlint-2.2.11
+Downloading  SHA-1.6.4.4
+Downloaded   SHA-1.6.4.4
+Downloading  Diff-0.4.0
+Starting     SHA-1.6.4.4 (lib)
+Downloaded   Diff-0.4.0
+Downloading  distributive-0.6.1
+Starting     Diff-0.4.0 (lib)
+Building     SHA-1.6.4.4 (lib)
+Building     Diff-0.4.0 (lib)
+Downloaded   distributive-0.6.1
+Downloading  dyre-0.8.12
+Downloaded   dyre-0.8.12
+Downloading  hsimport-0.11.0
+Downloaded   hsimport-0.11.0
+Downloading  haddock-api-2.20.0
+Installing   Diff-0.4.0 (lib)
+Downloaded   haddock-api-2.20.0
+Downloading  ghc-exactprint-0.6.2
+Downloaded   ghc-exactprint-0.6.2
+Downloading  apply-refact-0.5.0.0
+Installing   alex-3.2.5 (exe:alex)
+Completed    alex-3.2.5 (exe:alex)
+Starting     constrained-dynamic-0.1.0.0 (lib)
+Downloaded   apply-refact-0.5.0.0
+Downloading  monad-dijkstra-0.1.1.2
+Completed    Diff-0.4.0 (lib)
+Starting     czipwith-1.0.1.2 (lib)
+Downloaded   monad-dijkstra-0.1.1.2
+Downloading  floskell-0.10.2
+Building     czipwith-1.0.1.2 (lib)
+Building     constrained-dynamic-0.1.0.0 (lib)
+Downloaded   floskell-0.10.2
+Downloading  lens-4.19.1
+Installing   czipwith-1.0.1.2 (lib)
+Downloaded   lens-4.19.1
+Downloading  haskell-lsp-types-0.20.0.0
+Downloaded   haskell-lsp-types-0.20.0.0
+Downloading  haskell-lsp-0.20.0.1
+Installing   constrained-dynamic-0.1.0.0 (lib)
+Downloaded   haskell-lsp-0.20.0.1
+Downloading  strict-list-0.1.5
+Completed    czipwith-1.0.1.2 (lib)
+Starting     data-tree-print-0.1.0.2 (lib)
+Installing   cabal-plan-0.6.2.0 (lib)
+Completed    constrained-dynamic-0.1.0.0 (lib)
+Starting     distributive-0.6.1 (all, legacy fallback)
+Downloaded   strict-list-0.1.5
+Downloading  deque-0.4.3
+Completed    cabal-plan-0.6.2.0 (lib)
+Starting     executable-path-0.0.3.1 (all, legacy fallback)
+Building     data-tree-print-0.1.0.2 (lib)
+Downloaded   deque-0.4.3
+Downloading  butcher-1.3.2.3
+Downloaded   butcher-1.3.2.3
+Downloading  brittany-0.12.1.1
+Building     executable-path-0.0.3.1 (all, legacy fallback)
+Installing   data-tree-print-0.1.0.2 (lib)
+Downloaded   brittany-0.12.1.1
+Installing   executable-path-0.0.3.1 (all, legacy fallback)
+Completed    data-tree-print-0.1.0.2 (lib)
+Starting     filemanip-0.3.6.3 (all, legacy fallback)
+Completed    executable-path-0.0.3.1 (all, legacy fallback)
+Starting     filepattern-0.1.2 (lib)
+Building     filemanip-0.3.6.3 (all, legacy fallback)
+Building     filepattern-0.1.2 (lib)
+Building     distributive-0.6.1 (all, legacy fallback)
+Installing   filemanip-0.3.6.3 (all, legacy fallback)
+Installing   distributive-0.6.1 (all, legacy fallback)
+Installing   filepattern-0.1.2 (lib)
+Completed    filemanip-0.3.6.3 (all, legacy fallback)
+Starting     fingertree-0.1.4.2 (lib)
+Completed    filepattern-0.1.2 (lib)
+Starting     githash-0.1.4.0 (lib)
+Building     fingertree-0.1.4.2 (lib)
+Building     githash-0.1.4.0 (lib)
+Completed    distributive-0.6.1 (all, legacy fallback)
+Starting     haddock-library-1.6.0 (lib:attoparsec)
+Installing   githash-0.1.4.0 (lib)
+Building     haddock-library-1.6.0 (lib:attoparsec)
+Completed    githash-0.1.4.0 (lib)
+Starting     haskell-src-exts-util-0.2.5 (lib)
+Building     haskell-src-exts-util-0.2.5 (lib)
+Installing   haskell-src-exts-util-0.2.5 (lib)
+Completed    haskell-src-exts-util-0.2.5 (lib)
+Starting     hscolour-1.24.4 (all, legacy fallback)
+Installing   fingertree-0.1.4.2 (lib)
+Building     hscolour-1.24.4 (all, legacy fallback)
+Completed    fingertree-0.1.4.2 (lib)
+Starting     ilist-0.3.1.0 (lib)
+Building     ilist-0.3.1.0 (lib)
+Installing   ilist-0.3.1.0 (lib)
+Completed    ilist-0.3.1.0 (lib)
+Starting     io-storage-0.3 (all, legacy fallback)
+Building     io-storage-0.3 (all, legacy fallback)
+Installing   io-storage-0.3 (all, legacy fallback)
+Completed    io-storage-0.3 (all, legacy fallback)
+Starting     libyaml-0.1.2 (lib)
+Installing   haddock-library-1.6.0 (lib:attoparsec)
+Building     libyaml-0.1.2 (lib)
+Completed    haddock-library-1.6.0 (lib:attoparsec)
+Starting     microlens-0.4.11.2 (lib)
+Building     microlens-0.4.11.2 (lib)
+Installing   microlens-0.4.11.2 (lib)
+Completed    microlens-0.4.11.2 (lib)
+Starting     monad-control-1.0.2.3 (all, legacy fallback)
+Building     monad-control-1.0.2.3 (all, legacy fallback)
+Installing   hscolour-1.24.4 (all, legacy fallback)
+Completed    hscolour-1.24.4 (all, legacy fallback)
+Starting     monad-memo-0.5.1 (lib)
+Installing   monad-control-1.0.2.3 (all, legacy fallback)
+Building     monad-memo-0.5.1 (lib)
+Installing   SHA-1.6.4.4 (lib)
+Completed    monad-control-1.0.2.3 (all, legacy fallback)
+Starting     parser-combinators-1.2.1 (lib)
+Completed    SHA-1.6.4.4 (lib)
+Starting     polyparse-1.13 (lib)
+Building     parser-combinators-1.2.1 (lib)
+Building     polyparse-1.13 (lib)
+Installing   parser-combinators-1.2.1 (lib)
+Installing   monad-memo-0.5.1 (lib)
+Completed    parser-combinators-1.2.1 (lib)
+Starting     refact-0.3.0.2 (lib)
+Completed    monad-memo-0.5.1 (lib)
+Starting     safe-0.3.18 (lib)
+Building     refact-0.3.0.2 (lib)
+Building     safe-0.3.18 (lib)
+Installing   libyaml-0.1.2 (lib)
+Completed    libyaml-0.1.2 (lib)
+Starting     stm-delay-0.1.1.1 (lib)
+Building     stm-delay-0.1.1.1 (lib)
+Installing   refact-0.3.0.2 (lib)
+Installing   safe-0.3.18 (lib)
+Installing   stm-delay-0.1.1.1 (lib)
+Completed    refact-0.3.0.2 (lib)
+Starting     strict-0.3.2 (all, legacy fallback)
+Completed    safe-0.3.18 (lib)
+Starting     tagsoup-0.14.8 (lib)
+Completed    stm-delay-0.1.1.1 (lib)
+Starting     temporary-1.2.1.1 (lib)
+Building     strict-0.3.2 (all, legacy fallback)
+Building     temporary-1.2.1.1 (lib)
+Building     tagsoup-0.14.8 (lib)
+Installing   strict-0.3.2 (all, legacy fallback)
+Installing   temporary-1.2.1.1 (lib)
+Completed    strict-0.3.2 (all, legacy fallback)
+Starting     type-equality-1 (lib)
+Completed    temporary-1.2.1.1 (lib)
+Starting     unliftio-0.2.12.1 (lib)
+Installing   polyparse-1.13 (lib)
+Building     type-equality-1 (lib)
+Building     unliftio-0.2.12.1 (lib)
+Completed    polyparse-1.13 (lib)
+Starting     unsafe-0.0 (all, legacy fallback)
+Installing   type-equality-1 (lib)
+Completed    type-equality-1 (lib)
+Starting     xdg-basedir-0.2.2 (all, legacy fallback)
+Building     unsafe-0.0 (all, legacy fallback)
+Building     xdg-basedir-0.2.2 (all, legacy fallback)
+Installing   unsafe-0.0 (all, legacy fallback)
+Installing   xdg-basedir-0.2.2 (all, legacy fallback)
+Completed    unsafe-0.0 (all, legacy fallback)
+Starting     ghc-lib-parser-8.8.3.20200224 (lib)
+Completed    xdg-basedir-0.2.2 (all, legacy fallback)
+Starting     comonad-5.0.6 (all, legacy fallback)
+Building     ghc-lib-parser-8.8.3.20200224 (lib)
+Installing   unliftio-0.2.12.1 (lib)
+Building     comonad-5.0.6 (all, legacy fallback)
+Completed    unliftio-0.2.12.1 (lib)
+Starting     optparse-simple-0.1.1.2 (lib)
+Building     optparse-simple-0.1.1.2 (lib)
+Installing   optparse-simple-0.1.1.2 (lib)
+Completed    optparse-simple-0.1.1.2 (lib)
+Starting     haddock-library-1.6.0 (lib)
+Installing   comonad-5.0.6 (all, legacy fallback)
+Building     haddock-library-1.6.0 (lib)
+Installing   tagsoup-0.14.8 (lib)
+Completed    tagsoup-0.14.8 (lib)
+Starting     microlens-th-0.4.3.4 (lib)
+Building     microlens-th-0.4.3.4 (lib)
+Completed    comonad-5.0.6 (all, legacy fallback)
+Starting     multistate-0.8.0.2 (lib)
+Building     multistate-0.8.0.2 (lib)
+Installing   microlens-th-0.4.3.4 (lib)
+Completed    microlens-th-0.4.3.4 (lib)
+Starting     lifted-base-0.2.3.12 (lib)
+Building     lifted-base-0.2.3.12 (lib)
+Installing   lifted-base-0.2.3.12 (lib)
+Completed    lifted-base-0.2.3.12 (lib)
+Starting     megaparsec-8.0.0 (lib)
+Installing   haddock-library-1.6.0 (lib)
+Building     megaparsec-8.0.0 (lib)
+Completed    haddock-library-1.6.0 (lib)
+Starting     yaml-0.11.3.0 (lib)
+Installing   multistate-0.8.0.2 (lib)
+Building     yaml-0.11.3.0 (lib)
+Completed    multistate-0.8.0.2 (lib)
+Starting     fold-debounce-0.2.0.9 (lib)
+Building     fold-debounce-0.2.0.9 (lib)
+Installing   fold-debounce-0.2.0.9 (lib)
+Completed    fold-debounce-0.2.0.9 (lib)
+Starting     cpphs-1.20.9.1 (lib)
+Building     cpphs-1.20.9.1 (lib)
+Installing   yaml-0.11.3.0 (lib)
+Installing   cpphs-1.20.9.1 (lib)
+Completed    yaml-0.11.3.0 (lib)
+Starting     constraints-0.12 (lib)
+Completed    cpphs-1.20.9.1 (lib)
+Starting     dyre-0.8.12 (all, legacy fallback)
+Building     constraints-0.12 (lib)
+Installing   megaparsec-8.0.0 (lib)
+Building     dyre-0.8.12 (all, legacy fallback)
+Completed    megaparsec-8.0.0 (lib)
+Starting     bifunctors-5.5.7 (lib)
+Building     bifunctors-5.5.7 (lib)
+Installing   dyre-0.8.12 (all, legacy fallback)
+Completed    dyre-0.8.12 (all, legacy fallback)
+Starting     haddock-api-2.20.0 (lib)
+Building     haddock-api-2.20.0 (lib)
+Installing   constraints-0.12 (lib)
+Completed    constraints-0.12 (lib)
+Starting     hie-bios-0.4.0 (lib)
+Building     hie-bios-0.4.0 (lib)
+Installing   hie-bios-0.4.0 (lib)
+Installing   bifunctors-5.5.7 (lib)
+Completed    hie-bios-0.4.0 (lib)
+Starting     versions-3.5.3 (lib)
+Completed    bifunctors-5.5.7 (lib)
+Starting     neat-interpolation-0.3.2.5 (lib)
+Building     versions-3.5.3 (lib)
+Building     neat-interpolation-0.3.2.5 (lib)
+Installing   neat-interpolation-0.3.2.5 (lib)
+Completed    neat-interpolation-0.3.2.5 (lib)
+Starting     hsimport-0.11.0 (lib)
+Building     hsimport-0.11.0 (lib)
+Installing   hsimport-0.11.0 (lib)
+Completed    hsimport-0.11.0 (lib)
+Starting     lifted-async-0.10.0.6 (lib)
+Installing   versions-3.5.3 (lib)
+Completed    versions-3.5.3 (lib)
+Starting     semigroupoids-5.3.4 (all, legacy fallback)
+Building     lifted-async-0.10.0.6 (lib)
+Installing   lifted-async-0.10.0.6 (lib)
+Completed    lifted-async-0.10.0.6 (lib)
+Starting     profunctors-5.5.2 (lib)
+Building     semigroupoids-5.3.4 (all, legacy fallback)
+Building     profunctors-5.5.2 (lib)
+Installing   profunctors-5.5.2 (lib)
+Completed    profunctors-5.5.2 (lib)
+Starting     invariant-0.5.3 (lib)
+Building     invariant-0.5.3 (lib)
+Installing   semigroupoids-5.3.4 (all, legacy fallback)
+Completed    semigroupoids-5.3.4 (all, legacy fallback)
+Starting     strict-list-0.1.5 (lib)
+Building     strict-list-0.1.5 (lib)
+Installing   invariant-0.5.3 (lib)
+Installing   strict-list-0.1.5 (lib)
+Completed    invariant-0.5.3 (lib)
+Starting     free-5.1.3 (lib)
+Completed    strict-list-0.1.5 (lib)
+Starting     cabal-helper-1.0.0.0 (lib)
+Building     free-5.1.3 (lib)
+Building     cabal-helper-1.0.0.0 (lib)
+Installing   haddock-api-2.20.0 (lib)
+Completed    haddock-api-2.20.0 (lib)
+Starting     deque-0.4.3 (lib)
+Building     deque-0.4.3 (lib)
+Installing   deque-0.4.3 (lib)
+Completed    deque-0.4.3 (lib)
+Installing   cabal-helper-1.0.0.0 (lib)
+Completed    cabal-helper-1.0.0.0 (lib)
+Installing   free-5.1.3 (lib)
+Completed    free-5.1.3 (lib)
+Starting     butcher-1.3.2.3 (lib)
+Starting     monad-dijkstra-0.1.1.2 (lib)
+Starting     ghc-exactprint-0.6.2 (lib)
+Building     monad-dijkstra-0.1.1.2 (lib)
+Building     butcher-1.3.2.3 (lib)
+Building     ghc-exactprint-0.6.2 (lib)
+Installing   monad-dijkstra-0.1.1.2 (lib)
+Completed    monad-dijkstra-0.1.1.2 (lib)
+Starting     adjunctions-4.4 (lib)
+Building     adjunctions-4.4 (lib)
+Installing   adjunctions-4.4 (lib)
+Completed    adjunctions-4.4 (lib)
+Starting     floskell-0.10.2 (lib)
+Building     floskell-0.10.2 (lib)
+Installing   butcher-1.3.2.3 (lib)
+Completed    butcher-1.3.2.3 (lib)
+Starting     kan-extensions-5.2 (all, legacy fallback)
+Building     kan-extensions-5.2 (all, legacy fallback)
+Installing   kan-extensions-5.2 (all, legacy fallback)
+Completed    kan-extensions-5.2 (all, legacy fallback)
+Starting     lens-4.19.1 (all, legacy fallback)
+Building     lens-4.19.1 (all, legacy fallback)
+Installing   ghc-exactprint-0.6.2 (lib)
+Completed    ghc-exactprint-0.6.2 (lib)
+Starting     brittany-0.12.1.1 (lib)
+Building     brittany-0.12.1.1 (lib)
+Installing   floskell-0.10.2 (lib)
+Completed    floskell-0.10.2 (lib)
+Starting     apply-refact-0.5.0.0 (lib)
+Building     apply-refact-0.5.0.0 (lib)
+Installing   apply-refact-0.5.0.0 (lib)
+Completed    apply-refact-0.5.0.0 (lib)
+Installing   lens-4.19.1 (all, legacy fallback)
+Installing   brittany-0.12.1.1 (lib)
+Completed    brittany-0.12.1.1 (lib)
+Completed    lens-4.19.1 (all, legacy fallback)
+Starting     haskell-lsp-types-0.20.0.0 (lib)
+Building     haskell-lsp-types-0.20.0.0 (lib)
+Installing   haskell-lsp-types-0.20.0.0 (lib)
+Completed    haskell-lsp-types-0.20.0.0 (lib)
+Starting     haskell-lsp-0.20.0.1 (lib)
+Building     haskell-lsp-0.20.0.1 (lib)
+Installing   haskell-lsp-0.20.0.1 (lib)
+Completed    haskell-lsp-0.20.0.1 (lib)
+Starting     hie-plugin-api-1.3 (lib)
+Building     hie-plugin-api-1.3 (lib)
+Installing   hie-plugin-api-1.3 (lib)
+Completed    hie-plugin-api-1.3 (lib)
+Installing   ghc-lib-parser-8.8.3.20200224 (lib)
+Completed    ghc-lib-parser-8.8.3.20200224 (lib)
+Starting     ghc-lib-parser-ex-8.8.5.8 (lib)
+Building     ghc-lib-parser-ex-8.8.5.8 (lib)
+Installing   ghc-lib-parser-ex-8.8.5.8 (lib)
+Completed    ghc-lib-parser-ex-8.8.5.8 (lib)
+Starting     hlint-2.2.11 (lib)
+Building     hlint-2.2.11 (lib)
+Installing   hlint-2.2.11 (lib)
+Completed    hlint-2.2.11 (lib)
+Starting     haskell-ide-engine-1.3 (lib)
+Building     haskell-ide-engine-1.3 (lib)
+Installing   haskell-ide-engine-1.3 (lib)
+Completed    haskell-ide-engine-1.3 (lib)
+Starting     haskell-ide-engine-1.3 (exe:hie)
+Starting     haskell-ide-engine-1.3 (exe:hie-wrapper)
+Building     haskell-ide-engine-1.3 (exe:hie-wrapper)
+Building     haskell-ide-engine-1.3 (exe:hie)
+Installing   haskell-ide-engine-1.3 (exe:hie-wrapper)
+Completed    haskell-ide-engine-1.3 (exe:hie-wrapper)
+Installing   haskell-ide-engine-1.3 (exe:hie)
+Completed    haskell-ide-engine-1.3 (exe:hie)
+Symlinking 'hie'
+Symlinking 'hie-wrapper'
+Copied executables hie-wrapper, hie, hie-8.4 and hie-8.4.4 to /root/.cabal/bin
+Build completed in 40m17s
+
+Removing intermediate container 5502d7015357
+ ---> ddce5f3f3ad1
+Step 18/41 : RUN         wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage -O /opt/nvim
+ ---> Running in d3da9416a57b
+[91m--2020-05-02 12:16:32--  https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage
+[0m[91mResolving github.com (github.com)... [0m[91m140.82.112.3
+Connecting to github.com (github.com)|140.82.112.3|:443... [0m[91mconnected.
+[0m[91mHTTP request sent, awaiting response... [0m[91m302 Found
+[0m[91mLocation: https://github-production-release-asset-2e65be.s3.amazonaws.com/16408992/e1a7fa00-0841-11ea-84ad-503c24525204?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20200502%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200502T121635Z&X-Amz-Expires=300&X-Amz-Signature=8e0ed856b04e2cc1d1c7155ce6c8ff6331ac3c2d26da049bcb3c746f18d68c38&X-Amz-SignedHeaders=host&actor_id=0&repo_id=16408992&response-content-disposition=attachment%3B%20filename%3Dnvim.appimage&response-content-type=application%2Foctet-stream [following]
+[0m[91m--2020-05-02 12:16:35--  https://github-production-release-asset-2e65be.s3.amazonaws.com/16408992/e1a7fa00-0841-11ea-84ad-503c24525204?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20200502%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200502T121635Z&X-Amz-Expires=300&X-Amz-Signature=8e0ed856b04e2cc1d1c7155ce6c8ff6331ac3c2d26da049bcb3c746f18d68c38&X-Amz-SignedHeaders=host&actor_id=0&repo_id=16408992&response-content-disposition=attachment%3B%20filename%3Dnvim.appimage&response-content-type=application%2Foctet-stream
+Resolving github-production-release-asset-2e65be.s3.amazonaws.com (github-production-release-asset-2e65be.s3.amazonaws.com)... [0m[91m52.216.205.155
+Connecting to github-production-release-asset-2e65be.s3.amazonaws.com (github-production-release-asset-2e65be.s3.amazonaws.com)|52.216.205.155|:443... [0m[91mconnected.
+[0m[91mHTTP request sent, awaiting response... [0m[91m200 OK
+Length: 10608616 (10M) [application/octet-stream]
+Saving to: '/opt/nvim'
+[0m[91m
+     0K .......... .....[0m[91m.[0m[91m.... .......... ..[0m[91m.[0m[91m....... .........[0m[91m.  0% 13.9K[0m[91m 12m24s[0m[91m
+    50K .......... ......[0m[91m.[0m[91m... .....[0m[91m..... ....[0m[91m...... ..........  0%[0m[91m  119K 6m54s[0m[91m
+   100K .[0m[91m......... .......[0m[91m.[0m[91m.. ......[0m[91m.... ....[0m[91m.[0m[91m..... ..........  1% 31.0K 6m24s
+   150K .[0m[91m.[0m[91m........[0m[91m ........[0m[91m.[0m[91m. .......[0m[91m... ......[0m[91m.... ....[0m[91m......  1% 51.5K 5m36s
+   200K ..[0m[91m.[0m[91m....... .......[0m[91m...[0m[91m .......... ......[0m[91m.[0m[91m... .....[0m[91m.....  2% 10.4K[0m[91m 7m42s
+   250K ...[0m[91m.[0m[91m...... ..........[0m[91m .[0m[91m......... ..[0m[91m......[0m[91m.. ..........  2% 1.95M 6m24s[0m[91m
+   300K .....[0m[91m..... ...[0m[91m....... .[0m[91m.[0m[91m........ ........[0m[91m.[0m[91m. ..........  3%  234K 5m34s[0m[91m
+   350K ......[0m[91m.... ....[0m[91m...... ..[0m[91m.[0m[91m....... .[0m[91m.........[0m[91m ........[0m[91m..  3%  773K 4m52s
+   400K ......[0m[91m.[0m[91m... .......... ...[0m[91m.[0m[91m...... ..[0m[91m........[0m[91m .[0m[91m.........  4% 2.60M 4m19s
+   450K .......[0m[91m.[0m[91m.. ......[0m[91m.... .....[0m[91m..... ...[0m[91m....... .[0m[91m.[0m[91m........  4% 2.25M 3m52s
+   500K .......[0m[91m.[0m[91m.[0m[91m. .......... .....[0m[91m.[0m[91m.... ....[0m[91m...... ...[0m[91m.......  5%  259K 3m33s
+   550K .[0m[91m........[0m[91m.[0m[91m ........[0m[91m.. ......[0m[91m.[0m[91m... .....[0m[91m..... ....[0m[91m......  5% 1.73M 3m15s
+   600K .......[0m[91m...[0m[91m .[0m[91m......... ......[0m[91m.[0m[91m.[0m[91m.. .......... ....[0m[91m.[0m[91m.....  6% 2.51M 2m59s
+   650K ...[0m[91m....... .[0m[91m.[0m[91m........ ........[0m[91m.[0m[91m. .......[0m[91m... ......[0m[91m....  6% 1.32M 2m46s
+   700K ....[0m[91m...... ..[0m[91m........ .[0m[91m.........[0m[91m .......... .......[0m[91m...  7% 5.15M 2m34s
+   750K .....[0m[91m..... ...[0m[91m.[0m[91m...... .......[0m[91m...[0m[91m .[0m[91m......... .......[0m[91m.[0m[91m..  7%  435K 2m25s
+   800K ......[0m[91m.... .....[0m[91m..... .......... .[0m[91m.[0m[91m........ ........[0m[91m.[0m[91m.  8%  994K 2m17s
+   850K .......... .....[0m[91m.[0m[91m.... .......... ..[0m[91m.[0m[91m....... ........[0m[91m.[0m[91m.  8% 2.30M 2m9s[0m[91m
+   900K ........[0m[91m.. ......[0m[91m.[0m[91m... .......... ...[0m[91m.[0m[91m...... ..[0m[91m........  9% 2.62M 2m1s[0m[91m
+   950K .[0m[91m......... .......[0m[91m.[0m[91m.. .......... .[0m[91m...[0m[91m.[0m[91m..... ...[0m[91m.......  9% 3.45M 1m55s
+  1000K .[0m[91m.[0m[91m........[0m[91m ........[0m[91m.[0m[91m. .......... .....[0m[91m.[0m[91m.... .......... 10% 2.19M 1m49s
+  1050K ..[0m[91m.[0m[91m....... ........[0m[91m..[0m[91m .......... ......[0m[91m.[0m[91m... .....[0m[91m..... 10% 1.31M 1m44s
+  1100K ...[0m[91m.[0m[91m...... ..[0m[91m........ .[0m[91m......... ....[0m[91m...[0m[91m.[0m[91m.. .......... 11%[0m[91m  640K 99s
+  1150K ....[0m[91m.[0m[91m..... ...[0m[91m....... .[0m[91m.[0m[91m........ ........[0m[91m.[0m[91m. .......[0m[91m... 11% 1.15M 95s
+  1200K ......[0m[91m.... .......... ...[0m[91m....... .........[0m[91m.[0m[91m ........[0m[91m.. 12% 5.91M 91s
+  1250K ......[0m[91m.[0m[91m... .....[0m[91m..... ....[0m[91m...... ..[0m[91m........[0m[91m .[0m[91m........[0m[91m. 12% 2.25M 87s
+  1300K .......[0m[91m.[0m[91m.[0m[91m. [0m[91m......[0m[91m.... ....[0m[91m.[0m[91m..... .......... .[0m[91m.[0m[91m........ 13% 1.87M 84s[0m[91m
+  1350K ........[0m[91m.[0m[91m. .......... .....[0m[91m.[0m[91m.... ....[0m[91m...... ..[0m[91m.[0m[91m....... 13%  895K 80s
+  1400K .[0m[91m.........[0m[91m ........[0m[91m.. ......[0m[91m.[0m[91m... .......... ...[0m[91m.[0m[91m...... 13% 3.02M 77s
+  1450K ..........[0m[91m .[0m[91m......... .......[0m[91m.[0m[91m.. ......[0m[91m.... ....[0m[91m.[0m[91m..... 14% 2.09M 74s
+  1500K .......... .[0m[91m.[0m[91m........ ........[0m[91m.[0m[91m. .......[0m[91m... .....[0m[91m.[0m[91m.... 14% 2.29M 72s
+  1550K ....[0m[91m...... ..[0m[91m.[0m[91m....... ..........[0m[91m ........[0m[91m.. .......[0m[91m... 15% 1.79M 69s
+  1600K .......... ...[0m[91m.[0m[91m...... ..........[0m[91m .[0m[91m......... ........[0m[91m.. 15% 1.24M 67s
+  1650K ......[0m[91m.... ....[0m[91m.[0m[91m..... ...[0m[91m....... .[0m[91m.[0m[91m........ ........[0m[91m.[0m[91m. 16% 1.37M 65s
+  1700K .......... .....[0m[91m.[0m[91m.... .......... ..[0m[91m.[0m[91m....... .........[0m[91m. 16% 3.78M 63s[0m[91m
+  1750K .......... ......[0m[91m.[0m[91m... .......... ..[0m[91m.[0m[91m.[0m[91m...... .......... 17% 1.69M 61s[0m[91m
+  1800K .[0m[91m......... ........[0m[91m.. ......[0m[91m.... ....[0m[91m.[0m[91m..... ........[0m[91m.. 17% 1.95M 59s
+  1850K .[0m[91m.[0m[91m........[0m[91m ........[0m[91m.[0m[91m. .......[0m[91m... ......[0m[91m.... ....[0m[91m...... 18% 3.09M 57s
+  1900K ...[0m[91m....... .[0m[91m.........[0m[91m .......... ......[0m[91m.[0m[91m... .......... 18% 3.69M 55s
+  1950K ...[0m[91m.[0m[91m...... ......[0m[91m....[0m[91m .[0m[91m......... .......[0m[91m.[0m[91m.. .......... 19% 2.46M 54s
+  2000K .....[0m[91m..... .......... .[0m[91m.[0m[91m........ ........[0m[91m.[0m[91m. .......... 19% 1.66M 52s
+  2050K ..[0m[91m...[0m[91m.[0m[91m.... .......... ..[0m[91m.[0m[91m....... .[0m[91m.........[0m[91m ........[0m[91m.. 20% 5.00M 51s
+  2100K ......[0m[91m.[0m[91m... .......... ....[0m[91m...... .........[0m[91m.[0m[91m .[0m[91m........[0m[91m. 20% 1.96M 49s
+  2150K .......[0m[91m.[0m[91m.. .......... ....[0m[91m.[0m[91m..... .......... ..[0m[91m........ 21% 3.12M 48s[0m[91m
+  2200K ........[0m[91m.[0m[91m. .......... .....[0m[91m.[0m[91m.... ....[0m[91m...... ..[0m[91m.[0m[91m....... 21% 1.68M 47s
+  2250K .........[0m[91m.[0m[91m .......... .......[0m[91m... .......... ...[0m[91m.[0m[91m...... 22% 6.14M 45s
+  2300K ..[0m[91m........[0m[91m .[0m[91m........[0m[91m. .......[0m[91m.[0m[91m.. ......[0m[91m.... ....[0m[91m.[0m[91m..... 22% 4.36M 44s
+  2350K ...[0m[91m....... .[0m[91m.[0m[91m........[0m[91m ........[0m[91m.[0m[91m. .......[0m[91m... ......[0m[91m.... 23% 2.55M 43s
+  2400K ....[0m[91m...... ...[0m[91m....... .[0m[91m........[0m[91m.[0m[91m .......... .......[0m[91m... 23% 3.71M 42s
+  2450K .....[0m[91m..... ...[0m[91m.[0m[91m...... ..........[0m[91m .[0m[91m........[0m[91m. ........[0m[91m.. 24% 1.49M 41s
+  2500K .......... [0m[91m...[0m[91m..[0m[91m..... .......... .[0m[91m.[0m[91m........[0m[91m ........[0m[91m.[0m[91m. 24% 2.83M 40s
+  2550K .....[0m[91m..[0m[91m... .....[0m[91m.[0m[91m.... .......... ..[0m[91m.[0m[91m....... .........[0m[91m. 25%  830K 39s[0m[91m
+  2600K .......... ....[0m[91m..[0m[91m.[0m[91m... .....[0m[91m..... ...[0m[91m.[0m[91m...... ..[0m[91m........ 25% 3.95M 38s[0m[91m
+  2650K .[0m[91m......... .......[0m[91m.[0m[91m.. ......[0m[91m.... ....[0m[91m.[0m[91m..... .......... 26% 4.70M 37s
+  2700K .[0m[91m.[0m[91m........[0m[91m .........[0m[91m. .......... .....[0m[91m.[0m[91m.... ....[0m[91m...... 26% 3.27M 36s
+  2750K ..[0m[91m.[0m[91m....... .[0m[91m........[0m[91m.[0m[91m .......... ......[0m[91m.[0m[91m... .......... 27% 4.40M 36s[0m[91m
+  2800K ....[0m[91m...... ..[0m[91m........[0m[91m .[0m[91m........[0m[91m. .......[0m[91m.[0m[91m.. .......... 27% 1.14M 35s
+  2850K ....[0m[91m.[0m[91m..... .......... ..........[0m[91m .........[0m[91m. .......[0m[91m... 27% 1.57M 34s
+  2900K .....[0m[91m.[0m[91m.... .......... ..[0m[91m.[0m[91m....... .........[0m[91m. ........[0m[91m.. 28% 3.94M 33s
+  2950K .......[0m[91m... .....[0m[91m..... ....[0m[91m...... ..[0m[91m........[0m[91m .[0m[91m........[0m[91m. 28% 2.78M 33s
+  3000K ........[0m[91m.. .......... ....[0m[91m.[0m[91m..... .......... .......... 29% 5.27M 32s
+  3050K .........[0m[91m. .......... .....[0m[91m.[0m[91m.... ....[0m[91m...... ..[0m[91m.[0m[91m....... 29% 4.71M 31s
+  3100K .[0m[91m........[0m[91m.[0m[91m .......... ......[0m[91m.[0m[91m... .....[0m[91m....[0m[91m. ...[0m[91m.[0m[91m...... 30% 1.94M 30s
+  3150K ..[0m[91m........[0m[91m .[0m[91m......... .......[0m[91m.[0m[91m.. .......... ....[0m[91m.[0m[91m..... 30% 1.68M 30s
+  3200K ...[0m[91m....... ..[0m[91m........ ...[0m[91m.....[0m[91m.[0m[91m. .......... .....[0m[91m.[0m[91m.... 31%  776K 29s
+  3250K ..........[0m[91m ..[0m[91m.[0m[91m....... .[0m[91m........[0m[91m. .......... ...[0m[91m..[0m[91m..... 31% 1.69M 29s
+  3300K ..........[0m[91m .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... 32% 1.22M 28s
+  3350K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... .......... .[0m[91m......... 32% 1.39M 28s
+  3400K ...[0m[91m....[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......... 33% 1.05M 27s
+  3450K .[0m[91m....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .......... 33% 1.78M 27s
+  3500K[0m[91m ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... .......... 34% 2.31M 26s
+  3550K .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... .[0m[91m........[0m[91m. 34% 1.74M 26s
+  3600K .......[0m[91m... .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... 35% 1.40M 25s
+  3650K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... 35% 2.83M 25s
+  3700K ...[0m[91m....... .[0m[91m......... .......[0m[91m... .....[0m[91m..... ...[0m[91m....... 36% 4.64M 24s
+  3750K ......[0m[91m...[0m[91m. .......... .....[0m[91m..... ...[0m[91m....... .........[0m[91m. 36% 2.21M 24s
+  3800K .......[0m[91m... .......... ...[0m[91m....... .........[0m[91m. .......[0m[91m... 37% 2.29M 23s
+  3850K ..[0m[91m...[0m[91m..... .......... .[0m[91m......... .......[0m[91m... .....[0m[91m..... 37% 3.54M 23s
+  3900K ..........[0m[91m .[0m[91m........[0m[91m. .......... .....[0m[91m..... .......... 38% 8.36M 22s
+  3950K .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... .[0m[91m........[0m[91m. 38% 2.50M 22s
+  4000K .......... .....[0m[91m..... .......... .[0m[91m........[0m[91m. .......[0m[91m... 39% 3.79M 21s
+  4050K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......... .....[0m[91m..... 39% 4.84M 21s
+  4100K ...[0m[91m....... .[0m[91m......... ..[0m[91m.....[0m[91m... .....[0m[91m..... ...[0m[91m....... 40% 6.75M 21s
+  4150K .........[0m[91m. .......... .....[0m[91m..... ...[0m[91m....... .[0m[91m......... 40% 3.06M 20s
+  4200K .......[0m[91m... .......... ...[0m[91m....... .........[0m[91m. .......... 41% 6.38M 20s
+  4250K .......... ...[0m[91m....... .[0m[91m......... .......[0m[91m... .......... 41% 6.99M 20s
+  4300K[0m[91m ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... 41% 1.39M 19s
+  4350K .[0m[91m......... .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 42% 1.61M 19s
+  4400K .......[0m[91m... .....[0m[91m..... .......... .[0m[91m......... ....[0m[91m...[0m[91m... 42% 2.57M 18s
+  4450K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. ..........[0m[91m .....[0m[91m..... 43% 1.64M 18s
+  4500K ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... 43% 3.21M 18s
+  4550K .........[0m[91m. .......... .....[0m[91m..... ...[0m[91m....... .[0m[91m......... 44% 3.81M 18s
+  4600K .......[0m[91m... .....[0m[91m..... ..[0m[91m.[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... 44% 4.21M 17s
+  4650K .....[0m[91m..... .......... .[0m[91m........[0m[91m. ......[0m[91m.[0m[91m... .....[0m[91m..... 45% 5.34M 17s[0m[91m
+  4700K[0m[91m ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... .......... 45% 6.52M 17s
+  4750K .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... .........[0m[91m. 46% 2.54M 16s
+  4800K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m......... .......[0m[91m... 46% 3.39M 16s
+  4850K .....[0m[91m..... ...[0m[91m....... .........[0m[91m. .......... .....[0m[91m..... 47% 2.97M 16s
+  4900K ...[0m[91m....... .[0m[91m......... .......[0m[91m... .....[0m[91m..... ...[0m[91m....... 47% 1.25M 15s
+  4950K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... .......[0m[91m... .[0m[91m........[0m[91m. 48% 1.32M 15s
+  5000K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......... 48% 4.72M 15s
+  5050K .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... .......... 49% 1.09M 15s
+  5100K ...[0m[91m....... .[0m[91m........[0m[91m. .......... ..[0m[91m...[0m[91m..... .......... 49%[0m[91m  477K 14s
+  5150K .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... .........[0m[91m. 50%  182K 14s
+  5200K .......... .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... 50%  216K 14s
+  5250K .......... ...[0m[91m....... .........[0m[91m. .......... .....[0m[91m..... 51%  424K 14s
+  5300K ...[0m[91m....... .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... 51%  368K 14s
+  5350K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... .......... .[0m[91m......... 52%  352K 14s
+  5400K[0m[91m .......[0m[91m... ..........[0m[91m ...[0m[91m....... .........[0m[91m. .......... 52%  236K 14s
+  5450K .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... .......... 53%  182K 14s
+  5500K ...[0m[91m....... .........[0m[91m. .......... .....[0m[91m..... .......... 53%  253K 14s
+  5550K .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... .[0m[91m........[0m[91m. 54%  452K 14s
+  5600K .......[0m[91m... .....[0m[91m..... .......... .[0m[91m........[0m[91m. .......[0m[91m... 54% 1.98M 13s
+  5650K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .....[0m[91m..... .....[0m[91m..... 55% 3.33M 13s
+  5700K ...[0m[91m....... .[0m[91m........[0m[91m. ..[0m[91m.....[0m[91m... .....[0m[91m..... ...[0m[91m....... 55% 4.24M 13s
+  5750K .[0m[91m........[0m[91m. .......... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 55% 5.77M 13s
+  5800K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m......[0m[91m..[0m[91m. .......[0m[91m... 56% 7.68M 12s
+  5850K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... 56% 5.72M 12s
+  5900K ...[0m[91m....... .........[0m[91m. .......[0m[91m... .....[0m[91m..... .......... 57% 4.03M 12s
+  5950K .[0m[91m......... ...[0m[91m....[0m[91m... .......... ...[0m[91m....... .........[0m[91m. 57%  106K 12s
+  6000K .......... .....[0m[91m..... .......... [0m[91m.[0m[91m......... .....[0m[91m..[0m[91m... 58% 1.53M 12s
+  6050K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... 58%[0m[91m 1.26M 12s
+  6100K .......... .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... 59% 1.80M 11s
+  6150K .[0m[91m........[0m[91m. .......... .[0m[91m....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 59% 1.08M 11s
+  6200K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... ....[0m[91m.....[0m[91m. .......[0m[91m... 60% 1.51M 11s
+  6250K .....[0m[91m..... ...[0m[91m....... .[0m[91m......... .......[0m[91m... .......... 60% 2.28M 11s
+  6300K .[0m[91m..[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... .......... 61%[0m[91m 2.46M 11s
+  6350K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 61%  905K 10s
+  6400K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... 62% 1.62M 10s
+  6450K .......... ...[0m[91m....... .[0m[91m........[0m[91m. .......... .....[0m[91m..... 62% 32.2M 10s
+  6500K ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .......... ...[0m[91m....... 63% 2.61M 10s
+  6550K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m......... 63% 3.73M 10s
+  6600K .......... .....[0m[91m..... ...[0m[91m....... .........[0m[91m. .......... 64% 32.4M 9s
+  6650K[0m[91m .[0m[91m......... .......... .[0m[91m......... .......[0m[91m... .......... 64% 30.9M 9s
+  6700K ...[0m[91m....... .[0m[91m........[0m[91m. .......... .....[0m[91m..... .......... 65% 32.6M 9s
+  6750K .[0m[91m........[0m[91m. .......[0m[91m... .......... ...[0m[91m....... .[0m[91m........[0m[91m. 65% 27.6M 9s
+  6800K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... 66% 30.5M 9s
+  6850K .....[0m[91m..... .......... .........[0m[91m. .......... .....[0m[91m..... 66% 28.8M 8s
+  6900K ...[0m[91m....... .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... 67% 10.4M 8s
+  6950K .[0m[91m........[0m[91m. .......... ....[0m[91m.[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 67% 15.1M 8s
+  7000K .......[0m[91m... .....[0m[91m..... .......... .........[0m[91m. .......[0m[91m... 68% 67.5M 8s
+  7050K .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... .....[0m[91m..... 68% 70.5M 8s
+  7100K [0m[91m...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... 69% 71.2M 8s
+  7150K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 69% 72.1M 7s
+  7200K .......[0m[91m... .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... 69% 84.5M 7s
+  7250K .....[0m[91m..... .......... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... 70% 87.8M 7s[0m[91m
+  7300K .......... .[0m[91m....[0m[91m..... .......... .......... ...[0m[91m....... 70% 92.3M 7s
+  7350K .........[0m[91m. .......... .....[0m[91m..... ...[0m[91m....... .[0m[91m......... 71% 8.59M 7s
+  7400K .......[0m[91m... .......... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... 71% 4.31M 7s
+  7450K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... 72% 2.81M 6s
+  7500K ...[0m[91m....... .[0m[91m........[0m[91m. .......... .....[0m[91m..... .......... 72% 2.10M 6s[0m[91m
+  7550K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .........[0m[91m. 73% 2.81M 6s
+  7600K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... 73% 8.50M 6s
+  7650K .....[0m[91m..... ...[0m[91m....... .........[0m[91m. .......[0m[91m... .....[0m[91m..... 74% 2.56M 6s
+  7700K ...[0m[91m....... .[0m[91m......... .......[0m[91m... .......... ...[0m[91m.....[0m[91m.. 74% 9.87M 6s
+  7750K .........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 75% 3.62M 6s
+  7800K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .........[0m[91m. .......[0m[91m... 75% 3.56M 5s
+  7850K .....[0m[91m..... .......... .[0m[91m......... ....[0m[91m...[0m[91m... .......... 76% 3.37M 5s
+  7900K ...[0m[91m....... .[0m[91m........[0m[91m. .......... .....[0m[91m..... ........[0m[91m.. 76%  749K 5s
+  7950K .[0m[91m........[0m[91m. .......[0m[91m... .......... ...[0m[91m....... .........[0m[91m. 77%  369K 5s
+  8000K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m......... .....[0m[91m..[0m[91m... 77% 6.03M 5s
+  8050K .....[0m[91m..... ...[0m[91m....... .........[0m[91m. .......[0m[91m... .....[0m[91m..... 78% 5.91M 5s
+  8100K ...[0m[91m....... .[0m[91m......... .......[0m[91m... .....[0m[91m..... ...[0m[91m....... 78% 7.60M 5s
+  8150K .[0m[91m........[0m[91m. .......... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 79% 1.38M 5s
+  8200K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .........[0m[91m. .......... 79% 6.64M 4s
+  8250K .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... .......... 80% 3.99M 4s
+  8300K [0m[91m...[0m[91m....... .[0m[91m........[0m[91m. .......... .....[0m[91m..... .......... 80% 3.30M 4s
+  8350K .[0m[91m......... .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .....[0m[91m..... 81% 3.36M 4s
+  8400K .......[0m[91m... .....[0m[91m..... .......... .[0m[91m......... ......[0m[91m.[0m[91m... 81% 3.97M 4s
+  8450K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... 82% 2.71M 4s
+  8500K ...[0m[91m....... .[0m[91m......... ......[0m[91m.[0m[91m... .......... ...[0m[91m....... 82% 1.14M 4s
+  8550K .[0m[91m........[0m[91m. .......... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 83% 5.88M 4s
+  8600K[0m[91m .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......... 83%[0m[91m 4.56M 3s
+  8650K .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... .......... 83% 9.50M 3s
+  8700K ...[0m[91m....... .........[0m[91m. .......... .....[0m[91m..... ...[0m[91m....... 84%[0m[91m 5.81M 3s
+  8750K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .........[0m[91m. 84% 5.13M 3s
+  8800K .......... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... 85% 3.69M 3s
+  8850K .......... ...[0m[91m....... ......[0m[91m...[0m[91m. .......... .....[0m[91m..... 85%  735K 3s
+  8900K ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... 86% 2.36M 3s
+  8950K .........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 86% 1.88M 3s
+  9000K .......[0m[91m... .......... ...[0m[91m....... .........[0m[91m. .......[0m[91m... 87% 4.57M 3s
+  9050K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... 87% 2.56M 2s
+  9100K ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... 88% 6.16M 2s
+  9150K .[0m[91m........[0m[91m. .......[0m[91m... .......... [0m[91m...[0m[91m....... .[0m[91m........[0m[91m. 88% 3.04M 2s
+  9200K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m......... .......[0m[91m... 89% 14.5M 2s
+  9250K .....[0m[91m..... ...[0m[91m....... ........[0m[91m.[0m[91m. .......[0m[91m... .....[0m[91m..... 89% 2.69M 2s
+  9300K ...[0m[91m....... .[0m[91m......... ......[0m[91m.[0m[91m... .......... ...[0m[91m....... 90% 2.46M 2s
+  9350K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 90% 5.42M 2s
+  9400K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... 91% 1.69M 2s
+  9450K .....[0m[91m..... ...[0m[91m....... .[0m[91m......... .......[0m[91m... .....[0m[91m..... 91% 10.3M 2s
+  9500K ...[0m[91m....... .[0m[91m........[0m[91m. .......... .....[0m[91m..... .......... 92% 6.40M 2s
+  9550K .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 92% 5.61M 1s
+  9600K .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... 93% 3.61M 1s
+  9650K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... 93% 2.29M 1s
+  9700K .......... .[0m[91m......... ....[0m[91m...[0m[91m... .......... ...[0m[91m....... 94% 3.05M 1s
+  9750K .........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m......... 94% 3.50M 1s
+  9800K ...[0m[91m....[0m[91m... .......... [0m[91m...[0m[91m....... .........[0m[91m. .......... 95% 4.07M 1s[0m[91m
+  9850K .....[0m[91m..... .......... .[0m[91m........[0m[91m. .......[0m[91m... .......... 95% 7.85M 1s
+  9900K ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .....[0m[91m..... .......... 96% 2.61M 1s
+  9950K .[0m[91m......... .......[0m[91m... .......... ...[0m[91m....... .........[0m[91m. 96%  751K 1s
+ 10000K .......... .....[0m[91m..... .......... .[0m[91m......... .......[0m[91m... 97% 6.68M 1s
+ 10050K .....[0m[91m..... ...[0m[91m....... .........[0m[91m. .......... .....[0m[91m..... 97%  850K 0s
+ 10100K ...[0m[91m....... .[0m[91m......... .......[0m[91m... .......... ..[0m[91m.[0m[91m....... 97% 3.71M 0s
+ 10150K .........[0m[91m. .......[0m[91m... .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. 98% 2.81M 0s
+ 10200K ..[0m[91m.....[0m[91m... .....[0m[91m..... ...[0m[91m....... .........[0m[91m. .......... 98% 1.93M 0s
+ 10250K .....[0m[91m..... ...[0m[91m....... .[0m[91m........[0m[91m. .......[0m[91m... .......... 99% 1.88M 0s
+ 10300K .[0m[91m..[0m[91m....... ........[0m[91m.[0m[91m. .......[0m[91m... .....[0m[91m..... .......... 99% 2.13M 0s
+ 10350K .[0m[91m........                [0m[91m                      [0m[91m      [0m[91m 100%[0m[91m 3.28M=18s
+
+[0m[91m2020-05-02 12:16:57 (572 KB/s) - '/opt/nvim' saved [10608616/10608616]
+
+[0mRemoving intermediate container d3da9416a57b
+ ---> f062dd790f8a
+Step 19/41 : RUN         chmod +x /opt/nvim
+ ---> Running in 3867b894c8e3
+Removing intermediate container 3867b894c8e3
+ ---> 37080d2e6318
+Step 20/41 : ENV         APPIMAGE_EXTRACT_AND_RUN 1
+ ---> Running in b58d811ea24c
+Removing intermediate container b58d811ea24c
+ ---> bf59e6cc46af
+Step 21/41 : RUN         mkdir -p /root/.config/nvim/plugged
+ ---> Running in 166d4d9a4552
+Removing intermediate container 166d4d9a4552
+ ---> 4ed7b4183b23
+Step 22/41 : RUN         curl -fLo ~/.local/share/nvim/site/autoload/plug.vim                  --create-dirs                  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+ ---> Running in 5fe353f45240
+[91m  % Total [0m[91m   % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      [0m[91m0 --:--:-- --:--:-- --:--:--     0[0m[91m  0     0    0     0    0     0      0      0 --:--:-[0m[91m- --:--:-- --:--:--     0[0m[91m  0 78728    0     0    0     0      0      0 --:--:--  0[0m[91m:00:01 --:--:--     0[0m[91m100 78728  100 78728    0     0  62581    [0m[91m  0  0:00:01  0:00:01 -[0m[91m-:--:-- 6[0m[91m2532
+[0mRemoving intermediate container 5fe353f45240
+ ---> 545e54934969
+Step 23/41 : ADD         init.vim /root/.config/nvim/
+ ---> 873dc60241f6
+Step 24/41 : ADD         coc-settings.json /root/.config/nvim/coc-settings.json
+ ---> 47f9931cc45d
+Step 25/41 : WORKDIR     /root/.config/nvim/plugged
+ ---> Running in 50fd35e1b5f5
+Removing intermediate container 50fd35e1b5f5
+ ---> 29ebbe68755e
+Step 26/41 : RUN         git clone --branch release https://github.com/neoclide/coc.nvim.git
+ ---> Running in c2d78974d8c5
+[91mCloning into 'coc.nvim'...
+[0mRemoving intermediate container c2d78974d8c5
+ ---> da34d0ea1955
+Step 27/41 : WORKDIR     /root/.config/nvim/plugged/coc.nvim
+ ---> Running in 2a3c229ded9e
+Removing intermediate container 2a3c229ded9e
+ ---> ecb934a7c4f7
+Step 28/41 : RUN         git checkout b1b8d50b8b62cbd50c520726b371da96b20f63a3
+ ---> Running in 95b147378792
+[91mNote: checking out 'b1b8d50b8b62cbd50c520726b371da96b20f63a3'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at b1b8d50b fix(plugin): fix broken CocCommand command
+[0mRemoving intermediate container 95b147378792
+ ---> 4479e746a412
+Step 29/41 : WORKDIR     /root/.config/nvim/plugged
+ ---> Running in 23e0e17a3d83
+Removing intermediate container 23e0e17a3d83
+ ---> f38cb29ffe7e
+Step 30/41 : RUN         git clone https://github.com/neovimhaskell/haskell-vim.git
+ ---> Running in 3352c8e291c4
+[91mCloning into 'haskell-vim'...
+[0mRemoving intermediate container 3352c8e291c4
+ ---> a9ad550494f0
+Step 31/41 : WORKDIR     /root/.config/nvim/plugged/haskell-vim
+ ---> Running in 417d8c0cf2d6
+Removing intermediate container 417d8c0cf2d6
+ ---> 2be078f4c296
+Step 32/41 : RUN         git checkout b1ac46807835423c4a4dd063df6d5b613d89c731
+ ---> Running in 4d007aaacd04
+[91mNote: checking out 'b1ac46807835423c4a4dd063df6d5b613d89c731'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at b1ac468 add guard clause test
+[0mRemoving intermediate container 4d007aaacd04
+ ---> 5f2f044ba706
+Step 33/41 : WORKDIR     /root/.config/nvim/plugged
+ ---> Running in c1ad8ae78692
+Removing intermediate container c1ad8ae78692
+ ---> 39586098c2ec
+Step 34/41 : RUN         git clone https://github.com/alx741/vim-hindent.git
+ ---> Running in 40e3369fb534
+[91mCloning into 'vim-hindent'...
+[0mRemoving intermediate container 40e3369fb534
+ ---> 499c867c5270
+Step 35/41 : WORKDIR     /root/.config/nvim/plugged/vim-hindent
+ ---> Running in ae87a8fa96c6
+Removing intermediate container ae87a8fa96c6
+ ---> bd0262e1b031
+Step 36/41 : RUN         git checkout f8e84c199fd00a3ccaf5bbbc97786bde9a4faa13
+ ---> Running in b7be05dab4a2
+[91mNote: checking out 'f8e84c199fd00a3ccaf5bbbc97786bde9a4faa13'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at f8e84c1 Allow setting the path to the hindent executable (#12)
+[0mRemoving intermediate container b7be05dab4a2
+ ---> 2e34f40448bb
+Step 37/41 : ADD         Foo /opt/Foo
+ ---> bea4073b749f
+Step 38/41 : WORKDIR     /opt/Foo
+ ---> Running in 55b2f5f8c3ac
+Removing intermediate container 55b2f5f8c3ac
+ ---> 31e78c9f1668
+Step 39/41 : RUN         hie-wrapper
+ ---> Running in 516e2bbff6ce
+[91m2020-05-02 12:18:16.692110175 [ThreadId 4] - run entered for hie-wrapper(hie-wrapper) Version 1.3 x86_64 ghc-8.4.4
+[0m[91m2020-05-02 12:18:16.69238508 [ThreadId 4] - Current directory:/opt/Foo
+2020-05-02 12:18:16.692462125 [ThreadId 4] - Operating system:linux
+[0m[91m2020-05-02 12:18:16.692544538 [ThreadId 4] - args:[]
+[0m[91m2020-05-02 12:18:16.693188311 [ThreadId 4] - Module "/opt/Foo/File.hs" is loaded by Cradle: Cradle {cradleRootDir = "/opt/Foo", cradleOptsProg = CradleAction: Cabal}
+[0m[91m2020-05-02 12:18:16.693289749 [ThreadId 4] - Cradle directory:/opt/Foo
+[0m[91m2020-05-02 12:18:16.693665 [ThreadId 4] - Executing GHC on path with args: --numeric-version
+[0m[91m2020-05-02 12:18:16.746849791 [ThreadId 4] - Project GHC version:8.4.4
+[0m[91m2020-05-02 12:18:16.747041479 [ThreadId 4] - hie exe candidates :["hie-8.4.4","hie-8.4","hie"]
+[0m[91m2020-05-02 12:18:16.74758353 [ThreadId 4] - found hie exe at:/root/.cabal/bin/hie-8.4.4
+[0m[91m2020-05-02 12:18:16.747707733 [ThreadId 4] - args:[]
+[0m[91m2020-05-02 12:18:16.747856212 [ThreadId 4] - launching ....
+
+
+
+[0m[91m2020-05-02 12:18:16.752567689 [ThreadId 4] - Module "/opt/Foo/File.hs" is loaded by Cradle: Cradle {cradleRootDir = "/opt/Foo", cradleOptsProg = CradleAction: Cabal}
+[0m[91m2020-05-02 12:18:16.753294162 [ThreadId 4] - Executing GHC on path with args: --numeric-version
+[0m[91m2020-05-02 12:18:16.81154883 [ThreadId 4] - Executing GHC on path with args: --print-libdir
+[0m[91m2020-05-02 12:18:16.903497631 [ThreadId 4] - New cradle: /opt/Foo/Setup.hs
+[0m[91m2020-05-02 12:18:16.903849397 [ThreadId 4] - Module "/opt/Foo/Setup.hs" is loaded by Cradle: Cradle {cradleRootDir = "/opt/Foo", cradleOptsProg = CradleAction: Cabal}
+[0m[91m2020-05-02 12:18:16.903919234 [ThreadId 4] - Found cradle: Cradle {cradleRootDir = "/opt/Foo", cradleOptsProg = CradleAction: Cabal}
+[0m[91m2020-05-02 12:18:18.763370898 [ThreadId 14] - Resolving dependencies...
+[0m[91m2020-05-02 12:18:19.332073552 [ThreadId 14] - Build profile: -w ghc-8.4.4 -O1
+[0m[91m2020-05-02 12:18:19.332197533 [ThreadId 14] - In order, the following will be built (use -v for more details):
+2020-05-02 12:18:19.33228462 [ThreadId 14] -  - Foo-0.1.0.0 (exe:Foo) (first run)
+[0m[91m2020-05-02 12:18:19.36099854 [ThreadId 14] - Configuring executable 'Foo' for Foo-0.1.0.0..
+[0m[91m2020-05-02 12:18:20.370453484 [ThreadId 12] - Warning: The 'license-file' field refers to the file 'LICENSE' which does not
+[0m[91m2020-05-02 12:18:20.370568303 [ThreadId 12] - exist.
+[0m[91m2020-05-02 12:18:20.658910131 [ThreadId 14] - Preprocessing executable 'Foo' for Foo-0.1.0.0..
+[0m[91m2020-05-02 12:18:20.978154197 [ThreadId 4] - Cradle set succesfully
+[0mRunning HIE(hie-8.4.4)
+  Version 1.3 x86_64 ghc-8.4.4
+To run as a LSP server on stdio, provide the '--lsp' argument
+Current directory:/opt/Foo
+
+args:[]
+
+Looking for project config cradle...
+
+
+
+###################################################
+
+Cradle: Cabal project
+Project Ghc version: 8.4.4
+Libdir: Just "/usr/lib/ghc"
+Searching for Haskell source files...
+Found 2 Haskell source files.
+
+###################################################
+
+Found the following files:
+
+/opt/Foo/Setup.hs
+/opt/Foo/Main.hs
+
+
+Load them all now. This may take a very long time.
+
+
+###################################################
+###################################################
+
+Dumping diagnostics:
+
+
+/opt/Foo/Setup.hs: OK
+/opt/Foo/Main.hs: OK
+
+
+Note: loading of 'Setup.hs' is not supported.
+[91m2020-05-02 12:18:21.071185165 [ThreadId 4] - done
+[0mRemoving intermediate container 516e2bbff6ce
+ ---> 44322e639f2b
+Step 40/41 : RUN         ghcide || echo "non-zero return code from ghcide; ignoring"
+ ---> Running in 1a821591f31d
+ghcide version: 0.1.0 (GHC: 8.4.4) (PATH: /root/.cabal/store/ghc-8.4.4/ghcide-0.1.0-8ee2a38b2a58cc2503d42edbe5d199477575b8ffd952c5ee8a392bf0159b5462/bin/ghcide)
+Ghcide setup tester in /opt/Foo.
+Report bugs at https://github.com/digital-asset/ghcide/issues
+
+Step 1/6: Finding files to test in /opt/Foo
+Found 2 files
+
+Step 2/6: Looking for hie.yaml files that control setup
+Found 1 cradle
+
+Step 3/6, Cradle 1/1: Loading /opt/Foo/hie.yaml
+
+Step 4/6, Cradle 1/1: Loading GHC Session
+> Resolving dependencies...
+> Build profile: -w ghc-8.4.4 -O1
+> In order, the following will be built (use -v for more details):
+>  - Foo-0.1.0.0 (exe:Foo) (configuration changed)
+> Configuring executable 'Foo' for Foo-0.1.0.0..
+> Warning: The 'license-file' field refers to the file 'LICENSE' which does not
+> exist.
+> Preprocessing executable 'Foo' for Foo-0.1.0.0..
+
+Step 5/6: Initializing the IDE
+
+Step 6/6: Type checking the files
+File:     /opt/Foo/Setup.hs
+Hidden:   no
+Range:    1:7-1:26
+Source:   not found
+Severity: DsError
+Message: 
+  Could not find module `Distribution.Simple'
+  It is not a module in the current program, or in any known package.
+Files that failed:
+ * /opt/Foo/Setup.hs
+
+Completed (1 file worked, 1 file failed)
+non-zero return code from ghcide; ignoring
+Removing intermediate container 1a821591f31d
+ ---> 6e8d6be0c3b8
+Step 41/41 : CMD /bin/bash
+ ---> Running in 2d9d058b7ce6
+Removing intermediate container 2d9d058b7ce6
+ ---> 1fde8bf92643
+Successfully built 1fde8bf92643
+Successfully tagged user/ghcide:latest
+
+real	49m26.190s
+user	0m0.609s
+sys	0m0.412s
