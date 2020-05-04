@@ -11,6 +11,7 @@ The purpose is to pin down all the dependencies and configurations; I don't use 
 The Dockerfile will install and configure:
 
 1. Debian build requirements, GHC, cabal-install;
+1. ghcide;
 1. neovim;
 1. plugged, coc.vim, haskell-vim; and
 1. a skeleton hello-world project.
@@ -20,6 +21,8 @@ To build the container:
     git clone https://github.com/carlohamalainen/docker-ghcide-neovim.git
     cd docker-ghcide-neovim
     ./build.sh
+
+This takes about 30 minutes on a 4th gen Lenovo X1 Carbon laptop.
 
 Full output: [build.txt](build.txt)
 
